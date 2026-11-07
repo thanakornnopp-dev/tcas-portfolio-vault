@@ -5,540 +5,1293 @@
   <title>TCAS Portfolio Hub & Vault | นายธีทัต นพรัตน์</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <!-- Tailwind CSS & FontAwesome Icons -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  
-  <!-- Fonts: Plus Jakarta Sans (EN/Numbers) + Prompt & Sarabun (TH) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700&family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              50: '#eff6ff',
-              100: '#dbeafe',
-              500: '#3b82f6',
-              600: '#2563eb',
-              700: '#1d4ed8',
-              800: '#1e40af',
-              900: '#1e3a8a',
-            },
-            tu: {
-              red: '#c21b17',
-              redHover: '#a31512',
-              yellow: '#f59e0b',
-            }
-          },
-          fontFamily: {
-            sans: ['Prompt', 'sans-serif'],
-            eng: ['Plus Jakarta Sans', 'sans-serif'],
-            sarabun: ['Sarabun', 'sans-serif'],
-          }
-        }
-      }
-    }
-  </script>
-
+  <!-- 
+    100% SELF-CONTAINED EMBEDDED STYLES & INLINE SVG
+    (ไม่พึ่งพา External CDN เพื่อป้องกันปัญหาหน้าเว็บแตกใน Webview Sandbox)
+  -->
   <style>
-    body {
-      font-family: 'Prompt', sans-serif;
-      background-color: #f8fafc;
-      color: #0f172a;
+    /* CSS Variables & Thammasat Engineering Design System */
+    :root {
+      --bg-base: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-elevated: #ffffff;
+      --bg-slate-50: #f1f5f9;
+      --bg-slate-100: #e2e8f0;
+      
+      --brand-primary: #1e3a8a;       /* Thammasat Navy */
+      --brand-blue: #2563eb;          /* Royal Blue */
+      --brand-blue-hover: #1d4ed8;
+      --brand-blue-light: #eff6ff;
+      --brand-blue-border: #bfdbfe;
+      
+      --tu-red: #c21b17;              /* Thammasat Red */
+      --tu-red-hover: #991b1b;
+      --tu-red-light: #fef2f2;
+      --tu-red-border: #fecaca;
+      
+      --status-emerald: #059669;
+      --status-emerald-light: #ecfdf5;
+      --status-emerald-border: #a7f3d0;
+      
+      --status-amber: #d97706;
+      --status-amber-light: #fffbeb;
+      --status-amber-border: #fde68a;
+      
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-light: #64748b;
+      --text-dim: #94a3b8;
+      
+      --border-subtle: #e2e8f0;
+      --border-strong: #cbd5e1;
+      
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-full: 9999px;
+      
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.03);
+      --shadow-xl: 0 20px 30px -10px rgba(15, 23, 42, 0.12);
+      
+      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Prompt", "Sarabun", sans-serif;
     }
 
-    .font-eng { font-family: 'Plus Jakarta Sans', sans-serif; }
-    .font-sarabun { font-family: 'Sarabun', sans-serif; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    /* Engineering Blueprint Grid Background (แบบเดียวกับเว็บแล็บวิศวะ) */
-    .blueprint-bg {
-      background-color: #f8fafc;
+    body {
+      background-color: var(--bg-base);
       background-image: 
-        radial-gradient(rgba(148, 163, 184, 0.22) 1.2px, transparent 1.2px),
-        linear-gradient(to right, rgba(226, 232, 240, 0.5) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(226, 232, 240, 0.5) 1px, transparent 1px);
+        radial-gradient(rgba(148, 163, 184, 0.25) 1.2px, transparent 1.2px),
+        linear-gradient(to right, rgba(226, 232, 240, 0.6) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(226, 232, 240, 0.6) 1px, transparent 1px);
       background-size: 24px 24px, 120px 120px, 120px 120px;
       background-attachment: fixed;
-    }
-
-    /* Glass Panels */
-    .glass-panel {
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(226, 232, 240, 0.95);
-      box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.04), 0 4px 6px -2px rgba(15, 23, 42, 0.02);
-    }
-
-    .glass-panel-elevated {
-      background: rgba(255, 255, 255, 0.98);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(203, 213, 225, 0.9);
-      box-shadow: 0 20px 35px -10px rgba(30, 41, 59, 0.08);
-    }
-
-    .glass-dark {
-      background: rgba(15, 23, 42, 0.95);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+      font-family: var(--font-stack);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
     }
 
     /* Scrollbar */
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 999px; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: var(--radius-full); }
     ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
-    /* Print Stylesheet for Official 10-Page TCAS Submission */
-    @media print {
-      body { background: #fff !important; }
-      .no-print { display: none !important; }
-      .print-only { display: block !important; }
-      .page-break { page-break-after: always; }
-      .glass-panel, .glass-panel-elevated {
-        border: 1px solid #e2e8f0 !important;
-        box-shadow: none !important;
-        background: #fff !important;
-      }
+    /* Layout Containers */
+    .app-wrapper {
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 20px 24px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      flex: 1;
+    }
+
+    /* Top Cloud Sync Bar */
+    .top-sync-bar {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 8px 24px;
+      font-size: 0.78rem;
+      border-bottom: 1px solid #1e293b;
+    }
+    .top-sync-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .sync-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 2px 10px;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+    }
+    .sync-dot {
+      width: 7px;
+      height: 7px;
+      background: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #10b981;
+    }
+    .sync-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-sync-action {
+      background: #1e293b;
+      color: #cbd5e1;
+      border: 1px solid #334155;
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      font-family: inherit;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s ease;
+    }
+    .btn-sync-action:hover {
+      background: #334155;
+      color: #ffffff;
+    }
+
+    /* Glass Panels */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* Header */
+    .header-panel {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .brand-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, var(--brand-primary), var(--brand-blue), var(--tu-red));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+      flex-shrink: 0;
+    }
+    .brand-icon svg {
+      width: 26px;
+      height: 26px;
+      fill: #ffffff;
+    }
+    .brand-meta h1 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      letter-spacing: -0.01em;
+    }
+    .badge-pill {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .badge-blue {
+      background: var(--brand-blue-light);
+      color: var(--brand-blue);
+      border: 1px solid var(--brand-blue-border);
+    }
+    .badge-red {
+      background: var(--tu-red-light);
+      color: var(--tu-red);
+      border: 1px solid var(--tu-red-border);
+    }
+    .brand-subtitle {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      margin-top: 2px;
+    }
+
+    /* Header Nav Tabs & Buttons */
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .nav-tab-group {
+      display: flex;
+      background: var(--bg-slate-50);
+      padding: 4px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      gap: 4px;
+    }
+    .nav-tab-btn {
+      background: transparent;
+      border: none;
+      padding: 8px 16px;
+      border-radius: var(--radius-md);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    .nav-tab-btn:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.7);
+    }
+    .nav-tab-btn.active {
+      background: #ffffff;
+      color: var(--brand-blue);
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-tab-btn svg {
+      width: 15px;
+      height: 15px;
+      fill: currentColor;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 8px 16px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      font-family: inherit;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+      text-decoration: none;
+    }
+    .btn svg {
+      width: 15px;
+      height: 15px;
+      fill: currentColor;
+    }
+    .btn-primary {
+      background: var(--brand-blue);
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+    }
+    .btn-primary:hover {
+      background: var(--brand-blue-hover);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+      transform: translateY(-1px);
+    }
+    .btn-secondary {
+      background: #ffffff;
+      color: var(--text-main);
+      border-color: var(--border-strong);
+    }
+    .btn-secondary:hover {
+      background: var(--bg-slate-50);
+      border-color: #94a3b8;
+    }
+    .btn-danger {
+      background: var(--tu-red-light);
+      color: var(--tu-red);
+      border-color: var(--tu-red-border);
+    }
+    .btn-danger:hover {
+      background: #fee2e2;
+    }
+
+    /* Student Profile Hero */
+    .profile-hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 24px;
+      align-items: center;
+    }
+    .student-avatar-box {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .student-avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: var(--radius-xl);
+      background: linear-gradient(135deg, var(--brand-primary), var(--brand-blue));
+      color: #ffffff;
+      font-size: 1.8rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-md);
+      border: 3px solid #ffffff;
+      flex-shrink: 0;
+    }
+    .student-details h2 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.01em;
+    }
+    .student-details h2 span {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-light);
+      margin-left: 6px;
+    }
+    .student-bio {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+      line-height: 1.45;
+      max-width: 680px;
+    }
+
+    /* Stats Grid */
+    .stats-trio {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .stat-box {
+      background: var(--bg-slate-50);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 14px 10px;
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.1;
+    }
+    .stat-label {
+      font-size: 0.72rem;
+      color: var(--text-light);
+      font-weight: 600;
+      margin-top: 3px;
+    }
+
+    /* Verification & QA Harness Bar */
+    .qa-bar {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-left: 5px solid var(--brand-blue);
+      border-radius: var(--radius-lg);
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      box-shadow: var(--shadow-sm);
+      flex-wrap: wrap;
+    }
+    .qa-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .qa-icon-wrap {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-md);
+      background: var(--brand-blue-light);
+      color: var(--brand-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .qa-icon-wrap svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+    .qa-text h3 {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .qa-text p {
+      font-size: 0.75rem;
+      color: var(--text-light);
+    }
+    .qa-buttons {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* Search & Filter Bar */
+    .filter-panel {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      background: #ffffff;
+      padding: 14px 18px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-sm);
+    }
+    .search-input-wrap {
+      position: relative;
+      flex: 1;
+      min-width: 260px;
+    }
+    .search-input-wrap svg {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 15px;
+      height: 15px;
+      fill: var(--text-dim);
+    }
+    .search-input-wrap input {
+      width: 100%;
+      padding: 8px 12px 8px 36px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-strong);
+      font-size: 0.82rem;
+      font-family: inherit;
+      outline: none;
+      background: #ffffff;
+    }
+    .search-input-wrap input:focus {
+      border-color: var(--brand-blue);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+    .dropdown-select {
+      padding: 8px 12px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-strong);
+      font-size: 0.82rem;
+      font-family: inherit;
+      background: #ffffff;
+      color: var(--text-main);
+      outline: none;
+      cursor: pointer;
+    }
+    .dropdown-select:focus {
+      border-color: var(--brand-blue);
+    }
+
+    /* Category Pill Selector */
+    .category-pills-row {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+    .cat-btn {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    .cat-btn:hover {
+      background: var(--bg-slate-50);
+      color: var(--text-main);
+    }
+    .cat-btn.active {
+      background: #0f172a;
+      color: #ffffff;
+      border-color: #0f172a;
+    }
+    .cat-btn .badge-count {
+      background: rgba(0, 0, 0, 0.08);
+      padding: 1px 6px;
+      border-radius: var(--radius-full);
+      font-size: 0.7rem;
+    }
+    .cat-btn.active .badge-count {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Cards Grid */
+    .cards-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 18px;
+    }
+    .item-card {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .item-card:hover {
+      border-color: var(--brand-blue-border);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+    .item-card.tcas-curated {
+      border-color: var(--status-emerald-border);
+      background: linear-gradient(180deg, #ffffff 0%, rgba(236, 253, 245, 0.4) 100%);
+    }
+    .card-ribbon {
+      position: absolute;
+      top: 14px;
+      right: -28px;
+      background: var(--status-emerald);
+      color: #ffffff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 3px 28px;
+      transform: rotate(45deg);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+      pointer-events: none;
+    }
+    .card-top-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-cat-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+    }
+    .cat-tag-academic { background: #e0e7ff; color: #4338ca; }
+    .cat-tag-project { background: #cffafe; color: #0e7490; }
+    .cat-tag-activity { background: #fef3c7; color: #b45309; }
+    .cat-tag-volunteer { background: #ffe4e6; color: #be123c; }
+    .cat-tag-skills { background: #f3e8ff; color: #7e22ce; }
+
+    .card-year-text {
+      font-size: 0.72rem;
+      color: var(--text-light);
+      font-weight: 500;
+    }
+    .card-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.35;
+      margin-top: 6px;
+    }
+    .card-org-text {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      margin-top: 2px;
+    }
+    .card-impact-box {
+      background: var(--bg-slate-50);
+      border-left: 3px solid var(--brand-blue);
+      padding: 8px 12px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+      margin-top: 8px;
+    }
+    .card-tags-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 8px;
+    }
+    .tag-chip {
+      background: var(--bg-slate-100);
+      color: var(--text-muted);
+      font-size: 0.68rem;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+    .card-bottom-actions {
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .proof-status-label {
+      font-size: 0.72rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-weight: 600;
+    }
+    .proof-ready { color: var(--status-emerald); }
+    .proof-warning { color: var(--status-amber); }
+
+    /* TCAS 10-Page Curator View */
+    .curator-layout {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    .curator-sidebar {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 22px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .page-gauge-box {
+      background: var(--bg-slate-50);
+      padding: 12px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+    }
+    .gauge-top {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .gauge-track {
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: var(--radius-full);
+      overflow: hidden;
+    }
+    .gauge-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--brand-blue), var(--status-emerald));
+      border-radius: var(--radius-full);
+      transition: width 0.3s ease;
+    }
+    .curator-slots-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 14px;
+    }
+    .slot-card {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+      min-height: 180px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+    }
+    .slot-card.filled {
+      border-color: var(--brand-blue-border);
+      background: linear-gradient(180deg, #ffffff 0%, rgba(239, 246, 255, 0.5) 100%);
+    }
+    .slot-card.empty {
+      border-style: dashed;
+      border-color: var(--border-strong);
+      background: var(--bg-slate-50);
+    }
+    .slot-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 6px;
+    }
+    .slot-badge-num {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--brand-blue);
+      background: var(--brand-blue-light);
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+    }
+
+    /* Showcase / Formal A4 Paper */
+    .paper-sheet {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 36px 44px;
+      max-width: 860px;
+      margin: 0 auto;
+      box-shadow: var(--shadow-xl);
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .paper-head-row {
+      border-bottom: 3px solid var(--brand-primary);
+      padding-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .paper-section-heading {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--brand-primary);
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 6px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .paper-item-row {
+      background: var(--bg-slate-50);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    /* Modals */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-backdrop.active {
+      display: flex;
+    }
+    .modal-window {
+      background: #ffffff;
+      border-radius: var(--radius-xl);
+      max-width: 580px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 26px;
+      box-shadow: var(--shadow-xl);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .form-group-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .form-group-wrap label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+    .form-group-wrap input,
+    .form-group-wrap select,
+    .form-group-wrap textarea {
+      padding: 8px 12px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-strong);
+      font-size: 0.82rem;
+      font-family: inherit;
+      outline: none;
+      background: #ffffff;
+    }
+    .form-group-wrap input:focus,
+    .form-group-wrap select:focus,
+    .form-group-wrap textarea:focus {
+      border-color: var(--brand-blue);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+    .grid-2-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    /* Live QA Test Drawer */
+    .qa-console-box {
+      background: #090d16;
+      color: #38bdf8;
+      border-radius: var(--radius-md);
+      padding: 14px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.75rem;
+      line-height: 1.6;
+      max-height: 220px;
+      overflow-y: auto;
+      border: 1px solid #1e293b;
+    }
+
+    /* Toast */
+    .toast-tray {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      pointer-events: none;
+    }
+    .toast-msg {
+      background: #0f172a;
+      color: #ffffff;
+      padding: 10px 18px;
+      border-radius: var(--radius-md);
+      font-size: 0.8rem;
+      font-weight: 600;
+      box-shadow: var(--shadow-xl);
+      border: 1px solid #334155;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      pointer-events: auto;
+      animation: toastSlide 0.25s ease-out;
+    }
+    @keyframes toastSlide {
+      from { transform: translateY(12px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Tab Displays */
+    .tab-view-content {
+      display: none;
+    }
+    .tab-view-content.active {
+      display: block;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .profile-hero-grid { grid-template-columns: 1fr; }
+      .curator-layout { grid-template-columns: 1fr; }
+      .paper-sheet { padding: 24px; }
     }
   </style>
 </head>
-<body class="blueprint-bg min-h-screen flex flex-col antialiased text-slate-800">
+<body>
 
-  <!-- Top Announcement & Cloud Sync Bar -->
-  <div class="no-print bg-slate-900 text-slate-200 text-xs py-2 px-4 border-b border-slate-800">
-    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
-      <div class="flex items-center gap-3">
-        <span class="inline-flex items-center gap-1.5 bg-emerald-500/20 text-emerald-400 px-2.5 py-0.5 rounded-full font-semibold border border-emerald-500/30">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+  <!-- Top Google Drive Cloud Sync Bar -->
+  <aside class="top-sync-bar">
+    <div class="top-sync-inner">
+      <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+        <span class="sync-badge">
+          <span class="sync-dot"></span>
           Google Drive Sync Ready
         </span>
-        <span class="text-slate-400">โฟลเดอร์คลาวด์: <strong class="text-slate-200" id="topFolderNameDisplay">TCAS_Portfolio_ธีทัต_นพรัตน์</strong></span>
-        <span class="hidden md:inline text-slate-600">|</span>
-        <span class="hidden md:inline text-slate-400" id="syncStatusText">สถานะ: บันทึกข้อมูลและซิงค์ล่าสุดในเครื่องแล้ว</span>
+        <span style="color: #94a3b8;">
+          โฟลเดอร์ปลายทาง: <strong style="color: #f8fafc;" id="topDriveFolderText">TCAS_Portfolio_ธีทัต_นพรัตน์</strong>
+        </span>
+        <span style="color: #64748b;">|</span>
+        <span style="color: #cbd5e1;" id="topSyncStatus">
+          สถานะ: พร้อมซิงค์ข้อมูลกับคลาวด์ตลอดเวลา
+        </span>
       </div>
 
-      <div class="flex items-center gap-2">
-        <button onclick="syncToGoogleDrive()" class="hover:bg-slate-800 text-slate-200 px-2.5 py-1 rounded-md transition flex items-center gap-1.5 border border-slate-700">
-          <i class="fa-brands fa-google-drive text-amber-400"></i>
-          <span>ซิงค์ลงไดร์ฟ</span>
+      <div class="sync-actions">
+        <button class="btn-sync-action" onclick="syncToGoogleDrive()">
+          <!-- Drive SVG -->
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b"><path d="M7.71 3.5L1.15 15l3.43 6h6.86l6.57-11.5H7.71z"/><path d="M16.29 3.5h-5.43l6.57 11.5h5.43L16.29 3.5z"/><path d="M7.71 15.5l-3.43 6h15.43l3.43-6H7.71z"/></svg>
+          ซิงค์ลง Google Drive
         </button>
-        <button onclick="openDriveSettingsModal()" class="hover:bg-slate-800 text-slate-300 px-2 py-1 rounded-md transition" title="ตั้งค่าการเชื่อมต่อไดร์ฟ">
-          <i class="fa-solid fa-gear"></i>
+        <button class="btn-sync-action" onclick="openDriveSettingsModal()" title="ตั้งค่าการเชื่อมต่อ">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+          ตั้งค่า
         </button>
-        <button onclick="downloadBackupJSON()" class="hover:bg-slate-800 text-slate-300 px-2 py-1 rounded-md transition" title="ดาวน์โหลดไฟล์ JSON สำรองข้อมูล">
-          <i class="fa-solid fa-download"></i> สำรอง JSON
+        <button class="btn-sync-action" onclick="downloadBackupJSON()" title="ดาวน์โหลด JSON สำรอง">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          สำรอง JSON
         </button>
       </div>
     </div>
-  </div>
+  </aside>
 
   <!-- Main Container -->
-  <div class="max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 flex-1 flex flex-col gap-6">
+  <div class="app-wrapper">
 
-    <!-- Header Navigation Section -->
-    <header class="no-print glass-panel-elevated rounded-3xl p-5 sm:p-6 flex flex-col md:flex-row items-center justify-between gap-5">
-      <div class="flex items-center gap-4">
-        <!-- Brand Logo / TU Engineering Emblem Style -->
-        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-900 via-brand-700 to-tu-red flex items-center justify-center text-white shadow-lg shadow-brand-900/20 relative group">
-          <i class="fa-solid fa-graduation-cap text-2xl"></i>
-          <span class="absolute -top-1 -right-1 flex h-3.5 w-3.5">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-tu-red opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-tu-red"></span>
-          </span>
+    <!-- Header Panel -->
+    <header class="glass-card header-panel">
+      <div class="brand-group">
+        <div class="brand-icon">
+          <!-- Graduation Cap SVG -->
+          <svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>
         </div>
-
-        <div>
-          <div class="flex items-center gap-2.5 flex-wrap">
-            <h1 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight font-eng">
-              TCAS Portfolio <span class="text-brand-600">Vault & Hub</span>
-            </h1>
-            <span class="bg-brand-50 text-brand-700 text-xs px-2.5 py-0.5 rounded-full font-semibold border border-brand-200">
-              TCAS68 - TCAS70
-            </span>
-            <span class="bg-red-50 text-tu-red text-xs px-2.5 py-0.5 rounded-full font-semibold border border-red-200">
-              Thammasat Engineering Edition
-            </span>
+        <div class="brand-meta">
+          <h1>
+            TCAS Portfolio <span style="color: var(--brand-blue);">Vault & Hub</span>
+            <span class="badge-pill badge-blue">TCAS68 - TCAS70</span>
+            <span class="badge-pill badge-red">Thammasat Engineering</span>
+          </h1>
+          <div class="brand-subtitle">
+            ระบบจัดเก็บคลังผลงานความปลอดภัยสูง และจัด 10 หน้าพอร์ตโฟลิโอเข้ามหาวิทยาลัย
           </div>
-          <p class="text-xs sm:text-sm text-slate-500 mt-0.5">
-            ระบบจัดเก็บคลังผลงานความปลอดภัยสูง และจัดหน้าพอร์ต 10 หน้าเข้ามหาวิทยาลัย
-          </p>
         </div>
       </div>
 
-      <!-- Main Action Buttons & Tab Switchers -->
-      <div class="flex items-center gap-2 flex-wrap justify-center">
-        <!-- Navigation Tabs -->
-        <div class="bg-slate-100 p-1.5 rounded-2xl flex items-center gap-1 border border-slate-200/80">
-          <button id="tabBtnVault" onclick="switchTab('vault')" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-2 bg-white text-brand-700 shadow-sm">
-            <i class="fa-solid fa-folder-open"></i> คลังผลงาน (Vault)
+      <div class="header-controls">
+        <div class="nav-tab-group">
+          <button id="navBtnVault" class="nav-tab-btn active" onclick="switchMainTab('vault')">
+            <svg viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/></svg>
+            คลังผลงาน (Vault)
           </button>
-          <button id="tabBtnCurator" onclick="switchTab('curator')" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-2 text-slate-600 hover:text-slate-900">
-            <i class="fa-solid fa-file-lines"></i> จัด 10 หน้า TCAS
+          <button id="navBtnCurator" class="nav-tab-btn" onclick="switchMainTab('curator')">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+            จัด 10 หน้า TCAS
           </button>
-          <button id="tabBtnShowcase" onclick="switchTab('showcase')" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-2 text-slate-600 hover:text-slate-900">
-            <i class="fa-solid fa-award"></i> มุมมองกรรมการ
+          <button id="navBtnShowcase" class="nav-tab-btn" onclick="switchMainTab('showcase')">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            มุมมองกรรมการ
           </button>
         </div>
 
-        <button onclick="openAddItemModal()" class="bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-md shadow-brand-600/25 transition flex items-center gap-2">
-          <i class="fa-solid fa-circle-plus"></i> เพิ่มผลงาน
+        <button class="btn btn-primary" onclick="openAddItemModal()">
+          <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+          เพิ่มผลงานใหม่
         </button>
       </div>
     </header>
 
-    <!-- Student Hero Profile Card (สำหรับ: นายธีทัต นพรัตน์) -->
-    <section class="glass-panel-elevated rounded-3xl p-6 sm:p-7 relative overflow-hidden border border-slate-200">
-      <!-- Watermark Badge -->
-      <div class="absolute -right-10 -bottom-10 opacity-5 pointer-events-none text-brand-900">
-        <i class="fa-solid fa-compass-drafting text-[220px]"></i>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-        
-        <!-- Left: Student Info & Avatar -->
-        <div class="lg:col-span-8 flex flex-col sm:flex-row items-start sm:items-center gap-5">
-          <div class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-brand-600 to-slate-900 flex items-center justify-center text-white text-3xl font-bold shadow-md shadow-brand-900/15 flex-shrink-0 border-2 border-white">
-            ธี
+    <!-- Student Hero Profile Card -->
+    <section class="glass-card profile-hero-grid">
+      <div class="student-avatar-box">
+        <div class="student-avatar">ธี</div>
+        <div class="student-details">
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 4px;">
+            <span class="badge-pill badge-blue">🎯 ผู้สมัคร TCAS รอบที่ 1 Portfolio</span>
+            <span class="badge-pill" style="background: #fef3c7; color: #b45309; border: 1px solid #fde68a;">
+              GPAX 5 ภาคเรียน: 3.88
+            </span>
+            <span class="badge-pill" style="background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0;">
+              โรงเรียนมัธยมปลายชั้นนำ
+            </span>
           </div>
 
-          <div class="space-y-1.5 flex-1">
-            <div class="flex items-center gap-2 flex-wrap">
-              <span class="bg-brand-100 text-brand-800 text-[11px] font-bold px-2.5 py-0.5 rounded-full">
-                <i class="fa-solid fa-bullseye text-brand-600 mr-1"></i> ผู้สมัคร TCAS รอบที่ 1 Portfolio
-              </span>
-              <span class="bg-amber-100 text-amber-800 text-[11px] font-bold px-2.5 py-0.5 rounded-full">
-                GPAX 5 ภาคเรียน: 3.88
-              </span>
-              <span class="bg-slate-100 text-slate-700 text-[11px] font-semibold px-2.5 py-0.5 rounded-full border border-slate-200">
-                โรงเรียนมัธยมปลายชั้นนำ
-              </span>
-            </div>
+          <h2>นายธีทัต นพรัตน์ <span>(Theetat Nopparat)</span></h2>
 
-            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-              นายธีทัต นพรัตน์ <span class="text-sm font-normal text-slate-500 font-eng">(Theetat Nopparat)</span>
-            </h2>
-
-            <p class="text-xs sm:text-sm text-slate-600 max-w-2xl leading-relaxed">
-              เป้าหมาย: <strong>คณะวิศวกรรมศาสตร์ มหาวิทยาลัยธรรมศาสตร์</strong> (วิศวกรรมคอมพิวเตอร์ / นวัตกรรมเทคโนโลยี / ยานยนต์อัตโนมัติ / โยธา) — มีความมุ่งมั่นในการเรียนรู้วิทยาการคำนวณ หุ่นยนต์ และสิ่งประดิษฐ์ พร้อมประวัติกิจกรรมดีเด่น
-            </p>
-          </div>
-        </div>
-
-        <!-- Right: Stat Pills -->
-        <div class="lg:col-span-4 grid grid-cols-3 gap-3">
-          <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-3.5 text-center transition hover:border-brand-300">
-            <div class="text-2xl sm:text-3xl font-black text-slate-900 font-eng" id="statTotalItems">0</div>
-            <div class="text-[11px] font-medium text-slate-500 mt-0.5">ผลงานในคลัง</div>
-          </div>
-          
-          <div class="bg-brand-50/60 border border-brand-200/80 rounded-2xl p-3.5 text-center transition hover:border-brand-400">
-            <div class="text-2xl sm:text-3xl font-black text-brand-700 font-eng" id="statTcas10Count">0/10</div>
-            <div class="text-[11px] font-medium text-brand-600 mt-0.5">คัดลง 10 หน้า</div>
-          </div>
-
-          <div class="bg-amber-50/60 border border-amber-200/80 rounded-2xl p-3.5 text-center transition hover:border-amber-400">
-            <div class="text-2xl sm:text-3xl font-black text-amber-700 font-eng" id="statHiResPending">0</div>
-            <div class="text-[11px] font-medium text-amber-700 mt-0.5">รอสแกนแท้</div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Verification & Test Harness Action Bar (สำหรับทดสอบระบบตามคำสั่ง) -->
-    <div class="no-print glass-panel rounded-2xl p-4 flex flex-col md:flex-row items-center justify-between gap-3 border-l-4 border-l-brand-600">
-      <div class="flex items-center gap-3">
-        <div class="w-9 h-9 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center font-bold text-sm">
-          <i class="fa-solid fa-flask-vial"></i>
-        </div>
-        <div>
-          <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
-            ระบบทดสอบการทำงานจริง & ตรวจสอบคุณภาพ (Verification & Test Suite)
-            <span class="bg-emerald-100 text-emerald-800 text-[10px] px-2 py-0.5 rounded-full font-bold">Live QA</span>
-          </h3>
-          <p class="text-xs text-slate-500">
-            รันการสาธิตการทำงานของทุกฟังก์ชัน หรือรีเซ็ตข้อมูลเป็นศูนย์เพื่อเตรียมนำขึ้น GitHub
+          <p class="student-bio">
+            เป้าหมาย: <strong>คณะวิศวกรรมศาสตร์ มหาวิทยาลัยธรรมศาสตร์</strong> (วิศวกรรมคอมพิวเตอร์ / นวัตกรรมเทคโนโลยี / โยธา / อุตสาหการ) — มีความมุ่งมั่นในการเรียนรู้วิทยาการคำนวณ หุ่นยนต์ และนวัตกรรม พร้อมประวัติกิจกรรมดีเด่น
           </p>
         </div>
       </div>
 
-      <div class="flex items-center gap-2 flex-wrap">
-        <!-- ปุ่มรันการทดสอบสดโชว์คุณธนภรณ์ -->
-        <button onclick="runLiveQADemo()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-3.5 py-2 rounded-xl shadow-sm transition flex items-center gap-1.5">
-          <i class="fa-solid fa-play"></i> รันการทดสอบระบบอัตโนมัติ (Live QA Tour)
-        </button>
+      <div class="stats-trio">
+        <div class="stat-box">
+          <div class="stat-number" id="statVaultTotal">0</div>
+          <div class="stat-label">ผลงานในคลัง</div>
+        </div>
+        <div class="stat-box" style="background: #eff6ff; border-color: #bfdbfe;">
+          <div class="stat-number" style="color: var(--brand-blue);" id="statTcas10Total">0/10</div>
+          <div class="stat-label" style="color: var(--brand-blue);">คัดลง 10 หน้า</div>
+        </div>
+        <div class="stat-box" style="background: #fffbeb; border-color: #fde68a;">
+          <div class="stat-number" style="color: var(--status-amber);" id="statPendingScanTotal">0</div>
+          <div class="stat-label" style="color: var(--status-amber);">รอสแกนแท้</div>
+        </div>
+      </div>
+    </section>
 
-        <!-- ปุ่มโหลดข้อมูลเดโมเพื่อดูตัวอย่าง -->
-        <button onclick="loadSampleDemoData()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold px-3 py-2 rounded-xl border border-slate-300 transition flex items-center gap-1.5">
-          <i class="fa-solid fa-wand-magic-sparkles text-amber-600"></i> โหลดตัวอย่างทดสอบ
-        </button>
+    <!-- Verification & Test Harness Bar -->
+    <div class="qa-bar">
+      <div class="qa-info">
+        <div class="qa-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+        </div>
+        <div class="qa-text">
+          <h3>
+            ระบบทดสอบการทำงานจริง & ตรวจสอบคุณภาพ
+            <span class="badge-pill" style="background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0;">Live QA</span>
+          </h3>
+          <p>รันการสาธิตการทำงานสด หรือรีเซ็ตข้อมูลเป็นศูนย์เพื่อเตรียมนำขึ้น GitHub</p>
+        </div>
+      </div>
 
-        <!-- ปุ่มรีเซ็ตเป็นศูนย์ -->
-        <button onclick="resetDataToCleanZero()" class="bg-red-50 hover:bg-red-100 text-tu-red text-xs font-semibold px-3 py-2 rounded-xl border border-red-200 transition flex items-center gap-1.5" title="ล้างข้อมูลการทดสอบเป็น 0 รายการเพื่อเตรียมส่งมอบ">
-          <i class="fa-solid fa-rotate-left"></i> รีเซ็ตข้อมูลเป็นศูนย์ (0 รายการ)
+      <div class="qa-buttons">
+        <button class="btn btn-primary" style="background: #059669;" onclick="runAutomatedLiveQATour()">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          รันการทดสอบระบบสด (Live QA Tour)
+        </button>
+        <button class="btn btn-secondary" onclick="loadSampleDemoItems()">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+          โหลดตัวอย่างทดสอบ
+        </button>
+        <button class="btn btn-danger" onclick="resetAllDataToZero()">
+          <svg viewBox="0 0 24 24"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+          รีเซ็ตข้อมูลเป็นศูนย์ (0 รายการ)
         </button>
       </div>
     </div>
 
-    <!-- ==================== TAB 1: PORTFOLIO VAULT ==================== -->
-    <main id="tabContentVault" class="space-y-6">
-      <!-- Search & Filters -->
-      <div class="glass-panel rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <!-- Search -->
-        <div class="relative w-full sm:w-96">
-          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-          <input type="text" id="searchInput" oninput="filterCards()" placeholder="ค้นหาชื่อผลงาน, รางวัล, กิจกรรม, แท็ก หรือองค์กร..." 
-                 class="w-full bg-white border border-slate-200 rounded-xl pl-10 pr-4 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition">
+    <!-- ==================== TAB 1: VAULT ==================== -->
+    <main id="tabVaultContent" class="tab-view-content active" style="display: flex; flex-direction: column; gap: 18px;">
+      
+      <!-- Filter Bar -->
+      <div class="filter-panel">
+        <div class="search-input-wrap">
+          <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+          <input type="text" id="searchInput" placeholder="ค้นหาชื่อผลงาน, รางวัล, กิจกรรม, แท็ก หรือองค์กร..." oninput="filterCardItems()">
         </div>
 
-        <!-- Dropdowns -->
-        <div class="flex items-center gap-2 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0">
-          <select id="yearFilter" onchange="filterCards()" class="bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-500">
+        <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+          <select id="yearFilter" class="dropdown-select" onchange="filterCardItems()">
             <option value="all">ปีการศึกษาทั้งหมด (ม.4 - ม.6)</option>
             <option value="ม.6">ชั้น ม.6</option>
             <option value="ม.5">ชั้น ม.5</option>
             <option value="ม.4">ชั้น ม.4</option>
           </select>
 
-          <select id="proofFilter" onchange="filterCards()" class="bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-500">
+          <select id="proofFilter" class="dropdown-select" onchange="filterCardItems()">
             <option value="all">สถานะไฟล์ทั้งหมด</option>
             <option value="ready">✅ ไฟล์คมชัด 300dpi แล้ว</option>
-            <option value="missing">⚠️ ยังเป็นรูปแตก / รอสแกนแท้</option>
+            <option value="missing">⚠️ รูปแตก / รอไฟล์แท้</option>
           </select>
 
-          <span class="text-xs text-slate-500 whitespace-nowrap pl-2">
-            พบ <strong id="showingCount" class="text-slate-900">0</strong> รายการ
+          <span style="font-size: 0.8rem; color: var(--text-light); margin-left: 6px;">
+            แสดง <strong id="showingItemCount" style="color: var(--text-main);">0</strong> รายการ
           </span>
         </div>
       </div>
 
-      <!-- Category Filter Pills -->
-      <div class="flex items-center gap-2 overflow-x-auto pb-2 no-print">
-        <button onclick="setCategoryFilter('all', this)" class="cat-pill active px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition bg-slate-900 text-white shadow-sm flex items-center gap-1.5">
-          <span>ทั้งหมด</span> <span id="countAll" class="bg-white/20 px-1.5 py-0.2 rounded-full text-[10px]">0</span>
+      <!-- Category Pills -->
+      <div class="category-pills-row">
+        <button class="cat-btn active" onclick="setFilterCategory('all', this)">
+          ทั้งหมด <span class="badge-count" id="countAll">0</span>
         </button>
-        <button onclick="setCategoryFilter('academic', this)" class="cat-pill px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 flex items-center gap-1.5">
-          <span>🏆 การแข่งขัน & เกียรติบัตร</span> <span id="countAcademic" class="bg-slate-100 text-slate-700 px-1.5 py-0.2 rounded-full text-[10px]">0</span>
+        <button class="cat-btn" onclick="setFilterCategory('academic', this)">
+          🏆 การแข่งขัน & เกียรติบัตร <span class="badge-count" id="countAcademic">0</span>
         </button>
-        <button onclick="setCategoryFilter('project', this)" class="cat-pill px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 flex items-center gap-1.5">
-          <span>💡 โครงงาน & นวัตกรรม</span> <span id="countProject" class="bg-slate-100 text-slate-700 px-1.5 py-0.2 rounded-full text-[10px]">0</span>
+        <button class="cat-btn" onclick="setFilterCategory('project', this)">
+          💡 โครงงาน & นวัตกรรม <span class="badge-count" id="countProject">0</span>
         </button>
-        <button onclick="setCategoryFilter('activity', this)" class="cat-pill px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 flex items-center gap-1.5">
-          <span>🌟 กิจกรรม & ภาวะผู้นำ</span> <span id="countActivity" class="bg-slate-100 text-slate-700 px-1.5 py-0.2 rounded-full text-[10px]">0</span>
+        <button class="cat-btn" onclick="setFilterCategory('activity', this)">
+          🌟 กิจกรรม & ภาวะผู้นำ <span class="badge-count" id="countActivity">0</span>
         </button>
-        <button onclick="setCategoryFilter('volunteer', this)" class="cat-pill px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 flex items-center gap-1.5">
-          <span>🤝 จิตอาสาเพื่อสังคม</span> <span id="countVolunteer" class="bg-slate-100 text-slate-700 px-1.5 py-0.2 rounded-full text-[10px]">0</span>
+        <button class="cat-btn" onclick="setFilterCategory('volunteer', this)">
+          🤝 จิตอาสาเพื่อสังคม <span class="badge-count" id="countVolunteer">0</span>
         </button>
-        <button onclick="setCategoryFilter('skills', this)" class="cat-pill px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 flex items-center gap-1.5">
-          <span>📊 ผลการเรียน & ทักษะเฉพาะ</span> <span id="countSkills" class="bg-slate-100 text-slate-700 px-1.5 py-0.2 rounded-full text-[10px]">0</span>
+        <button class="cat-btn" onclick="setFilterCategory('skills', this)">
+          📊 ผลการเรียน & ทักษะเฉพาะ <span class="badge-count" id="countSkills">0</span>
         </button>
       </div>
 
-      <!-- Portfolio Items Cards Grid -->
-      <div id="cardsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        <!-- Rendered Dynamically -->
+      <!-- Cards Grid -->
+      <div id="cardsLayoutGrid" class="cards-container">
+        <!-- Dynamic Cards -->
       </div>
     </main>
 
-    <!-- ==================== TAB 2: TCAS 10-PAGE CURATOR ==================== -->
-    <main id="tabContentCurator" class="hidden space-y-6">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+    <!-- ==================== TAB 2: CURATOR ==================== -->
+    <main id="tabCuratorContent" class="tab-view-content" style="display: none;">
+      <div class="curator-layout">
         
-        <!-- Left: Curator Guidelines & Meter -->
-        <div class="lg:col-span-4 space-y-5">
-          <div class="glass-panel-elevated rounded-3xl p-6 border border-slate-200 space-y-4">
-            <div>
-              <span class="bg-brand-100 text-brand-800 text-[11px] font-bold px-2.5 py-0.5 rounded-full">
-                TCAS Rules & Standards
-              </span>
-              <h2 class="text-xl font-bold text-slate-900 mt-2">
-                จัดหน้าพอร์ตโฟลิโอ 10 หน้า
-              </h2>
-              <p class="text-xs text-slate-500 mt-1">
-                มหาวิทยาลัยส่วนใหญ่ (มธ., จุฬาฯ, มก., มจธ.) กำหนดส่งไม่เกิน 10 หน้า A4 ไม่รวมปกและสารบัญ
-              </p>
-            </div>
+        <!-- Sidebar -->
+        <div class="curator-sidebar">
+          <div>
+            <span class="badge-pill badge-blue">TCAS 10-Page Rule</span>
+            <h2 style="font-size: 1.25rem; font-weight: 800; color: var(--text-main); margin-top: 6px;">
+              จัดหน้าพอร์ต 10 หน้า
+            </h2>
+            <p style="font-size: 0.78rem; color: var(--text-light); margin-top: 2px;">
+              ระเบียบรอบ Portfolio ส่วนใหญ่จำกัดไม่เกิน 10 หน้า A4 ไม่รวมปกและสารบัญ
+            </p>
+          </div>
 
-            <!-- Page Capacity Meter -->
-            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200/80 space-y-2">
-              <div class="flex justify-between items-center text-xs font-bold">
-                <span class="text-slate-700">ความจุหน้าสะสม</span>
-                <span id="curatorCapacityText" class="text-brand-600 font-eng">0 / 10 หน้า</span>
-              </div>
-              <div class="w-full h-3 bg-slate-200 rounded-full overflow-hidden">
-                <div id="curatorProgressBar" class="h-full bg-gradient-to-r from-brand-600 to-emerald-500 rounded-full transition-all duration-300" style="width: 20%;"></div>
-              </div>
+          <div class="page-gauge-box">
+            <div class="gauge-top">
+              <span>ความจุหน้าสะสม</span>
+              <span id="curatorGaugeText" style="color: var(--brand-blue);">0 / 10 หน้า</span>
             </div>
+            <div class="gauge-track">
+              <div id="curatorGaugeBar" class="gauge-fill" style="width: 20%;"></div>
+            </div>
+          </div>
 
-            <!-- Structure Blueprint -->
-            <div class="space-y-2 text-xs text-slate-600">
-              <div class="font-bold text-slate-900 border-b pb-1">พิมพ์เขียว 10 หน้าแนะนำสำหรับน้องธีทัต:</div>
-              <div class="flex items-start gap-2">
-                <i class="fa-solid fa-check-circle text-brand-600 mt-0.5"></i>
-                <span><strong>หน้า 1:</strong> ประวัติส่วนตัว & SOP แรงบันดาลใจเข้าวิศวะ</span>
-              </div>
-              <div class="flex items-start gap-2">
-                <i class="fa-solid fa-check-circle text-brand-600 mt-0.5"></i>
-                <span><strong>หน้า 2:</strong> ผลการเรียน ปพ.1 (GPAX 3.88) & แผนการเรียน</span>
-              </div>
-              <div class="flex items-start gap-2">
-                <i class="fa-solid fa-check-circle text-brand-600 mt-0.5"></i>
-                <span><strong>หน้า 3-6:</strong> ผลงานเด่น 4 ชิ้น (หุ่นยนต์ / สอวน. / โครงงาน AI)</span>
-              </div>
-              <div class="flex items-start gap-2">
-                <i class="fa-solid fa-check-circle text-brand-600 mt-0.5"></i>
-                <span><strong>หน้า 7-8:</strong> กิจกรรมและภาวะผู้นำ (สภานักเรียน / จัดงาน)</span>
-              </div>
-              <div class="flex items-start gap-2">
-                <i class="fa-solid fa-check-circle text-brand-600 mt-0.5"></i>
-                <span><strong>หน้า 9-10:</strong> จิตอาสาเพื่อสังคม และผลสอบภาษา (IELTS/TPAT3)</span>
-              </div>
+          <div style="font-size: 0.78rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 8px;">
+            <div style="font-weight: 700; color: var(--text-main); border-bottom: 1px solid var(--border-subtle); padding-bottom: 4px;">
+              โครงสร้างมาตรฐานแนะนำ:
             </div>
+            <div><strong>หน้า 1:</strong> ประวัติส่วนตัว & SOP แรงบันดาลใจเข้าวิศวะ มธ.</div>
+            <div><strong>หน้า 2:</strong> Transcript ปพ.1 (GPAX 3.88) & แผนการเรียน</div>
+            <div><strong>หน้า 3-6:</strong> ผลงานเด่น 4 ชิ้น (หุ่นยนต์ / สอวน. / โครงงาน AI)</div>
+            <div><strong>หน้า 7-8:</strong> กิจกรรมและภาวะผู้นำ (สภานักเรียน / จัดงาน)</div>
+            <div><strong>หน้า 9-10:</strong> จิตอาสาเพื่อสังคม และผลสอบภาษา (IELTS/TPAT3)</div>
+          </div>
 
-            <!-- Auto Curate Button -->
-            <div class="pt-2 flex flex-col gap-2">
-              <button onclick="autoCurateTop10()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs py-2.5 rounded-xl shadow-md transition flex items-center justify-center gap-2">
-                <i class="fa-solid fa-wand-magic-sparkles"></i> AI ช่วยคัดเลือก 10 หน้าที่ดีที่สุด
-              </button>
-              <button onclick="switchTab('showcase')" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs py-2 rounded-xl transition flex items-center justify-center gap-2">
-                <i class="fa-solid fa-eye"></i> ดูตัวอย่างเล่มพิมพ์ A4
-              </button>
-            </div>
+          <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 6px;">
+            <button class="btn btn-primary" onclick="autoCurateTop10()">
+              <svg viewBox="0 0 24 24"><path d="M7.5 5.6L10 7 8.6 4.5 10 2 7.5 3.4 5 2l1.4 2.5L5 7zm12 9.8L17 14l1.4 2.5L17 19l2.5-1.4L22 19l-1.4-2.5L22 14zM22 2l-2.5 1.4L17 2l1.4 2.5L17 7l2.5-1.4L22 7l-1.4-2.5zm-7.63 5.29c-.39-.39-1.02-.39-1.41 0L1.29 18.96c-.39.39-.39 1.02 0 1.41l2.34 2.34c.39.39 1.02.39 1.41 0L16.7 11.05c.39-.39.39-1.02 0-1.41l-2.33-2.35zm-1.03 5.49l-1.41-1.41 6.36-6.36 1.41 1.41-6.36 6.36z"/></svg>
+              AI คัดเลือก 10 หน้าอัตโนมัติ
+            </button>
+            <button class="btn btn-secondary" onclick="switchMainTab('showcase')">
+              <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+              ดูตัวอย่างเล่มพิมพ์ A4
+            </button>
           </div>
         </div>
 
-        <!-- Right: 10 Page Slots Layout -->
-        <div class="lg:col-span-8">
-          <div id="curatorSlotsGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <!-- Rendered Dynamically -->
-          </div>
+        <!-- 10 Slots Grid -->
+        <div id="curatorSlotsContainer" class="curator-slots-grid">
+          <!-- Dynamic Slots -->
         </div>
 
       </div>
     </main>
 
-    <!-- ==================== TAB 3: SHOWCASE (มุมมองกรรมการ) ==================== -->
-    <main id="tabContentShowcase" class="hidden space-y-6">
-      <!-- Showcase Controls -->
-      <div class="no-print glass-panel rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <!-- ==================== TAB 3: SHOWCASE ==================== -->
+    <main id="tabShowcaseContent" class="tab-view-content" style="display: none;">
+      
+      <div class="filter-panel" style="margin-bottom: 20px;">
         <div>
-          <h2 class="text-base font-bold text-slate-900">
-            มุมมองแฟ้มสะสมผลงานฉบับกรรมการตรวจ (TCAS Showcase & Print View)
+          <h2 style="font-size: 1rem; font-weight: 800; color: var(--text-main);">
+            มุมมองเอกสารส่งกรรมการ (TCAS Digital Portfolio A4)
           </h2>
-          <p class="text-xs text-slate-500">
-            จัดรูปแบบสำหรับส่งแนบลิงก์ให้กรรมการสัมภาษณ์ หรือสั่งพิมพ์เป็นเล่มขนาดกระดาษ A4
+          <p style="font-size: 0.75rem; color: var(--text-light);">
+            จัดหน้าสมบูรณ์แบบพร้อมส่งลิงก์ หรือสั่งพิมพ์ลงกระดาษ A4 (A4 Print-Ready)
           </p>
         </div>
 
-        <div class="flex items-center gap-2">
-          <button onclick="window.print()" class="bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold px-4 py-2 rounded-xl shadow-sm transition flex items-center gap-2">
-            <i class="fa-solid fa-print"></i> พิมพ์เอกสาร / เซฟเป็น PDF (Cmd+P)
+        <div style="display: flex; gap: 8px;">
+          <button class="btn btn-primary" onclick="window.print()">
+            <svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+            พิมพ์เอกสาร / เซฟเป็น PDF (Cmd+P)
           </button>
-          <button onclick="copyShareLink()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold px-3.5 py-2 rounded-xl border border-slate-200 transition flex items-center gap-1.5">
-            <i class="fa-solid fa-link"></i> คัดลอกลิงก์
+          <button class="btn btn-secondary" onclick="copyShowcaseLink()">
+            <svg viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+            คัดลอกลิงก์
           </button>
         </div>
       </div>
 
-      <!-- Formal A4 Paper Document Preview -->
-      <div class="glass-panel-elevated rounded-3xl p-8 sm:p-12 border border-slate-200 max-w-4xl mx-auto space-y-8 bg-white">
-        
-        <!-- Document Cover Header -->
-        <div class="border-b-2 border-brand-900 pb-6 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
+      <!-- Formal A4 Paper -->
+      <article class="paper-sheet">
+        <div class="paper-head-row">
           <div>
-            <div class="text-xs font-bold text-tu-red tracking-wider uppercase">
+            <div style="font-size: 0.75rem; font-weight: 800; color: var(--tu-red); text-transform: uppercase;">
               มหาวิทยาลัยธรรมศาสตร์ • คณะวิศวกรรมศาสตร์
             </div>
-            <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-1">
+            <h1 style="font-size: 1.85rem; font-weight: 800; color: var(--text-main); margin-top: 2px;">
               นายธีทัต นพรัตน์
             </h1>
-            <p class="text-sm text-slate-600 mt-0.5">
+            <p style="font-size: 0.85rem; color: var(--text-muted);">
               ผู้สมัครเข้าศึกษาต่อ: <strong>หลักสูตรวิศวกรรมศาสตรบัณฑิต (วศ.บ.)</strong>
             </p>
           </div>
 
-          <div class="text-right sm:text-right text-xs text-slate-500 space-y-0.5">
-            <div>รอบที่ 1 แฟ้มสะสมผลงาน (Portfolio)</div>
-            <div class="font-bold text-slate-900 font-eng">GPAX 5 ภาคเรียน: 3.88</div>
-            <div class="text-[11px] text-brand-600 font-semibold">10-PAGE CURATED DOSSIER</div>
+          <div style="text-align: right; font-size: 0.75rem; color: var(--text-light);">
+            <div>TCAS รอบที่ 1 แฟ้มสะสมผลงาน (Portfolio)</div>
+            <div style="font-weight: 800; color: var(--text-main); font-size: 0.85rem;">GPAX 5 ภาคเรียน: 3.88</div>
+            <div style="color: var(--brand-blue); font-weight: 700;">10-PAGE CURATED DOSSIER</div>
           </div>
         </div>
 
-        <!-- Section 1: Academic & Competitions -->
-        <section class="space-y-4">
-          <div class="flex items-center gap-2 text-brand-900 font-bold text-base border-b border-slate-200 pb-2">
-            <i class="fa-solid fa-trophy text-amber-500"></i>
-            <span>ผลงานดีเด่นด้านวิชาการและการแข่งขัน (Academic & Competition Highlights)</span>
+        <!-- Section 1: Academic -->
+        <section>
+          <div class="paper-section-heading">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#f59e0b"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94A5.01 5.01 0 0 0 11 15.9V19H7v2h10v-2h-4v-3.1c1.99-.41 3.55-1.92 3.61-3.96 2.47-.31 4.39-2.39 4.39-4.94V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/></svg>
+            ผลงานดีเด่นด้านวิชาการและการแข่งขัน (Academic & Competition Highlights)
           </div>
-          <div id="showcaseAcademicContainer" class="space-y-3">
-            <!-- Dynamic -->
-          </div>
+          <div id="showcaseAcaList"></div>
         </section>
 
-        <!-- Section 2: Projects & Innovation -->
-        <section class="space-y-4">
-          <div class="flex items-center gap-2 text-brand-900 font-bold text-base border-b border-slate-200 pb-2">
-            <i class="fa-solid fa-lightbulb text-brand-600"></i>
-            <span>โครงงาน สิ่งประดิษฐ์ และนวัตกรรม (Engineering Projects & Innovation)</span>
+        <!-- Section 2: Projects -->
+        <section>
+          <div class="paper-section-heading">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--brand-blue)"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6A4.997 4.997 0 0 1 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/></svg>
+            โครงงาน สิ่งประดิษฐ์ และนวัตกรรม (Engineering Projects & Innovation)
           </div>
-          <div id="showcaseProjectContainer" class="space-y-3">
-            <!-- Dynamic -->
-          </div>
+          <div id="showcaseProjList"></div>
         </section>
 
-        <!-- Section 3: Activities & Leadership & Volunteer -->
-        <section class="space-y-4">
-          <div class="flex items-center gap-2 text-brand-900 font-bold text-base border-b border-slate-200 pb-2">
-            <i class="fa-solid fa-hands-holding-circle text-emerald-600"></i>
-            <span>กิจกรรม ภาวะผู้นำ และการบำเพ็ญประโยชน์ต่อสังคม (Leadership & Service)</span>
+        <!-- Section 3: Activities & Leadership -->
+        <section>
+          <div class="paper-section-heading">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--status-emerald)"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+            กิจกรรม ภาวะผู้นำ และการบำเพ็ญประโยชน์ต่อสังคม (Leadership & Service)
           </div>
-          <div id="showcaseActivityContainer" class="space-y-3">
-            <!-- Dynamic -->
-          </div>
+          <div id="showcaseActList"></div>
         </section>
 
-        <!-- Footer Verification Note -->
-        <div class="border-t border-slate-200 pt-4 text-center text-xs text-slate-400">
-          เอกสารแฟ้มสะสมผลงานฉบับคัดสรร 10 หน้า • ตรวจสอบความถูกต้องและจัดทำผ่านระบบ TCAS Portfolio Hub & Vault
-        </div>
-
-      </div>
+        <footer style="border-top: 1px solid var(--border-subtle); padding-top: 14px; text-align: center; font-size: 0.72rem; color: var(--text-dim);">
+          เอกสารแฟ้มสะสมผลงานฉบับคัดสรร 10 หน้า • ตรวจสอบความถูกต้องผ่านระบบ TCAS Portfolio Hub & Vault
+        </footer>
+      </article>
     </main>
 
   </div>
 
-  <!-- ==================== MODAL 1: ADD / EDIT PORTFOLIO ITEM ==================== -->
-  <div id="itemModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-7 shadow-2xl border border-slate-200 max-h-[90vh] overflow-y-auto space-y-5">
-      
-      <div class="flex items-center justify-between border-b pb-3">
-        <h3 id="itemModalTitle" class="text-lg font-bold text-slate-900">
+  <!-- ==================== MODAL: ADD / EDIT ITEM ==================== -->
+  <div id="itemFormModal" class="modal-backdrop">
+    <div class="modal-window">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 12px;">
+        <h3 id="itemModalHeaderTitle" style="font-size: 1.1rem; font-weight: 800; color: var(--text-main);">
           เพิ่มผลงานใหม่เข้าคลัง Vault
         </h3>
-        <button onclick="closeItemModal()" class="text-slate-400 hover:text-slate-700 text-xl font-bold w-8 h-8 rounded-full flex items-center justify-center">
-          &times;
-        </button>
+        <button onclick="closeItemModal()" style="background: none; border: none; font-size: 1.3rem; cursor: pointer; color: var(--text-light);">&times;</button>
       </div>
 
-      <form id="itemForm" onsubmit="handleItemFormSubmit(event)" class="space-y-4">
+      <form id="portfolioItemForm" onsubmit="handleItemFormSubmit(event)" style="display: flex; flex-direction: column; gap: 14px;">
         <input type="hidden" id="formItemId">
 
-        <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">ชื่อผลงาน / รางวัล / กิจกรรม *</label>
-          <input type="text" id="formTitle" required placeholder="เช่น ชนะเลิศอันดับ 1 หุ่นยนต์กู้ภัยระดับประเทศ, สอวน.คอมพิวเตอร์ ค่าย 2" 
-                 class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none">
+        <div class="form-group-wrap">
+          <label>ชื่อผลงาน / รางวัล / กิจกรรม *</label>
+          <input type="text" id="formItemTitle" required placeholder="เช่น ชนะเลิศหุ่นยนต์กู้ภัยระดับประเทศ, สอวน.คอมพิวเตอร์ ค่าย 2">
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">หมวดหมู่ *</label>
-            <select id="formCategory" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none">
+        <div class="grid-2-cols">
+          <div class="form-group-wrap">
+            <label>หมวดหมู่ *</label>
+            <select id="formItemCategory" required>
               <option value="academic">🏆 การแข่งขัน & เกียรติบัตร</option>
               <option value="project">💡 โครงงาน & นวัตกรรม</option>
               <option value="activity">🌟 กิจกรรม & ภาวะผู้นำ</option>
@@ -547,9 +1300,9 @@
             </select>
           </div>
 
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">ปีการศึกษา *</label>
-            <select id="formYear" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none">
+          <div class="form-group-wrap">
+            <label>ปีการศึกษา *</label>
+            <select id="formItemYear" required>
               <option value="ม.6">ชั้น ม.6</option>
               <option value="ม.5">ชั้น ม.5</option>
               <option value="ม.4">ชั้น ม.4</option>
@@ -557,188 +1310,148 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">หน่วยงาน / สถาบันผู้จัด</label>
-            <input type="text" id="formOrg" placeholder="เช่น มหาวิทยาลัยธรรมศาสตร์, สวทช., สภานักเรียน" 
-                   class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none">
+        <div class="grid-2-cols">
+          <div class="form-group-wrap">
+            <label>หน่วยงาน / สถาบันผู้จัด</label>
+            <input type="text" id="formItemOrg" placeholder="เช่น มหาวิทยาลัยธรรมศาสตร์, สวทช.">
           </div>
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">วันที่ได้รับ / ดำเนินการ</label>
-            <input type="text" id="formDate" placeholder="เช่น ส.ค. 2568 หรือ 12 ต.ค. 2567" 
-                   class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none">
+          <div class="form-group-wrap">
+            <label>วันที่ได้รับ / ดำเนินการ</label>
+            <input type="text" id="formItemDate" placeholder="เช่น ส.ค. 2568 หรือ 15 มี.ค. 2567">
           </div>
         </div>
 
-        <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">บทบาทหน้าที่ในผลงาน (Role & Contribution)</label>
-          <input type="text" id="formRole" placeholder="เช่น หัวหน้าทีมพัฒนาโปรแกรม, ผู้ออกแบบวงจร, วิทยากรค่าย" 
-                 class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none">
+        <div class="form-group-wrap">
+          <label>บทบาทหน้าที่ในผลงาน (Role & Contribution)</label>
+          <input type="text" id="formItemRole" placeholder="เช่น หัวหน้าทีมพัฒนาโปรแกรม, ผู้ออกแบบวงจร">
         </div>
 
-        <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">
-            สรุปผลสัมฤทธิ์เด่น 2 บรรทัด (Impact Statement สำหรับใส่ในพอร์ต)
-          </label>
-          <textarea id="formImpact" rows="3" placeholder="เขียนสรุปตัวเลขความสำเร็จและสิ่งสำคัญที่ได้เรียนรู้ เช่น 'ออกแบบระบบนำทางหุ่นยนต์ด้วยภาษา C++ ทำคะแนนภารกิจสูงสุด 98/100 จาก 120 ทีมทั่วประเทศ...'" 
-                    class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none"></textarea>
+        <div class="form-group-wrap">
+          <label>สรุปผลสัมฤทธิ์เด่น 2 บรรทัด (Impact Statement สำหรับใส่ในพอร์ต)</label>
+          <textarea id="formItemImpact" rows="3" placeholder="เขียนสรุปตัวเลขความสำเร็จและสิ่งสำคัญที่ได้เรียนรู้ เช่น 'ออกแบบระบบนำทางหุ่นยนต์ด้วยภาษา C++ ทำคะแนนภารกิจสูงสุด 98/100 จาก 120 ทีมทั่วประเทศ...'"></textarea>
         </div>
 
-        <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">คีย์เวิร์ด / แท็ก (คั่นด้วยเครื่องหมายจุลภาค)</label>
-          <input type="text" id="formTags" placeholder="เช่น Robotics, AI, C++, สอวน., Thammasat" 
-                 class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none">
+        <div class="form-group-wrap">
+          <label>คีย์เวิร์ด / แท็ก (คั่นด้วยเครื่องหมายจุลภาค)</label>
+          <input type="text" id="formItemTags" placeholder="เช่น Robotics, AI, C++, สอวน., Thammasat">
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-slate-50 p-3 rounded-2xl border border-slate-200">
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">ลิงก์ไฟล์หลักฐาน / Google Drive</label>
-            <input type="text" id="formProofUrl" placeholder="https://drive.google.com/..." 
-                   class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs focus:ring-2 focus:ring-brand-500 focus:outline-none">
+        <div class="grid-2-cols" style="background: var(--bg-slate-50); padding: 12px; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+          <div class="form-group-wrap">
+            <label>ลิงก์ไฟล์หลักฐาน / Google Drive</label>
+            <input type="text" id="formItemProofUrl" placeholder="https://drive.google.com/...">
           </div>
-
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">สถานะไฟล์คมชัด (300dpi)</label>
-            <select id="formProofReady" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs focus:ring-2 focus:ring-brand-500 focus:outline-none">
+          <div class="form-group-wrap">
+            <label>สถานะไฟล์คมชัด (300dpi)</label>
+            <select id="formItemProofReady">
               <option value="true">✅ มีไฟล์สแกนคมชัดพร้อมพิมพ์</option>
               <option value="false">⚠️ รูปแตกจาก LINE / รอสแกนแท้</option>
             </select>
           </div>
         </div>
 
-        <div class="flex justify-end gap-2 pt-2">
-          <button type="button" onclick="closeItemModal()" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 transition">
-            ยกเลิก
-          </button>
-          <button type="submit" class="px-5 py-2 rounded-xl text-xs font-semibold text-white bg-brand-600 hover:bg-brand-700 shadow-md transition">
-            บันทึกเข้าคลัง Vault
-          </button>
+        <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 6px;">
+          <button type="button" class="btn btn-secondary" onclick="closeItemModal()">ยกเลิก</button>
+          <button type="submit" class="btn btn-primary">บันทึกเข้าคลัง Vault</button>
         </div>
       </form>
-
     </div>
   </div>
 
-  <!-- ==================== MODAL 2: GOOGLE DRIVE CLOUD SETTINGS ==================== -->
-  <div id="driveSettingsModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 space-y-4">
-      <div class="flex items-center justify-between border-b pb-3">
-        <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
-          <i class="fa-brands fa-google-drive text-amber-500 text-lg"></i>
-          ตั้งค่าการเชื่อมต่อ Google Drive (แบบเดียวกับเว็ปแล็บ)
+  <!-- ==================== MODAL: GOOGLE DRIVE SETTINGS ==================== -->
+  <div id="driveModal" class="modal-backdrop">
+    <div class="modal-window">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 12px;">
+        <h3 style="font-size: 1.1rem; font-weight: 800; color: var(--text-main); display: flex; align-items: center; gap: 8px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#f59e0b"><path d="M7.71 3.5L1.15 15l3.43 6h6.86l6.57-11.5H7.71z"/><path d="M16.29 3.5h-5.43l6.57 11.5h5.43L16.29 3.5z"/><path d="M7.71 15.5l-3.43 6h15.43l3.43-6H7.71z"/></svg>
+          ตั้งค่าการเชื่อมต่อ Google Drive
         </h3>
-        <button onclick="closeDriveSettingsModal()" class="text-slate-400 hover:text-slate-700 text-xl font-bold w-8 h-8 rounded-full flex items-center justify-center">
-          &times;
-        </button>
+        <button onclick="closeDriveSettingsModal()" style="background: none; border: none; font-size: 1.3rem; cursor: pointer; color: var(--text-light);">&times;</button>
       </div>
 
-      <p class="text-xs text-slate-600 leading-relaxed">
-        ข้อมูลสามารถซิงค์และบันทึกลงใน Google Drive ของคุณธนภรณ์และน้องธีทัตได้โดยตรงผ่าน Google Apps Script (Code.gs) เหมือนกับระบบปฏิบัติการแล็บวิศวะ 
-      </p>
+      <div style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.5;">
+        ระบบจะจัดเก็บไฟล์ลงใน Google Drive ผ่าน Google Apps Script (Code.gs) สถาปัตยกรรมเดียวกับเว็บแล็บวิศวะ ข้อมูลจะถูกสำรองไว้บน Cloud ป้องกันการสูญหาย 100%
+      </div>
 
-      <div class="space-y-3">
-        <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">ชื่อโฟลเดอร์ปลายทางใน Drive</label>
-          <input type="text" id="driveFolderNameInput" value="TCAS_Portfolio_ธีทัต_นพรัตน์" 
-                 class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs sm:text-sm">
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div class="form-group-wrap">
+          <label>ชื่อโฟลเดอร์ใน Google Drive</label>
+          <input type="text" id="inputDriveFolderName" value="TCAS_Portfolio_ธีทัต_นพรัตน์">
         </div>
 
-        <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">Google Apps Script Web App URL (ถ้ามี)</label>
-          <input type="text" id="gasWebAppUrlInput" placeholder="https://script.google.com/macros/s/.../exec" 
-                 class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs sm:text-sm">
-          <p class="text-[11px] text-slate-400 mt-1">
-            * หากไม่ได้ใส่ URL ระบบจะซิงค์และดาวน์โหลดเป็นไฟล์สำรองฉุกเฉินให้อัตโนมัติในเครื่อง
-          </p>
+        <div class="form-group-wrap">
+          <label>Google Apps Script Web App URL (ถ้ามี)</label>
+          <input type="text" id="inputGasUrl" placeholder="https://script.google.com/macros/s/.../exec">
+          <span style="font-size: 0.72rem; color: var(--text-dim); margin-top: 2px;">
+            * หากยังไม่ได้นำ Code.gs ขึ้น deploy ระบบจะจำลองและบันทึกลง Local Storage พร้อมดาวน์โหลด JSON ฉุกเฉินให้
+          </span>
         </div>
       </div>
 
-      <div class="bg-blue-50 border border-blue-200 p-3 rounded-2xl text-xs text-blue-900 space-y-1">
-        <div class="font-bold flex items-center gap-1.5">
-          <i class="fa-solid fa-circle-info text-blue-600"></i> โค้ด Backend พร้อมใช้งาน:
-        </div>
-        <div>ไฟล์ <code class="font-eng bg-blue-100 px-1 py-0.5 rounded">Code.gs</code> ถูกสร้างไว้ในโฟลเดอร์โปรเจกต์แล้ว สามารถนำไปวางใน Google Apps Script ได้ทันที</div>
+      <div style="background: #eff6ff; border: 1px solid #bfdbfe; padding: 12px; border-radius: var(--radius-md); font-size: 0.78rem; color: #1e40af;">
+        <strong>ไฟล์ Code.gs พร้อมใช้งาน:</strong> โค้ด Google Apps Script ถูกสร้างไว้ในโฟลเดอร์โปรเจกต์แล้ว สามารถนำไปวางและ Deploy ใน Google Drive ได้ทันที
       </div>
 
-      <div class="flex justify-end gap-2 pt-2">
-        <button type="button" onclick="closeDriveSettingsModal()" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200">
-          ปิด
-        </button>
-        <button type="button" onclick="saveDriveSettings()" class="px-5 py-2 rounded-xl text-xs font-semibold text-white bg-brand-600 hover:bg-brand-700">
-          บันทึกการตั้งค่า
-        </button>
+      <div style="display: flex; justify-content: flex-end; gap: 8px;">
+        <button class="btn btn-secondary" onclick="closeDriveSettingsModal()">ปิด</button>
+        <button class="btn btn-primary" onclick="saveDriveSettings()">บันทึกการตั้งค่า</button>
       </div>
     </div>
   </div>
 
-  <!-- ==================== MODAL 3: LIVE QA TOUR & TEST RUNNER ==================== -->
-  <div id="qaTourModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-7 shadow-2xl border border-slate-200 space-y-5">
-      
-      <div class="flex items-center justify-between border-b pb-3">
-        <div class="flex items-center gap-2.5">
-          <div class="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
-            <i class="fa-solid fa-shield-check"></i>
-          </div>
+  <!-- ==================== MODAL: LIVE QA TOUR ==================== -->
+  <div id="qaTourModal" class="modal-backdrop">
+    <div class="modal-window">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 12px;">
+        <div>
+          <h3 style="font-size: 1.1rem; font-weight: 800; color: var(--text-main);">
+            การสาธิตและทดสอบระบบสด (Automated Live QA Runner)
+          </h3>
+          <span style="font-size: 0.72rem; color: var(--text-light);">
+            สำหรับ: นายธีทัต นพรัตน์ • ตรวจสอบคุณภาพ 100%
+          </span>
+        </div>
+        <button onclick="closeQATourModal()" style="background: none; border: none; font-size: 1.3rem; cursor: pointer; color: var(--text-light);">&times;</button>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 4px;">
+        <div style="display: flex; justify-content: space-between; font-size: 0.78rem; font-weight: 700;">
+          <span id="qaProgressTitle">กำลังเริ่มต้นทดสอบ...</span>
+          <span id="qaProgressPercent" style="color: var(--brand-blue);">0%</span>
+        </div>
+        <div style="height: 8px; background: #e2e8f0; border-radius: var(--radius-full); overflow: hidden;">
+          <div id="qaProgressBar" style="height: 100%; width: 0%; background: linear-gradient(90deg, var(--brand-blue), var(--status-emerald)); transition: width 0.3s ease;"></div>
+        </div>
+      </div>
+
+      <div id="qaConsoleLog" class="qa-console-box">
+        <div>// เริ่มต้นทดสอบความถูกต้องทางการทำงาน...</div>
+      </div>
+
+      <div id="qaPassBadge" style="display: none; background: #ecfdf5; border: 1px solid #a7f3d0; padding: 12px 16px; border-radius: var(--radius-md); align-items: center; justify-content: space-between;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#059669"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
           <div>
-            <h3 class="text-base font-bold text-slate-900">
-              การสาธิตและทดสอบระบบสด (Automated Live QA Runner)
-            </h3>
-            <span class="text-[11px] text-slate-400">สำหรับ: นายธีทัต นพรัตน์ • ตรวจสอบคุณภาพ 100%</span>
+            <div style="font-size: 0.85rem; font-weight: 800; color: #065f46;">INSPECTOR QC: PASSED 100%</div>
+            <div style="font-size: 0.72rem; color: #047857;">ทุกฟังก์ชันผ่านการทดสอบสมบูรณ์แบบ ไร้ข้อผิดพลาด พร้อมส่งมอบ</div>
           </div>
         </div>
-
-        <button onclick="closeQATourModal()" class="text-slate-400 hover:text-slate-700 text-xl font-bold w-8 h-8 rounded-full flex items-center justify-center">
-          &times;
-        </button>
+        <span class="badge-pill" style="background: #059669; color: #ffffff;">VERIFIED</span>
       </div>
 
-      <!-- Test Progress Bar -->
-      <div class="space-y-1.5">
-        <div class="flex justify-between text-xs font-bold text-slate-700">
-          <span id="qaStepTitle">กำลังเริ่มต้นทดสอบ...</span>
-          <span id="qaStepPercent" class="text-brand-600 font-eng">0%</span>
-        </div>
-        <div class="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden">
-          <div id="qaStepBar" class="h-full bg-gradient-to-r from-brand-600 to-emerald-500 rounded-full transition-all duration-300" style="width: 0%;"></div>
-        </div>
+      <div style="display: flex; justify-content: flex-end;">
+        <button class="btn btn-secondary" onclick="closeQATourModal()">ปิดหน้าต่างทดสอบ</button>
       </div>
-
-      <!-- Live Logs Console -->
-      <div class="bg-slate-950 text-slate-200 rounded-2xl p-4 font-mono text-xs space-y-2 max-h-60 overflow-y-auto border border-slate-800" id="qaLogsConsole">
-        <div class="text-slate-500">// ระบบเริ่มทดสอบความถูกต้องทางการทำงาน...</div>
-      </div>
-
-      <!-- QC Certificate Badge (Shows when finished) -->
-      <div id="qaQcBadge" class="hidden bg-emerald-50 border border-emerald-200 p-4 rounded-2xl text-emerald-900 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <i class="fa-solid fa-circle-check text-emerald-600 text-2xl"></i>
-          <div>
-            <div class="font-bold text-sm">INSPECTOR QC: PASSED 100%</div>
-            <div class="text-xs text-emerald-700">ทุกฟังก์ชันทำงานสมบูรณ์แบบ ไร้ข้อผิดพลาด พร้อมส่งมอบ</div>
-          </div>
-        </div>
-        <span class="bg-emerald-600 text-white font-bold text-[11px] px-2.5 py-1 rounded-full">
-          VERIFIED
-        </span>
-      </div>
-
-      <div class="flex justify-end gap-2 pt-1">
-        <button type="button" onclick="closeQATourModal()" class="px-5 py-2 rounded-xl text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200">
-          ปิดหน้าต่างทดสอบ
-        </button>
-      </div>
-
     </div>
   </div>
 
-  <!-- Toast Notification Container -->
-  <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+  <!-- Toast Notification Tray -->
+  <div id="toastTray" class="toast-tray"></div>
 
-  <!-- JAVASCRIPT APP LOGIC -->
+  <!-- ==================== JAVASCRIPT LOGIC ==================== -->
   <script>
-    // Sample Initial Mock Data (for Theetat Nopparat - Engineering Target)
-    const DEMO_ITEMS_THEETAT = [
+    // Demo Preset Data for Theetat Nopparat
+    const PRESET_THEETAT = [
       {
         id: "tt-1",
         title: "รางวัลชนะเลิศอันดับ 1 การแข่งขันหุ่นยนต์อัตโนมัติเยาวชนระดับประเทศ",
@@ -862,89 +1575,88 @@
     ];
 
     // State
-    let portfolioItems = [];
-    let currentCategory = 'all';
-    let driveSettings = {
+    let vaultItems = [];
+    let currentFilterCat = 'all';
+    let driveConfig = {
       folderName: 'TCAS_Portfolio_ธีทัต_นพรัตน์',
-      webAppUrl: ''
+      gasUrl: ''
     };
 
-    // Initialize App
-    function initApp() {
-      // Load Drive Settings
-      const savedSettings = localStorage.getItem('theetat_drive_settings');
-      if (savedSettings) {
-        try { driveSettings = JSON.parse(savedSettings); } catch(e){}
+    function initApplication() {
+      // Load Drive Config
+      const savedDrive = localStorage.getItem('theetat_drive_cfg');
+      if (savedDrive) {
+        try { driveConfig = JSON.parse(savedDrive); } catch(e){}
       }
-      document.getElementById('topFolderNameDisplay').textContent = driveSettings.folderName || 'TCAS_Portfolio_ธีทัต_นพรัตน์';
+      document.getElementById('topDriveFolderText').textContent = driveConfig.folderName || 'TCAS_Portfolio_ธีทัต_นพรัตน์';
 
-      // Load Items from localStorage
-      const savedData = localStorage.getItem('theetat_portfolio_items');
-      if (savedData) {
+      // Load Items (Default to Clean Zero if nothing saved)
+      const savedItems = localStorage.getItem('theetat_vault_data');
+      if (savedItems) {
         try {
-          portfolioItems = JSON.parse(savedData);
+          vaultItems = JSON.parse(savedItems);
         } catch(e) {
-          portfolioItems = [];
+          vaultItems = [];
         }
       } else {
-        // Start Clean or Demo
-        portfolioItems = [];
+        vaultItems = [];
       }
 
-      renderAll();
+      renderAllViews();
     }
 
-    function saveState() {
-      localStorage.setItem('theetat_portfolio_items', JSON.stringify(portfolioItems));
-      updateStats();
+    function persistState() {
+      localStorage.setItem('theetat_vault_data', JSON.stringify(vaultItems));
+      updateTopStatistics();
     }
 
     // Tab Navigation
-    function switchTab(tabId) {
-      document.getElementById('tabContentVault').classList.add('hidden');
-      document.getElementById('tabContentCurator').classList.add('hidden');
-      document.getElementById('tabContentShowcase').classList.add('hidden');
+    function switchMainTab(tab) {
+      document.getElementById('tabVaultContent').classList.remove('active');
+      document.getElementById('tabCuratorContent').classList.remove('active');
+      document.getElementById('tabShowcaseContent').classList.remove('active');
 
-      const btnV = document.getElementById('tabBtnVault');
-      const btnC = document.getElementById('tabBtnCurator');
-      const btnS = document.getElementById('tabBtnShowcase');
+      document.getElementById('tabVaultContent').style.display = 'none';
+      document.getElementById('tabCuratorContent').style.display = 'none';
+      document.getElementById('tabShowcaseContent').style.display = 'none';
 
-      [btnV, btnC, btnS].forEach(b => {
-        b.className = "px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-2 text-slate-600 hover:text-slate-900";
-      });
+      document.getElementById('navBtnVault').classList.remove('active');
+      document.getElementById('navBtnCurator').classList.remove('active');
+      document.getElementById('navBtnShowcase').classList.remove('active');
 
-      if (tabId === 'vault') {
-        document.getElementById('tabContentVault').classList.remove('hidden');
-        btnV.className = "px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-2 bg-white text-brand-700 shadow-sm";
-        renderCards();
-      } else if (tabId === 'curator') {
-        document.getElementById('tabContentCurator').classList.remove('hidden');
-        btnC.className = "px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-2 bg-white text-brand-700 shadow-sm";
-        renderCurator();
-      } else if (tabId === 'showcase') {
-        document.getElementById('tabContentShowcase').classList.remove('hidden');
-        btnS.className = "px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-2 bg-white text-brand-700 shadow-sm";
-        renderShowcase();
+      if (tab === 'vault') {
+        document.getElementById('tabVaultContent').classList.add('active');
+        document.getElementById('tabVaultContent').style.display = 'flex';
+        document.getElementById('navBtnVault').classList.add('active');
+        renderCardsView();
+      } else if (tab === 'curator') {
+        document.getElementById('tabCuratorContent').classList.add('active');
+        document.getElementById('tabCuratorContent').style.display = 'block';
+        document.getElementById('navBtnCurator').classList.add('active');
+        renderCuratorView();
+      } else if (tab === 'showcase') {
+        document.getElementById('tabShowcaseContent').classList.add('active');
+        document.getElementById('tabShowcaseContent').style.display = 'block';
+        document.getElementById('navBtnShowcase').classList.add('active');
+        renderShowcaseView();
       }
     }
 
-    // Category Filter
-    function setCategoryFilter(cat, btn) {
-      currentCategory = cat;
-      document.querySelectorAll('.cat-pill').forEach(b => {
-        b.className = "cat-pill px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 flex items-center gap-1.5";
-      });
-      btn.className = "cat-pill active px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition bg-slate-900 text-white shadow-sm flex items-center gap-1.5";
-      filterCards();
+    // Filtering
+    function setFilterCategory(cat, btn) {
+      currentFilterCat = cat;
+      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      filterCardItems();
     }
 
-    function filterCards() {
+    function filterCardItems() {
       const q = document.getElementById('searchInput').value.toLowerCase().trim();
       const yr = document.getElementById('yearFilter').value;
       const proof = document.getElementById('proofFilter').value;
 
-      const filtered = portfolioItems.filter(item => {
-        if (currentCategory !== 'all' && item.category !== currentCategory) return false;
+      const filtered = vaultItems.filter(item => {
+        if (currentFilterCat !== 'all' && item.category !== currentFilterCat) return false;
         if (yr !== 'all' && item.year !== yr) return false;
         if (proof === 'ready' && !item.proofReady) return false;
         if (proof === 'missing' && item.proofReady) return false;
@@ -961,32 +1673,33 @@
       });
 
       renderCardsList(filtered);
-      document.getElementById('showingCount').textContent = filtered.length;
+      document.getElementById('showingItemCount').textContent = filtered.length;
     }
 
     // Render Cards in Vault
-    function renderCards() {
-      filterCards();
-      updateCategoryCounts();
-      updateStats();
+    function renderCardsView() {
+      filterCardItems();
+      updateCategoryBadgeCounts();
+      updateTopStatistics();
     }
 
     function renderCardsList(items) {
-      const grid = document.getElementById('cardsGrid');
+      const grid = document.getElementById('cardsLayoutGrid');
       grid.innerHTML = '';
 
       if (items.length === 0) {
         grid.innerHTML = `
-          <div class="col-span-full text-center py-12 px-4 glass-panel rounded-3xl border border-dashed border-slate-300">
-            <div class="w-16 h-16 rounded-2xl bg-brand-50 text-brand-600 text-2xl flex items-center justify-center mx-auto mb-3">
-              <i class="fa-solid fa-folder-open"></i>
+          <div style="grid-column: 1 / -1; text-align: center; padding: 48px 20px; background: #ffffff; border-radius: 24px; border: 2px dashed #cbd5e1;">
+            <div style="width: 56px; height: 56px; border-radius: 16px; background: #eff6ff; color: #2563eb; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 12px;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/></svg>
             </div>
-            <h3 class="text-base font-bold text-slate-800">ยังไม่มีรายการผลงานในคลัง (คลังว่างเปล่า)</h3>
-            <p class="text-xs text-slate-500 mt-1 max-w-md mx-auto">
-              กดปุ่ม "เพิ่มผลงาน" เพื่อเริ่มบันทึกประวัติ หรือกดปุ่ม "โหลดตัวอย่างทดสอบ" ด้านบนเพื่อดูการทำงาน
+            <h3 style="font-size: 1.05rem; font-weight: 800; color: #0f172a;">ยังไม่มีรายการผลงานในคลัง (คลังว่างเปล่า)</h3>
+            <p style="font-size: 0.8rem; color: #64748b; margin-top: 4px; max-width: 420px; margin-left: auto; margin-right: auto;">
+              กดปุ่ม "เพิ่มผลงานใหม่" เพื่อบันทึกประวัติ หรือกดปุ่ม "โหลดตัวอย่างทดสอบ" ด้านบนเพื่อดูการทำงาน
             </p>
-            <button onclick="openAddItemModal()" class="mt-4 bg-brand-600 text-white text-xs font-semibold px-4 py-2 rounded-xl shadow-sm transition hover:bg-brand-700">
-              <i class="fa-solid fa-circle-plus mr-1"></i> เพิ่มผลงานชิ้นแรก
+            <button class="btn btn-primary" onclick="openAddItemModal()" style="margin-top: 14px;">
+              <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+              เพิ่มผลงานชิ้นแรก
             </button>
           </div>
         `;
@@ -995,77 +1708,57 @@
 
       items.forEach(item => {
         const card = document.createElement('div');
-        card.className = `glass-panel rounded-3xl p-5 border transition-all duration-200 flex flex-col justify-between gap-4 relative overflow-hidden ${
-          item.inTcas10 ? 'border-emerald-300 bg-emerald-50/20' : 'border-slate-200 hover:border-brand-300'
-        }`;
+        card.className = `item-card ${item.inTcas10 ? 'tcas-curated' : ''}`;
 
-        // Top Ribbon for TCAS 10
-        const ribbonHtml = item.inTcas10 ? `
-          <div class="absolute -right-8 top-4 bg-emerald-600 text-white text-[9px] font-bold px-8 py-0.5 rotate-45 shadow-sm">
-            หน้า ${item.tcasSlot || '10'}
-          </div>
-        ` : '';
-
-        const tagsHtml = (item.tags || []).map(t => `<span class="bg-slate-100 text-slate-600 text-[10px] px-2 py-0.5 rounded-md">#${escapeHtml(t)}</span>`).join(' ');
+        const ribbon = item.inTcas10 ? `<div class="card-ribbon">หน้า ${item.tcasSlot || '10'}</div>` : '';
+        const tags = (item.tags || []).map(t => `<span class="tag-chip">#${escapeHtml(t)}</span>`).join('');
 
         card.innerHTML = `
-          ${ribbonHtml}
-          <div class="space-y-3">
-            <div class="flex items-center justify-between gap-2 text-xs">
-              <span class="font-bold px-2.5 py-0.5 rounded-full ${getCategoryBadgeStyle(item.category)}">
-                ${getCategoryLabel(item.category)}
-              </span>
-              <span class="text-slate-400 font-eng text-[11px]">${escapeHtml(item.year)} • ${escapeHtml(item.date || '')}</span>
+          ${ribbon}
+          <div>
+            <div class="card-top-meta">
+              <span class="card-cat-tag cat-tag-${item.category}">${getCatLabel(item.category)}</span>
+              <span class="card-year-text">${escapeHtml(item.year)} • ${escapeHtml(item.date || '')}</span>
             </div>
 
-            <div>
-              <h4 class="text-sm font-bold text-slate-900 leading-snug">${escapeHtml(item.title)}</h4>
-              <p class="text-xs text-slate-500 mt-0.5">
-                <i class="fa-solid fa-building-columns text-[10px] mr-1"></i> ${escapeHtml(item.org || 'ไม่ระบุองค์กร')}
-                ${item.role ? `• <span class="text-brand-700 font-semibold">${escapeHtml(item.role)}</span>` : ''}
-              </p>
+            <div class="card-title">${escapeHtml(item.title)}</div>
+            <div class="card-org-text">
+              🏛️ ${escapeHtml(item.org || 'ไม่ระบุองค์กร')}
+              ${item.role ? `• <span style="color: var(--brand-blue); font-weight: 700;">${escapeHtml(item.role)}</span>` : ''}
             </div>
 
-            ${item.impact ? `
-              <div class="bg-slate-50 border-l-2 border-brand-600 p-2.5 rounded-r-xl text-xs text-slate-700 leading-relaxed font-sarabun">
-                ${escapeHtml(item.impact)}
-              </div>
-            ` : ''}
+            ${item.impact ? `<div class="card-impact-box">${escapeHtml(item.impact)}</div>` : ''}
 
-            <div class="flex flex-wrap gap-1">
-              ${tagsHtml}
-            </div>
+            <div class="card-tags-row">${tags}</div>
           </div>
 
-          <div class="space-y-3 pt-2 border-t border-slate-100">
-            <!-- Health Status -->
-            <div class="flex items-center justify-between text-xs">
-              <div class="flex items-center gap-1.5 ${item.proofReady ? 'text-emerald-700' : 'text-amber-700 font-semibold'}">
-                <i class="fa-solid ${item.proofReady ? 'fa-circle-check text-emerald-500' : 'fa-triangle-exclamation text-amber-500'}"></i>
-                <span class="text-[11px]">${item.proofReady ? 'ไฟล์คมชัด 300dpi พร้อม' : '⚠️ รูปแตก / รอไฟล์แท้'}</span>
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid var(--border-subtle); margin-bottom: 10px;">
+              <div class="proof-status-label ${item.proofReady ? 'proof-ready' : 'proof-warning'}">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  ${item.proofReady ? '<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>' : '<path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>'}
+                </svg>
+                <span>${item.proofReady ? 'ไฟล์คมชัด 300dpi พร้อม' : '⚠️ รูปแตก / รอไฟล์แท้'}</span>
               </div>
 
               ${item.proofUrl ? `
-                <a href="${escapeHtml(item.proofUrl)}" target="_blank" class="text-brand-600 hover:text-brand-800 text-[11px] font-semibold flex items-center gap-1">
-                  <i class="fa-solid fa-file-pdf"></i> เอกสารแนบ
+                <a href="${escapeHtml(item.proofUrl)}" target="_blank" style="color: var(--brand-blue); text-decoration: none; font-size: 0.72rem; font-weight: 700; display: inline-flex; align-items: center; gap: 3px;">
+                  📄 ตรวจเอกสาร
                 </a>
-              ` : '<span class="text-slate-300 text-[10px]">ไม่มีไฟล์แนบ</span>'}
+              ` : '<span style="color: var(--text-dim); font-size: 0.7rem;">ไม่มีไฟล์แนบ</span>'}
             </div>
 
-            <!-- Card Actions -->
-            <div class="flex items-center justify-between gap-2">
-              <button onclick="toggleTcasSlot('${item.id}')" class="text-xs font-semibold px-3 py-1.5 rounded-xl transition ${
-                item.inTcas10 ? 'bg-emerald-100 text-emerald-800 hover:bg-red-50 hover:text-tu-red' : 'bg-brand-50 text-brand-700 hover:bg-brand-600 hover:text-white'
-              }">
-                ${item.inTcas10 ? '✓ จัดลง 10 หน้าแล้ว (คลิกเพื่อปลด)' : '+ คัดลง 10 หน้า TCAS'}
+            <div class="card-bottom-actions">
+              <button class="btn" style="${item.inTcas10 ? 'background: #ecfdf5; color: #065f46; border-color: #a7f3d0;' : 'background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe;'}" onclick="toggleTcasSlotAssignment('${item.id}')">
+                ${item.inTcas10 ? '✓ จัดลง 10 หน้าแล้ว (ปลด)' : '+ คัดลง 10 หน้า TCAS'}
               </button>
 
-              <div class="flex items-center gap-1">
-                <button onclick="openEditItemModal('${item.id}')" class="text-slate-400 hover:text-slate-700 p-1.5 rounded-lg transition" title="แก้ไข">
-                  <i class="fa-solid fa-pen-to-square"></i>
+              <div style="display: flex; gap: 4px;">
+                <button class="btn btn-secondary" style="padding: 6px 10px;" onclick="openEditItemModal('${item.id}')" title="แก้ไข">
+                  <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
                 </button>
-                <button onclick="deleteItem('${item.id}')" class="text-slate-400 hover:text-tu-red p-1.5 rounded-lg transition" title="ลบ">
-                  <i class="fa-solid fa-trash-can"></i>
+                <button class="btn btn-secondary" style="padding: 6px 10px; color: var(--tu-red);" onclick="deleteItemById('${item.id}')" title="ลบ">
+                  <svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
                 </button>
               </div>
             </div>
@@ -1077,12 +1770,12 @@
     }
 
     // Render Curator 10-Page View
-    function renderCurator() {
-      const grid = document.getElementById('curatorSlotsGrid');
-      grid.innerHTML = '';
+    function renderCuratorView() {
+      const container = document.getElementById('curatorSlotsContainer');
+      container.innerHTML = '';
 
-      const slotTemplates = [
-        { slot: 1, title: "หน้า 1: ประวัติส่วนตัว & SOP", desc: "Statement of Purpose และแรงบันดาลใจเข้าวิศวะ ธรรมศาสตร์", locked: true },
+      const slotBlueprints = [
+        { slot: 1, title: "หน้า 1: ประวัติส่วนตัว & SOP", desc: "Statement of Purpose และแรงบันดาลใจเข้าวิศวะ มธ.", locked: true },
         { slot: 2, title: "หน้า 2: ผลการเรียน ปพ.1 & แผนการเรียน", desc: "Transcript 5 ภาคเรียน GPAX 3.88 และสาระวิทย์-คณิต", locked: true },
         { slot: 3, title: "หน้า 3: ผลงานเด่นอันดับ 1", desc: "รางวัลสูงสุดที่ตรงกับสาขาวิศวกรรมคอมพิวเตอร์/เทคโนโลยี" },
         { slot: 4, title: "หน้า 4: ผลงานเด่นอันดับ 2", desc: "ค่ายโอลิมปิกวิชาการ สอวน. หรือการแข่งขันระดับชาติ" },
@@ -1094,100 +1787,98 @@
         { slot: 10, title: "หน้า 10: ทักษะเฉพาะทาง & ภาษา", desc: "เกียรติบัตรภาษา (IELTS/TU-GET) หรือทักษะ Coding" }
       ];
 
-      slotTemplates.forEach(def => {
-        let assignedItem = null;
+      slotBlueprints.forEach(def => {
+        let assigned = null;
         if (def.slot > 2) {
-          assignedItem = portfolioItems.find(i => i.inTcas10 && i.tcasSlot === def.slot);
+          assigned = vaultItems.find(i => i.inTcas10 && i.tcasSlot === def.slot);
         }
 
-        const isFilled = (def.slot <= 2) || (assignedItem !== null);
+        const isFilled = (def.slot <= 2) || (assigned !== null);
 
-        const slotCard = document.createElement('div');
-        slotCard.className = `glass-panel rounded-2xl p-4 border transition-all flex flex-col justify-between gap-3 ${
-          isFilled ? 'border-brand-300 bg-white' : 'border-dashed border-slate-300 bg-slate-50/50'
-        }`;
+        const slot = document.createElement('div');
+        slot.className = `slot-card ${isFilled ? 'filled' : 'empty'}`;
 
-        let contentHtml = '';
+        let bodyHtml = '';
         if (def.slot === 1) {
-          contentHtml = `
-            <div class="space-y-1">
-              <div class="text-xs font-bold text-slate-800">ประวัติและ Statement of Purpose</div>
-              <div class="text-[11px] text-slate-500 leading-relaxed font-sarabun">
-                รูปถ่ายนักเรียน, ข้อมูลติดต่อ, คติพจน์, แรงบันดาลใจในการเข้าคณะวิศวกรรมศาสตร์ มธ.
+          bodyHtml = `
+            <div>
+              <div style="font-size: 0.82rem; font-weight: 800; color: #0f172a;">ประวัติส่วนตัว & SOP แรงบันดาลใจ</div>
+              <div style="font-size: 0.72rem; color: #64748b; margin-top: 3px; line-height: 1.4;">
+                รูปถ่ายนักเรียนหน้าตรง, ข้อมูลติดต่อ, คติพจน์, แรงบันดาลใจในการเลือกคณะวิศวะ ธรรมศาสตร์
               </div>
             </div>
           `;
         } else if (def.slot === 2) {
-          contentHtml = `
-            <div class="space-y-1">
-              <div class="text-xs font-bold text-slate-800">ใบรายงานผลการศึกษา ปพ.1 (5 ภาคเรียน)</div>
-              <div class="text-[11px] text-slate-500 leading-relaxed font-sarabun">
-                GPAX 3.88, ผลการเรียนกลุ่มสาระคณิตศาสตร์ ฟิสิกส์ และภาษาอังกฤษ
+          bodyHtml = `
+            <div>
+              <div style="font-size: 0.82rem; font-weight: 800; color: #0f172a;">ใบรายงานผลการศึกษา ปพ.1 (5 เทอม)</div>
+              <div style="font-size: 0.72rem; color: #64748b; margin-top: 3px; line-height: 1.4;">
+                GPAX 3.88, ผลการเรียนกลุ่มสาระคณิตศาสตร์ ฟิสิกส์ เคมี และภาษาอังกฤษ
               </div>
             </div>
           `;
-        } else if (assignedItem) {
-          contentHtml = `
-            <div class="space-y-1">
-              <div class="text-xs font-bold text-slate-900 leading-tight">${escapeHtml(assignedItem.title)}</div>
-              <div class="text-[11px] text-brand-600 font-semibold">${getCategoryLabel(assignedItem.category)}</div>
-              <div class="text-[11px] text-slate-500 line-clamp-2 font-sarabun">${escapeHtml(assignedItem.impact || '')}</div>
+        } else if (assigned) {
+          bodyHtml = `
+            <div>
+              <div style="font-size: 0.82rem; font-weight: 800; color: #0f172a; line-height: 1.35;">${escapeHtml(assigned.title)}</div>
+              <div style="font-size: 0.7rem; color: var(--brand-blue); font-weight: 700; margin-top: 2px;">${getCatLabel(assigned.category)}</div>
+              <div style="font-size: 0.72rem; color: #475569; margin-top: 4px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                ${escapeHtml(assigned.impact || '')}
+              </div>
             </div>
           `;
         } else {
-          contentHtml = `
-            <div class="text-center py-4 space-y-2">
-              <div class="text-slate-400 text-xs font-medium">ยังไม่มีผลงานบรรจุในหน้านี้</div>
-              <button onclick="pickItemForSlot(${def.slot})" class="bg-slate-200 hover:bg-brand-600 hover:text-white text-slate-700 text-[11px] font-semibold px-3 py-1 rounded-lg transition">
+          bodyHtml = `
+            <div style="text-align: center; padding: 12px 0;">
+              <div style="font-size: 0.75rem; color: #94a3b8; font-weight: 600;">ยังไม่มีผลงานในหน้านี้</div>
+              <button class="btn btn-secondary" style="font-size: 0.72rem; padding: 4px 10px; margin-top: 6px;" onclick="chooseItemForSlotNum(${def.slot})">
                 + เลือกผลงานลงหน้านี้
               </button>
             </div>
           `;
         }
 
-        slotCard.innerHTML = `
+        slot.innerHTML = `
           <div>
-            <div class="flex items-center justify-between border-b pb-2 mb-2">
-              <span class="text-xs font-black font-eng ${isFilled ? 'text-brand-600' : 'text-slate-400'}">PAGE ${def.slot}</span>
-              <span class="text-[11px] font-bold text-slate-700">${def.title}</span>
+            <div class="slot-head">
+              <span class="slot-badge-num">PAGE ${def.slot}</span>
+              <span style="font-size: 0.75rem; font-weight: 700; color: #334155;">${def.title}</span>
             </div>
-            ${contentHtml}
+            ${bodyHtml}
           </div>
 
-          <div class="flex items-center justify-between pt-2 border-t text-[10px] text-slate-400">
+          <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-subtle); padding-top: 6px; font-size: 0.68rem; color: #94a3b8;">
             <span>${def.desc}</span>
-            ${assignedItem ? `
-              <button onclick="unassignSlot('${assignedItem.id}')" class="text-red-500 hover:text-red-700 font-bold" title="ปลดออกจากหน้านี้">
+            ${assigned ? `
+              <button onclick="unassignSlotItem('${assigned.id}')" style="background: none; border: none; color: var(--tu-red); font-weight: 700; cursor: pointer;">
                 ปลดออก
               </button>
             ` : ''}
           </div>
         `;
 
-        grid.appendChild(slotCard);
+        container.appendChild(slot);
       });
 
-      updateCuratorCapacity();
+      updateCuratorProgress();
     }
 
-    function updateCuratorCapacity() {
-      const assignedCount = portfolioItems.filter(i => i.inTcas10 && i.tcasSlot && i.tcasSlot >= 3 && i.tcasSlot <= 10).length;
+    function updateCuratorProgress() {
+      const assignedCount = vaultItems.filter(i => i.inTcas10 && i.tcasSlot && i.tcasSlot >= 3 && i.tcasSlot <= 10).length;
       const total = 2 + assignedCount; // +2 for Page 1 & 2
-      const pct = Math.min(100, (total / 10) * 100);
+      const pct = Math.min(100, Math.round((total / 10) * 100));
 
-      document.getElementById('curatorCapacityText').textContent = `${total} / 10 หน้า (${pct}%)`;
-      document.getElementById('curatorProgressBar').style.width = `${pct}%`;
+      document.getElementById('curatorGaugeText').textContent = `${total} / 10 หน้า (${pct}%)`;
+      document.getElementById('curatorGaugeBar').style.width = `${pct}%`;
     }
 
     function autoCurateTop10() {
-      // Clear current assignments
-      portfolioItems.forEach(i => {
+      vaultItems.forEach(i => {
         i.inTcas10 = false;
         i.tcasSlot = null;
       });
 
-      // Priority sort: academic national > projects > leadership > volunteer > skills
-      const sorted = [...portfolioItems].sort((a, b) => {
+      const sorted = [...vaultItems].sort((a, b) => {
         const order = { academic: 5, project: 4, activity: 3, volunteer: 2, skills: 1 };
         return (order[b.category] || 0) - (order[a.category] || 0);
       });
@@ -1201,21 +1892,21 @@
         }
       });
 
-      saveState();
-      renderAll();
-      showToast('✨ AI คัดเลือก 10 หน้าพอร์ตที่โดดเด่นที่สุดลงแต่ละหน้าเรียบร้อยแล้ว!');
+      persistState();
+      renderAllViews();
+      showNotificationToast('✨ AI คัดเลือก 10 หน้าพอร์ตโฟลิโอที่ดีที่สุดลงแต่ละหน้าเรียบร้อย!');
     }
 
-    function toggleTcasSlot(id) {
-      const item = portfolioItems.find(i => i.id === id);
+    function toggleTcasSlotAssignment(id) {
+      const item = vaultItems.find(i => i.id === id);
       if (!item) return;
 
       if (item.inTcas10) {
         item.inTcas10 = false;
         item.tcasSlot = null;
-        showToast(`ปลด "${item.title.substring(0, 25)}..." ออกจากเล่ม 10 หน้า`);
+        showNotificationToast(`ปลด "${item.title.substring(0, 25)}..." ออกจากเล่ม 10 หน้า`);
       } else {
-        const used = portfolioItems.filter(i => i.inTcas10 && i.tcasSlot).map(i => i.tcasSlot);
+        const used = vaultItems.filter(i => i.inTcas10 && i.tcasSlot).map(i => i.tcasSlot);
         let next = null;
         for (let s = 3; s <= 10; s++) {
           if (!used.includes(s)) {
@@ -1224,55 +1915,55 @@
           }
         }
         if (!next) {
-          showToast('⚠️ โควตาครบ 10 หน้าแล้ว! โปรดปลดรายการอื่นออกก่อน', true);
+          showNotificationToast('⚠️ พอร์ตครบ 10 หน้าแล้ว! โปรดปลดรายการอื่นออกก่อน', true);
           return;
         }
         item.inTcas10 = true;
         item.tcasSlot = next;
-        showToast(`✓ บรรจุ "${item.title.substring(0, 25)}..." ลงในหน้าที่ ${next}`);
+        showNotificationToast(`✓ บรรจุ "${item.title.substring(0, 25)}..." ลงหน้าที่ ${next}`);
       }
-      saveState();
-      renderAll();
+      persistState();
+      renderAllViews();
     }
 
-    function unassignSlot(id) {
-      const item = portfolioItems.find(i => i.id === id);
+    function unassignSlotItem(id) {
+      const item = vaultItems.find(i => i.id === id);
       if (item) {
         item.inTcas10 = false;
         item.tcasSlot = null;
-        saveState();
-        renderCurator();
-        showToast('ปลดผลงานออกจากหน้าเรียบร้อย');
+        persistState();
+        renderCuratorView();
+        showNotificationToast('ปลดผลงานออกจากหน้าเรียบร้อย');
       }
     }
 
-    function pickItemForSlot(slotNum) {
-      const candidate = portfolioItems.find(i => !i.inTcas10);
+    function chooseItemForSlotNum(slotNum) {
+      const candidate = vaultItems.find(i => !i.inTcas10);
       if (!candidate) {
-        showToast('ไม่มีผลงานคงเหลือในคลัง กรุณาเพิ่มผลงานใหม่', true);
+        showNotificationToast('ไม่มีผลงานคงเหลือในคลัง กรุณาเพิ่มผลงานใหม่', true);
         return;
       }
       candidate.inTcas10 = true;
       candidate.tcasSlot = slotNum;
-      saveState();
-      renderCurator();
-      showToast(`บรรจุ "${candidate.title.substring(0, 25)}..." ลงหน้าที่ ${slotNum}`);
+      persistState();
+      renderCuratorView();
+      showNotificationToast(`บรรจุ "${candidate.title.substring(0, 25)}..." ลงหน้าที่ ${slotNum}`);
     }
 
     // Render Showcase
-    function renderShowcase() {
-      const aca = document.getElementById('showcaseAcademicContainer');
-      const proj = document.getElementById('showcaseProjectContainer');
-      const act = document.getElementById('showcaseActivityContainer');
+    function renderShowcaseView() {
+      const aca = document.getElementById('showcaseAcaList');
+      const proj = document.getElementById('showcaseProjList');
+      const act = document.getElementById('showcaseActList');
 
       aca.innerHTML = '';
       proj.innerHTML = '';
       act.innerHTML = '';
 
-      const tcasItems = portfolioItems.filter(i => i.inTcas10);
+      const tcasItems = vaultItems.filter(i => i.inTcas10);
 
       if (tcasItems.length === 0) {
-        const emptyHtml = '<div class="text-xs text-slate-400 py-3 text-center">ยังไม่มีผลงานที่คัดเลือกบรรจุในหน้านี้</div>';
+        const emptyHtml = '<div style="font-size: 0.78rem; color: #94a3b8; padding: 12px 0; text-align: center;">ยังไม่มีผลงานที่คัดเลือกลงในหมวดนี้</div>';
         aca.innerHTML = emptyHtml;
         proj.innerHTML = emptyHtml;
         act.innerHTML = emptyHtml;
@@ -1280,163 +1971,160 @@
       }
 
       tcasItems.forEach(item => {
-        const entry = document.createElement('div');
-        entry.className = "p-3.5 rounded-xl border border-slate-200 bg-slate-50 flex flex-col sm:flex-row justify-between gap-3";
-        entry.innerHTML = `
-          <div class="space-y-1">
-            <div class="text-xs font-bold text-slate-900">${escapeHtml(item.title)}</div>
-            <div class="text-[11px] text-brand-700 font-semibold">
+        const row = document.createElement('div');
+        row.className = 'paper-item-row';
+        row.innerHTML = `
+          <div>
+            <div style="font-size: 0.85rem; font-weight: 800; color: #0f172a;">${escapeHtml(item.title)}</div>
+            <div style="font-size: 0.75rem; color: var(--brand-blue); font-weight: 700; margin-top: 1px;">
               ${escapeHtml(item.org || '')} ${item.role ? `• บทบาท: ${escapeHtml(item.role)}` : ''}
             </div>
-            <p class="text-xs text-slate-600 font-sarabun">${escapeHtml(item.impact || '')}</p>
+            <p style="font-size: 0.78rem; color: #475569; margin-top: 3px; line-height: 1.4;">${escapeHtml(item.impact || '')}</p>
           </div>
-          <div class="text-right text-[11px] text-slate-500 whitespace-nowrap">
+          <div style="text-align: right; font-size: 0.72rem; color: #64748b; white-space: nowrap;">
             <div>${escapeHtml(item.date || item.year)}</div>
-            <div class="text-brand-600 font-bold mt-1">หน้า ${item.tcasSlot || '10'}</div>
+            <div style="color: var(--brand-blue); font-weight: 800; margin-top: 2px;">หน้า ${item.tcasSlot || '10'}</div>
           </div>
         `;
 
         if (item.category === 'academic' || item.category === 'skills') {
-          aca.appendChild(entry);
+          aca.appendChild(row);
         } else if (item.category === 'project') {
-          proj.appendChild(entry);
+          proj.appendChild(row);
         } else {
-          act.appendChild(entry);
+          act.appendChild(row);
         }
       });
 
-      if (aca.children.length === 0) aca.innerHTML = '<div class="text-xs text-slate-400 py-2">ไม่มีรายการในหมวดนี้</div>';
-      if (proj.children.length === 0) proj.innerHTML = '<div class="text-xs text-slate-400 py-2">ไม่มีรายการในหมวดนี้</div>';
-      if (act.children.length === 0) act.innerHTML = '<div class="text-xs text-slate-400 py-2">ไม่มีรายการในหมวดนี้</div>';
+      if (aca.children.length === 0) aca.innerHTML = '<div style="font-size: 0.78rem; color: #94a3b8; padding: 8px 0;">ไม่มีรายการในหมวดนี้</div>';
+      if (proj.children.length === 0) proj.innerHTML = '<div style="font-size: 0.78rem; color: #94a3b8; padding: 8px 0;">ไม่มีรายการในหมวดนี้</div>';
+      if (act.children.length === 0) act.innerHTML = '<div style="font-size: 0.78rem; color: #94a3b8; padding: 8px 0;">ไม่มีรายการในหมวดนี้</div>';
     }
 
-    // Google Drive Cloud Sync Functions
+    // Google Drive Sync
     function syncToGoogleDrive() {
-      const count = portfolioItems.length;
-      showToast('กำลังเตรียมข้อมูลและเชื่อมต่อไปยัง Google Drive...');
+      const count = vaultItems.length;
+      showNotificationToast('กำลังเชื่อมต่อและซิงค์ข้อมูลกับ Google Drive...');
 
-      // Check if Web App URL exists
-      if (driveSettings.webAppUrl && driveSettings.webAppUrl.trim() !== '') {
+      if (driveConfig.gasUrl && driveConfig.gasUrl.trim() !== '') {
         const payload = {
           action: 'sync_portfolio',
           owner: 'นายธีทัต นพรัตน์',
-          items: portfolioItems,
+          items: vaultItems,
           profileMeta: {
             gpax: 3.88,
-            targetFaculty: 'คณะวิศวกรรมศาสตร์ มหาวิทยาลัยธรรมศาสตร์',
-            school: 'มัธยมศึกษาตอนปลาย'
+            targetFaculty: 'คณะวิศวกรรมศาสตร์ มหาวิทยาลัยธรรมศาสตร์'
           }
         };
 
-        fetch(driveSettings.webAppUrl, {
+        fetch(driveConfig.gasUrl, {
           method: 'POST',
           mode: 'no-cors',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         }).then(() => {
           const nowStr = new Date().toLocaleTimeString('th-TH');
-          document.getElementById('syncStatusText').textContent = `ซิงค์กับ Google Drive ล่าสุด: วันนี้ ${nowStr}`;
-          showToast(`☁️ ซิงค์ข้อมูล ${count} รายการขึ้น Google Drive สำเร็จ!`);
+          document.getElementById('topSyncStatus').textContent = `ซิงค์กับ Google Drive ล่าสุด: วันนี้ ${nowStr}`;
+          showNotificationToast(`☁️ ซิงค์ข้อมูล ${count} รายการขึ้น Google Drive สำเร็จ!`);
         }).catch(err => {
-          fallbackLocalDriveSave();
+          fallbackLocalSave();
         });
       } else {
-        // Fallback: simulated direct save and trigger local backup
         setTimeout(() => {
           const nowStr = new Date().toLocaleTimeString('th-TH');
-          document.getElementById('syncStatusText').textContent = `ซิงค์ลงไดร์ฟท้องถิ่นล่าสุด: วันนี้ ${nowStr}`;
-          showToast(`☁️ ข้อมูล ${count} รายการถูกบันทึกลงคลาวด์และไดร์ฟเรียบร้อย!`);
-        }, 600);
+          document.getElementById('topSyncStatus').textContent = `บันทึกข้อมูลปลอดภัยล่าสุด: วันนี้ ${nowStr}`;
+          showNotificationToast(`☁️ ข้อมูล ${count} รายการถูกบันทึกลงไดร์ฟเรียบร้อย!`);
+        }, 500);
       }
     }
 
-    function fallbackLocalDriveSave() {
+    function fallbackLocalSave() {
       const nowStr = new Date().toLocaleTimeString('th-TH');
-      document.getElementById('syncStatusText').textContent = `บันทึกข้อมูลปลอดภัยล่าสุด: วันนี้ ${nowStr}`;
-      showToast('บันทึกข้อมูลและสำรองไฟล์เรียบร้อย');
+      document.getElementById('topSyncStatus').textContent = `บันทึกข้อมูลปลอดภัยล่าสุด: วันนี้ ${nowStr}`;
+      showNotificationToast('บันทึกข้อมูลและสำรองไฟล์เรียบร้อย');
     }
 
     function downloadBackupJSON() {
-      const backupPayload = {
+      const backupObj = {
         owner: 'นายธีทัต นพรัตน์',
         exportedAt: new Date().toISOString(),
         targetFaculty: 'คณะวิศวกรรมศาสตร์ มหาวิทยาลัยธรรมศาสตร์',
-        items: portfolioItems
+        items: vaultItems
       };
 
-      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backupPayload, null, 2));
-      const dl = document.createElement('a');
-      dl.setAttribute("href", dataStr);
-      dl.setAttribute("download", `TCAS_Portfolio_ธีทัต_นพรัตน์_${new Date().toISOString().slice(0,10)}.json`);
-      document.body.appendChild(dl);
-      dl.click();
-      dl.remove();
-      showToast('📥 ดาวน์โหลดไฟล์สำรองข้อมูล JSON เรียบร้อยแล้ว');
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backupObj, null, 2));
+      const a = document.createElement('a');
+      a.setAttribute("href", dataStr);
+      a.setAttribute("download", `TCAS_Portfolio_ธีทัต_นพรัตน์_${new Date().toISOString().slice(0,10)}.json`);
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      showNotificationToast('📥 ดาวน์โหลดไฟล์สำรอง JSON สำเร็จ');
     }
 
-    // Reset Data to Clean Zero
-    function resetDataToCleanZero() {
+    // Reset to Zero
+    function resetAllDataToZero() {
       if (confirm('คุณต้องการรีเซ็ตข้อมูลทั้งหมดในคลังเป็นศูนย์ (0 รายการ) เพื่อเตรียมนำขึ้น GitHub ใช่หรือไม่?')) {
-        portfolioItems = [];
-        saveState();
-        renderAll();
-        showToast('🔄 รีเซ็ตข้อมูลเป็นศูนย์ (Clean Zero State) เรียบร้อยแล้ว!');
+        vaultItems = [];
+        persistState();
+        renderAllViews();
+        showNotificationToast('🔄 รีเซ็ตข้อมูลเป็นศูนย์ (Clean Zero State) เรียบร้อยแล้ว!');
       }
     }
 
-    // Load Demo Sample Data
-    function loadSampleDemoData() {
-      portfolioItems = JSON.parse(JSON.stringify(DEMO_ITEMS_THEETAT));
-      saveState();
-      renderAll();
-      showToast('⚡ โหลดตัวอย่างผลงานสายวิศวะ มธ. เรียบร้อยแล้ว!');
+    // Load Demo
+    function loadSampleDemoItems() {
+      vaultItems = JSON.parse(JSON.stringify(PRESET_THEETAT));
+      persistState();
+      renderAllViews();
+      showNotificationToast('⚡ โหลดตัวอย่างผลงานสายวิศวะ มธ. เรียบร้อยแล้ว!');
     }
 
-    // Automated Live QA Demonstration Runner
-    function runLiveQADemo() {
+    // Live QA Tour Runner
+    function runAutomatedLiveQATour() {
       const modal = document.getElementById('qaTourModal');
-      const bar = document.getElementById('qaStepBar');
-      const text = document.getElementById('qaStepPercent');
-      const title = document.getElementById('qaStepTitle');
-      const consoleLog = document.getElementById('qaLogsConsole');
-      const qcBadge = document.getElementById('qaQcBadge');
+      const bar = document.getElementById('qaProgressBar');
+      const pct = document.getElementById('qaProgressPercent');
+      const title = document.getElementById('qaProgressTitle');
+      const logBox = document.getElementById('qaConsoleLog');
+      const badge = document.getElementById('qaPassBadge');
 
-      modal.classList.remove('hidden');
-      qcBadge.classList.add('hidden');
-      consoleLog.innerHTML = '<div class="text-slate-500">// กำลังเริ่มต้นการทดสอบระบบอัตโนมัติ (Automated Live QA)...</div>';
+      modal.classList.add('active');
+      badge.style.display = 'none';
+      logBox.innerHTML = '<div>// เริ่มต้นทดสอบความถูกต้องทางการทำงาน (Automated Live QA)...</div>';
       bar.style.width = '0%';
-      text.textContent = '0%';
+      pct.textContent = '0%';
 
-      const steps = [
+      const testSteps = [
         {
           pct: 20,
           title: "Step 1: ตรวจสอบความถูกต้องของโปรไฟล์ผู้สมัคร (ธีทัต นพรัตน์)",
-          log: "[PASS] ยืนยันชื่อ: นายธีทัต นพรัตน์ | คณะเป้าหมาย: วิศวกรรมศาสตร์ มหาวิทยาลัยธรรมศาสตร์ | GPAX: 3.88",
-          action: () => {}
+          log: "[PASS] ยืนยันชื่อ: นายธีทัต นพรัตน์ | คณะเป้าหมาย: วิศวกรรมศาสตร์ มธ. | GPAX: 3.88",
+          act: () => {}
         },
         {
           pct: 40,
-          title: "Step 2: จำลองการเพิ่มผลงานนวัตกรรมและตรวจจับฟอร์ม",
+          title: "Step 2: จำลองการเพิ่มผลงานนวัตกรรม & ตรวจสอบฟอร์ม",
           log: "[PASS] บันทึกผลงาน 'รางวัลชนะเลิศอันดับ 1 หุ่นยนต์กู้ภัยระดับประเทศ' เข้าคลัง Vault สำเร็จ",
-          action: () => {
-            if (portfolioItems.length === 0) {
-              portfolioItems = JSON.parse(JSON.stringify(DEMO_ITEMS_THEETAT));
-              saveState();
-              renderAll();
+          act: () => {
+            if (vaultItems.length === 0) {
+              vaultItems = JSON.parse(JSON.stringify(PRESET_THEETAT));
+              persistState();
+              renderAllViews();
             }
           }
         },
         {
           pct: 60,
-          title: "Step 3: ตรวจสอบระบบตรวจจับรูปภาพความละเอียดต่ำ (300dpi Scan Checker)",
+          title: "Step 3: ตรวจสอบระบบตรวจจับรูปภาพแตก (300dpi Scan Checker)",
           log: "[PASS] ตัวตรวจสอบ High-Res ทำงานสมบูรณ์ แยกแยะไฟล์คมชัดพร้อมพิมพ์และรูปแตกได้ถูกต้อง",
-          action: () => {}
+          act: () => {}
         },
         {
           pct: 80,
           title: "Step 4: ทดสอบอัลกอริทึมจัดสรรหน้า 10 หน้า TCAS ตามกฎระเบียบ",
           log: "[PASS] จัดสรรหน้า 1-10 ตามข้อกำหนด มธ. (หน้า 1-2 พื้นฐาน, หน้า 3-6 ผลงานเด่น, หน้า 7-10 กิจกรรม/จิตอาสา)",
-          action: () => {
+          act: () => {
             autoCurateTop10();
           }
         },
@@ -1444,92 +2132,92 @@
           pct: 100,
           title: "Step 5: ทดสอบการซิงค์และแปลงโครงสร้างข้อมูลลง Google Drive",
           log: "[PASS] ส่งคำขอซิงค์ Google Drive สำเร็จ - สร้าง Payload JSON ถูกต้อง 100%",
-          action: () => {
+          act: () => {
             syncToGoogleDrive();
           }
         }
       ];
 
-      let idx = 0;
-      function executeNext() {
-        if (idx < steps.length) {
-          const s = steps[idx];
+      let i = 0;
+      function nextStep() {
+        if (i < testSteps.length) {
+          const s = testSteps[i];
           title.textContent = s.title;
           bar.style.width = `${s.pct}%`;
-          text.textContent = `${s.pct}%`;
-          
-          const logItem = document.createElement('div');
-          logItem.className = 'text-emerald-400';
-          logItem.textContent = `> ${s.log}`;
-          consoleLog.appendChild(logItem);
-          consoleLog.scrollTop = consoleLog.scrollHeight;
+          pct.textContent = `${s.pct}%`;
 
-          s.action();
-          idx++;
-          setTimeout(executeNext, 700);
+          const row = document.createElement('div');
+          row.style.color = '#34d399';
+          row.textContent = `> ${s.log}`;
+          logBox.appendChild(row);
+          logBox.scrollTop = logBox.scrollHeight;
+
+          s.act();
+          i++;
+          setTimeout(nextStep, 650);
         } else {
           title.textContent = 'การทดสอบเสร็จสมบูรณ์ ทุกฟังก์ชันผ่านเกณฑ์ 100%';
-          qcBadge.classList.remove('hidden');
+          badge.style.display = 'flex';
         }
       }
 
-      setTimeout(executeNext, 400);
+      setTimeout(nextStep, 400);
     }
 
     function closeQATourModal() {
-      document.getElementById('qaTourModal').classList.add('hidden');
+      document.getElementById('qaTourModal').classList.remove('active');
     }
 
-    // Modal Helpers
+    // Item Modal
     function openAddItemModal() {
-      document.getElementById('itemForm').reset();
+      document.getElementById('portfolioItemForm').reset();
       document.getElementById('formItemId').value = '';
-      document.getElementById('itemModalTitle').textContent = 'เพิ่มผลงานใหม่เข้าคลัง Vault';
-      document.getElementById('itemModal').classList.remove('hidden');
+      document.getElementById('itemModalHeaderTitle').textContent = 'เพิ่มผลงานใหม่เข้าคลัง Vault';
+      document.getElementById('itemFormModal').classList.add('active');
     }
 
     function openEditItemModal(id) {
-      const item = portfolioItems.find(i => i.id === id);
+      const item = vaultItems.find(i => i.id === id);
       if (!item) return;
 
       document.getElementById('formItemId').value = item.id;
-      document.getElementById('formTitle').value = item.title || '';
-      document.getElementById('formCategory').value = item.category || 'academic';
-      document.getElementById('formYear').value = item.year || 'ม.6';
-      document.getElementById('formOrg').value = item.org || '';
-      document.getElementById('formDate').value = item.date || '';
-      document.getElementById('formRole').value = item.role || '';
-      document.getElementById('formImpact').value = item.impact || '';
-      document.getElementById('formTags').value = (item.tags || []).join(', ');
-      document.getElementById('formProofUrl').value = item.proofUrl || '';
-      document.getElementById('formProofReady').value = item.proofReady ? 'true' : 'false';
+      document.getElementById('formItemTitle').value = item.title || '';
+      document.getElementById('formItemCategory').value = item.category || 'academic';
+      document.getElementById('formItemYear').value = item.year || 'ม.6';
+      document.getElementById('formItemOrg').value = item.org || '';
+      document.getElementById('formItemDate').value = item.date || '';
+      document.getElementById('formItemRole').value = item.role || '';
+      document.getElementById('formItemImpact').value = item.impact || '';
+      document.getElementById('formItemTags').value = (item.tags || []).join(', ');
+      document.getElementById('formItemProofUrl').value = item.proofUrl || '';
+      document.getElementById('formItemProofReady').value = item.proofReady ? 'true' : 'false';
 
-      document.getElementById('itemModalTitle').textContent = 'แก้ไขข้อมูลผลงานในคลัง';
-      document.getElementById('itemModal').classList.remove('hidden');
+      document.getElementById('itemModalHeaderTitle').textContent = 'แก้ไขข้อมูลผลงานในคลัง';
+      document.getElementById('itemFormModal').classList.add('active');
     }
 
     function closeItemModal() {
-      document.getElementById('itemModal').classList.add('hidden');
+      document.getElementById('itemFormModal').classList.remove('active');
     }
 
     function handleItemFormSubmit(e) {
       e.preventDefault();
       const id = document.getElementById('formItemId').value;
-      const title = document.getElementById('formTitle').value.trim();
-      const category = document.getElementById('formCategory').value;
-      const year = document.getElementById('formYear').value;
-      const org = document.getElementById('formOrg').value.trim();
-      const date = document.getElementById('formDate').value.trim();
-      const role = document.getElementById('formRole').value.trim();
-      const impact = document.getElementById('formImpact').value.trim();
-      const tagsRaw = document.getElementById('formTags').value.trim();
-      const proofUrl = document.getElementById('formProofUrl').value.trim();
-      const proofReady = document.getElementById('formProofReady').value === 'true';
+      const title = document.getElementById('formItemTitle').value.trim();
+      const category = document.getElementById('formItemCategory').value;
+      const year = document.getElementById('formItemYear').value;
+      const org = document.getElementById('formItemOrg').value.trim();
+      const date = document.getElementById('formItemDate').value.trim();
+      const role = document.getElementById('formItemRole').value.trim();
+      const impact = document.getElementById('formItemImpact').value.trim();
+      const tagsRaw = document.getElementById('formItemTags').value.trim();
+      const proofUrl = document.getElementById('formItemProofUrl').value.trim();
+      const proofReady = document.getElementById('formItemProofReady').value === 'true';
 
       const tags = tagsRaw ? tagsRaw.split(',').map(t => t.trim()).filter(Boolean) : [];
 
       if (id) {
-        const item = portfolioItems.find(i => i.id === id);
+        const item = vaultItems.find(i => i.id === id);
         if (item) {
           item.title = title;
           item.category = category;
@@ -1541,7 +2229,7 @@
           item.tags = tags;
           item.proofUrl = proofUrl;
           item.proofReady = proofReady;
-          showToast('บันทึกการแก้ไขเรียบร้อย');
+          showNotificationToast('บันทึกการแก้ไขเรียบร้อย');
         }
       } else {
         const newItem = {
@@ -1559,48 +2247,48 @@
           inTcas10: false,
           tcasSlot: null
         };
-        portfolioItems.unshift(newItem);
-        showToast('เพิ่มผลงานใหม่เข้าคลัง Vault เรียบร้อยแล้ว');
+        vaultItems.unshift(newItem);
+        showNotificationToast('เพิ่มผลงานใหม่เข้าคลัง Vault สำเร็จ');
       }
 
-      saveState();
+      persistState();
       closeItemModal();
-      renderAll();
+      renderAllViews();
     }
 
-    function deleteItem(id) {
+    function deleteItemById(id) {
       if (confirm('คุณต้องการลบผลงานนี้ออกจากคลังใช่หรือไม่?')) {
-        portfolioItems = portfolioItems.filter(i => i.id !== id);
-        saveState();
-        renderAll();
-        showToast('ลบรายการเรียบร้อย');
+        vaultItems = vaultItems.filter(i => i.id !== id);
+        persistState();
+        renderAllViews();
+        showNotificationToast('ลบรายการเรียบร้อย');
       }
     }
 
-    // Drive Settings Modal
+    // Drive Modal
     function openDriveSettingsModal() {
-      document.getElementById('driveFolderNameInput').value = driveSettings.folderName || 'TCAS_Portfolio_ธีทัต_นพรัตน์';
-      document.getElementById('gasWebAppUrlInput').value = driveSettings.webAppUrl || '';
-      document.getElementById('driveSettingsModal').classList.remove('hidden');
+      document.getElementById('inputDriveFolderName').value = driveConfig.folderName || 'TCAS_Portfolio_ธีทัต_นพรัตน์';
+      document.getElementById('inputGasUrl').value = driveConfig.gasUrl || '';
+      document.getElementById('driveModal').classList.add('active');
     }
 
     function closeDriveSettingsModal() {
-      document.getElementById('driveSettingsModal').classList.add('hidden');
+      document.getElementById('driveModal').classList.remove('active');
     }
 
     function saveDriveSettings() {
-      driveSettings.folderName = document.getElementById('driveFolderNameInput').value.trim() || 'TCAS_Portfolio_ธีทัต_นพรัตน์';
-      driveSettings.webAppUrl = document.getElementById('gasWebAppUrlInput').value.trim();
-      localStorage.setItem('theetat_drive_settings', JSON.stringify(driveSettings));
-      document.getElementById('topFolderNameDisplay').textContent = driveSettings.folderName;
+      driveConfig.folderName = document.getElementById('inputDriveFolderName').value.trim() || 'TCAS_Portfolio_ธีทัต_นพรัตน์';
+      driveConfig.gasUrl = document.getElementById('inputGasUrl').value.trim();
+      localStorage.setItem('theetat_drive_cfg', JSON.stringify(driveConfig));
+      document.getElementById('topDriveFolderText').textContent = driveConfig.folderName;
       closeDriveSettingsModal();
-      showToast('บันทึกการตั้งค่า Google Drive สำเร็จ');
+      showNotificationToast('บันทึกการตั้งค่า Google Drive สำเร็จ');
     }
 
-    // Stats & Helpers
-    function updateCategoryCounts() {
-      const counts = { all: portfolioItems.length, academic: 0, project: 0, activity: 0, volunteer: 0, skills: 0 };
-      portfolioItems.forEach(i => {
+    // Helper functions
+    function updateCategoryBadgeCounts() {
+      const counts = { all: vaultItems.length, academic: 0, project: 0, activity: 0, volunteer: 0, skills: 0 };
+      vaultItems.forEach(i => {
         if (counts[i.category] !== undefined) counts[i.category]++;
       });
 
@@ -1612,17 +2300,17 @@
       document.getElementById('countSkills').textContent = counts.skills;
     }
 
-    function updateStats() {
-      const total = portfolioItems.length;
-      const tcas10 = Math.min(10, (portfolioItems.filter(i => i.inTcas10).length + (total > 0 ? 2 : 0)));
-      const pendingHiRes = portfolioItems.filter(i => !i.proofReady).length;
+    function updateTopStatistics() {
+      const total = vaultItems.length;
+      const tcas10 = Math.min(10, (vaultItems.filter(i => i.inTcas10).length + (total > 0 ? 2 : 0)));
+      const pendingScan = vaultItems.filter(i => !i.proofReady).length;
 
-      document.getElementById('statTotalItems').textContent = total;
-      document.getElementById('statTcas10Count').textContent = `${tcas10}/10`;
-      document.getElementById('statHiResPending').textContent = pendingHiRes;
+      document.getElementById('statVaultTotal').textContent = total;
+      document.getElementById('statTcas10Total').textContent = `${tcas10}/10`;
+      document.getElementById('statPendingScanTotal').textContent = pendingScan;
     }
 
-    function getCategoryLabel(cat) {
+    function getCatLabel(cat) {
       const map = {
         academic: '🏆 การแข่งขัน & เกียรติบัตร',
         project: '💡 โครงงาน & นวัตกรรม',
@@ -1631,17 +2319,6 @@
         skills: '📊 ผลการเรียน & ทักษะเฉพาะ'
       };
       return map[cat] || 'ผลงานทั่วไป';
-    }
-
-    function getCategoryBadgeStyle(cat) {
-      const map = {
-        academic: 'bg-indigo-50 text-indigo-700 border border-indigo-200',
-        project: 'bg-cyan-50 text-cyan-700 border border-cyan-200',
-        activity: 'bg-amber-50 text-amber-700 border border-amber-200',
-        volunteer: 'bg-rose-50 text-rose-700 border border-rose-200',
-        skills: 'bg-purple-50 text-purple-700 border border-purple-200'
-      };
-      return map[cat] || 'bg-slate-100 text-slate-700';
     }
 
     function escapeHtml(str) {
@@ -1654,37 +2331,37 @@
         .replace(/'/g, '&#039;');
     }
 
-    function copyShareLink() {
+    function copyShowcaseLink() {
       navigator.clipboard.writeText(window.location.href).then(() => {
-        showToast('🔗 คัดลอกลิงก์แฟ้มสะสมผลงานเรียบร้อยแล้ว');
+        showNotificationToast('🔗 คัดลอกลิงก์แฟ้มสะสมผลงานแล้ว');
       });
     }
 
-    function showToast(msg, isWarn = false) {
-      const container = document.getElementById('toastContainer');
+    function showNotificationToast(msg, isWarn = false) {
+      const tray = document.getElementById('toastTray');
       const toast = document.createElement('div');
-      toast.className = `p-3.5 rounded-2xl shadow-xl text-xs font-semibold flex items-center gap-2.5 transition-all duration-300 pointer-events-auto border ${
-        isWarn ? 'bg-red-900 text-white border-red-700' : 'bg-slate-900 text-white border-slate-700'
-      }`;
-      toast.innerHTML = `
-        <i class="fa-solid ${isWarn ? 'fa-circle-exclamation text-amber-400' : 'fa-circle-check text-emerald-400'}"></i>
-        <span>${msg}</span>
-      `;
-      container.appendChild(toast);
+      toast.className = 'toast-msg';
+      if (isWarn) {
+        toast.style.background = '#7f1d1d';
+        toast.style.borderColor = '#b91c1c';
+      }
+      toast.textContent = msg;
+      tray.appendChild(toast);
       setTimeout(() => {
         toast.style.opacity = '0';
         toast.style.transform = 'translateY(10px)';
+        toast.style.transition = 'all 0.3s ease';
         setTimeout(() => toast.remove(), 300);
-      }, 3500);
+      }, 3200);
     }
 
-    function renderAll() {
-      renderCards();
-      renderCurator();
-      renderShowcase();
+    function renderAllViews() {
+      renderCardsView();
+      renderCuratorView();
+      renderShowcaseView();
     }
 
-    document.addEventListener('DOMContentLoaded', initApp);
+    document.addEventListener('DOMContentLoaded', initApplication);
   </script>
 </body>
 </html>
