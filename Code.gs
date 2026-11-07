@@ -18,7 +18,7 @@
 
 // โฟลเดอร์ปลายทางใน Google Drive สำหรับเก็บข้อมูลพอร์ตของน้องธีทัต
 // (หากปล่อยว่าง ระบบจะสร้างโฟลเดอร์ชื่อ 'TCAS_Portfolio_ธีทัต_นพรัตน์' ให้อัตโนมัติบน My Drive)
-const TARGET_FOLDER_ID = ""; 
+const TARGET_FOLDER_ID = "1XivRFrJKQhmQTmqBHG1kczbz4rgvDAZ9"; 
 const PORTFOLIO_OWNER = "นายธีทัต นพรัตน์";
 const BACKUP_JSON_NAME = "portfolio_theetat_backup.json";
 

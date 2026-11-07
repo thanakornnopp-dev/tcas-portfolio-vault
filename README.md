@@ -34,6 +34,7 @@
 ```
 tcas-portfolio-vault/
 ├── index.html                   # เว็บแอปพลิเคชันระบบจัดการและคัดเลือกพอร์ต (เปิดผ่านเบราว์เซอร์ได้ทันที)
+├── Code.gs                      # Google Apps Script Backend (เชื่อมต่อกับ Google Drive Folder ID: 1XivRFrJKQhmQTmqBHG1kczbz4rgvDAZ9)
 ├── README.md                    # เอกสารคู่มือเล่มนี้
 ├── data/
 │   └── portfolio_items.json     # ฐานข้อมูลสำรอง (JSON Backup)
@@ -45,6 +46,13 @@ tcas-portfolio-vault/
     ├── volunteers/              # สมุดบันทึกชั่วโมงจิตอาสา & รูปกิจกรรมบำเพ็ญประโยชน์
     └── transcripts/             # ใบ รบ. (ปพ.1) 5 เทอม, ผลสอบ IELTS, TPAT3
 ```
+
+---
+
+## ☁️ 4. การเชื่อมโยง Google Drive Cloud Storage (แบบเดียวกับ Fluid Lab Portal)
+- **โฟลเดอร์ Google Drive ปลายทาง:** `https://drive.google.com/drive/folders/1XivRFrJKQhmQTmqBHG1kczbz4rgvDAZ9` (Folder ID: `1XivRFrJKQhmQTmqBHG1kczbz4rgvDAZ9`)
+- **ไฟล์ Code.gs:** บันทึกและสำรองข้อมูลไฟล์เกียรติบัตรและ JSON backup เข้าโฟลเดอร์นี้โดยตรง
+- **ติดตั้ง Web App:** นำไฟล์ `Code.gs` ไปสร้างสคริปต์ใน Google Drive และกด Deploy Web App (Execute as: Me, Who has access: Anyone) แล้วนำ Web App URL มาใส่ในเมนูตั้งค่าบนหน้าเว็บ
 
 ---
 

@@ -1039,8 +1039,11 @@
           <span class="sync-dot"></span>
           Google Drive Sync Ready
         </span>
-        <span style="color: #94a3b8;">
-          โฟลเดอร์ Google Drive: <strong style="color: #f8fafc;" id="topDriveFolderText">TCAS_Portfolio_ธีทัต_นพรัตน์</strong>
+        <span style="color: #94a3b8; display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+          โฟลเดอร์ Google Drive: <strong style="color: #38bdf8; font-family: monospace;" id="topDriveFolderText">1XivRFrJKQhmQTmqBHG1kczbz4rgvDAZ9</strong>
+          <a id="topDriveFolderLink" href="https://drive.google.com/drive/folders/1XivRFrJKQhmQTmqBHG1kczbz4rgvDAZ9" target="_blank" rel="noopener noreferrer" style="color: #38bdf8; text-decoration: underline; font-size: 0.75rem; background: rgba(56, 189, 248, 0.1); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(56, 189, 248, 0.25);">
+            เปิดดูใน Drive ↗
+          </a>
         </span>
         <span style="color: #64748b;">|</span>
         <span style="color: #cbd5e1;" id="topSyncStatus">
@@ -1474,10 +1477,15 @@
 
       <div style="display: flex; flex-direction: column; gap: 12px;">
         <div class="form-group-wrap">
-          <label>Google Drive Folder ID (เปรียบเสมือน TARGET_FOLDER_ID ในเว็บแล็บ)</label>
-          <input type="text" id="inputDriveFolderId" placeholder="เช่น 1eDQnW6nPjbYdv4eFocKn9pgSB4BO4g8c หรือ TCAS_Portfolio_ธีทัต_นพรัตน์">
-          <span style="font-size: 0.72rem; color: var(--text-dim); margin-top: 2px;">
-            * สามารถสร้างโฟลเดอร์ใน Google Drive ของคุณธนภรณ์ แล้วคัดลอกรหัส Folder ID ท้าย URL มาใส่ช่องนี้ได้เลยครับ
+          <label>Google Drive Folder ID (TARGET_FOLDER_ID)</label>
+          <div style="display: flex; gap: 8px;">
+            <input type="text" id="inputDriveFolderId" value="1XivRFrJKQhmQTmqBHG1kczbz4rgvDAZ9" style="flex: 1; font-family: monospace;">
+            <a id="btnOpenDriveInModal" href="https://drive.google.com/drive/folders/1XivRFrJKQhmQTmqBHG1kczbz4rgvDAZ9" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="text-decoration: none; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap;">
+              เปิด Drive ↗
+            </a>
+          </div>
+          <span style="font-size: 0.72rem; color: #0284c7; margin-top: 2px;">
+            ✓ โฟลเดอร์ปลายทางของน้องธีทัต: <code>1XivRFrJKQhmQTmqBHG1kczbz4rgvDAZ9</code> เชื่อมต่อสำเร็จ
           </span>
         </div>
 
@@ -1510,7 +1518,7 @@
     let vaultItems = [];
     let currentFilterCat = 'all';
     let driveConfig = {
-      folderId: 'TCAS_Portfolio_ธีทัต_นพรัตน์',
+      folderId: '1XivRFrJKQhmQTmqBHG1kczbz4rgvDAZ9',
       gasUrl: ''
     };
     let currentUploadedFileData = null;
@@ -1519,13 +1527,27 @@
     let demoTimer = null;
     let isDemoPaused = false;
 
+    function updateDriveFolderDisplay() {
+      const folderEl = document.getElementById('topDriveFolderText');
+      const linkEl = document.getElementById('topDriveFolderLink');
+      const modalBtn = document.getElementById('btnOpenDriveInModal');
+      const fid = driveConfig.folderId || '1XivRFrJKQhmQTmqBHG1kczbz4rgvDAZ9';
+      if (folderEl) folderEl.textContent = fid;
+      const targetUrl = (fid && fid.length > 15) ? `https://drive.google.com/drive/folders/${fid}` : `https://drive.google.com/drive/my-drive`;
+      if (linkEl) linkEl.href = targetUrl;
+      if (modalBtn) modalBtn.href = targetUrl;
+    }
+
     function initApplication() {
       // Load Drive Config
       const savedDrive = localStorage.getItem('theetat_drive_cfg');
       if (savedDrive) {
         try { driveConfig = JSON.parse(savedDrive); } catch(e){}
       }
-      document.getElementById('topDriveFolderText').textContent = driveConfig.folderId || 'TCAS_Portfolio_ธีทัต_นพรัตน์';
+      if (!driveConfig.folderId || driveConfig.folderId === 'TCAS_Portfolio_ธีทัต_นพรัตน์') {
+        driveConfig.folderId = '1XivRFrJKQhmQTmqBHG1kczbz4rgvDAZ9';
+      }
+      updateDriveFolderDisplay();
 
       // Load Items (Default Clean Zero)
       const savedItems = localStorage.getItem('theetat_vault_data');
@@ -2154,7 +2176,7 @@
 
     // Drive Modal
     function openDriveSettingsModal() {
-      document.getElementById('inputDriveFolderId').value = driveConfig.folderId || 'TCAS_Portfolio_ธีทัต_นพรัตน์';
+      document.getElementById('inputDriveFolderId').value = driveConfig.folderId || '1XivRFrJKQhmQTmqBHG1kczbz4rgvDAZ9';
       document.getElementById('inputGasUrl').value = driveConfig.gasUrl || '';
       document.getElementById('driveModal').classList.add('active');
     }
@@ -2164,10 +2186,10 @@
     }
 
     function saveDriveSettings() {
-      driveConfig.folderId = document.getElementById('inputDriveFolderId').value.trim() || 'TCAS_Portfolio_ธีทัต_นพรัตน์';
+      driveConfig.folderId = document.getElementById('inputDriveFolderId').value.trim() || '1XivRFrJKQhmQTmqBHG1kczbz4rgvDAZ9';
       driveConfig.gasUrl = document.getElementById('inputGasUrl').value.trim();
       localStorage.setItem('theetat_drive_cfg', JSON.stringify(driveConfig));
-      document.getElementById('topDriveFolderText').textContent = driveConfig.folderId;
+      updateDriveFolderDisplay();
       closeDriveSettingsModal();
       showNotificationToast('บันทึกการตั้งค่า Google Drive สำเร็จ');
     }
