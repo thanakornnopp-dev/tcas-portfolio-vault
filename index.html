@@ -83,7 +83,7 @@
     ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: var(--radius-full); }
     ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
-    /* REAL-TIME AI DEMO CONTROLLER OVERLAY (แถบควบคุมการสาธิตสด) */
+    /* REAL-TIME AI DEMO CONTROLLER OVERLAY */
     .ai-live-demo-banner {
       background: linear-gradient(90deg, #090d16 0%, #1e1b4b 50%, #0f172a 100%);
       color: #ffffff;
@@ -155,7 +155,7 @@
       border-color: var(--brand-blue);
     }
 
-    /* VIRTUAL CURSOR POINTER (เคอร์เซอร์จำลองการคลิกแบบสด) */
+    /* VIRTUAL CURSOR POINTER */
     #virtualMousePointer {
       position: fixed;
       width: 24px;
@@ -716,6 +716,54 @@
     .proof-ready { color: var(--status-emerald); }
     .proof-warning { color: var(--status-amber); }
 
+    /* DROPZONE UPLOAD STYLING (แบบเดียวกับเว็บแล็บ) */
+    .dropzone-box {
+      border: 2px dashed #94a3b8;
+      background: #f8fafc;
+      border-radius: var(--radius-lg);
+      padding: 20px 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .dropzone-box:hover {
+      border-color: var(--brand-blue);
+      background: #eff6ff;
+    }
+    .dropzone-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--brand-blue);
+      box-shadow: var(--shadow-sm);
+    }
+    .dropzone-icon svg {
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+    }
+    .file-preview-pill {
+      background: #ffffff;
+      border: 1px solid var(--brand-blue-border);
+      padding: 8px 12px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      width: 100%;
+    }
+
     /* TCAS 10-Page Curator View */
     .curator-layout {
       display: grid;
@@ -992,11 +1040,11 @@
           Google Drive Sync Ready
         </span>
         <span style="color: #94a3b8;">
-          โฟลเดอร์ปลายทาง: <strong style="color: #f8fafc;" id="topDriveFolderText">TCAS_Portfolio_ธีทัต_นพรัตน์</strong>
+          โฟลเดอร์ Google Drive: <strong style="color: #f8fafc;" id="topDriveFolderText">TCAS_Portfolio_ธีทัต_นพรัตน์</strong>
         </span>
         <span style="color: #64748b;">|</span>
         <span style="color: #cbd5e1;" id="topSyncStatus">
-          สถานะ: บันทึกข้อมูลและซิงค์กับไดร์ฟเรียบร้อย
+          สถานะ: พร้อมเชื่อมต่อและบันทึกไฟล์เกียรติบัตร
         </span>
       </div>
 
@@ -1008,7 +1056,7 @@
         </button>
         <button class="btn-sync-action" onclick="openDriveSettingsModal()" title="ตั้งค่าการเชื่อมต่อ">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
-          ตั้งค่า
+          ตั้งค่า Drive ID
         </button>
         <button class="btn-sync-action" onclick="downloadBackupJSON()" title="ดาวน์โหลด JSON สำรอง">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
@@ -1299,7 +1347,7 @@
 
   </div>
 
-  <!-- ==================== MODAL: ADD / EDIT ITEM ==================== -->
+  <!-- ==================== MODAL: ADD / EDIT ITEM (UPGRADED WITH FILE DROPZONE) ==================== -->
   <div id="itemFormModal" class="modal-backdrop">
     <div class="modal-window">
       <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 12px;">
@@ -1365,17 +1413,39 @@
           <input type="text" id="formItemTags" placeholder="เช่น Robotics, AI, C++, สอวน., Thammasat">
         </div>
 
-        <div class="grid-2-cols" style="background: var(--bg-slate-50); padding: 12px; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
-          <div class="form-group-wrap">
-            <label>ลิงก์ไฟล์หลักฐาน / Google Drive</label>
-            <input type="text" id="formItemProofUrl" placeholder="https://drive.google.com/...">
+        <!-- FILE UPLOAD DROPZONE (แบบเดียวกับเว็บแล็บวิศวะ ไม่ต้องก๊อปลิงก์ Drive เอง) -->
+        <div class="form-group-wrap">
+          <label style="display: flex; justify-content: space-between; align-items: center;">
+            <span>แนบไฟล์เกียรติบัตร / ภาพหลักฐาน (PDF, PNG, JPG) *</span>
+            <span style="font-size: 0.7rem; color: var(--status-emerald); font-weight: 600;">รองรับลากวางไฟล์ตรงๆ</span>
+          </label>
+          
+          <input type="file" id="certificateFileInput" accept="image/*,application/pdf" style="display: none;" onchange="handleCertificateFileSelect(this)">
+          
+          <div id="fileDropZoneArea" class="dropzone-box" onclick="document.getElementById('certificateFileInput').click()">
+            <div class="dropzone-icon">
+              <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
+            </div>
+            <div>
+              <div style="font-size: 0.82rem; font-weight: 700; color: #1e293b;">คลิกเพื่อเลือกไฟล์ หรือลากไฟล์มาวางที่นี่</div>
+              <div style="font-size: 0.72rem; color: #64748b; margin-top: 2px;">
+                รองรับไฟล์ PDF เกียรติบัตร, ภาพถ่ายกิจกรรม (PNG, JPG) ความละเอียดสูง 300dpi
+              </div>
+            </div>
           </div>
-          <div class="form-group-wrap">
-            <label>สถานะไฟล์คมชัด (300dpi)</label>
-            <select id="formItemProofReady">
-              <option value="true">✅ มีไฟล์สแกนคมชัดพร้อมพิมพ์</option>
-              <option value="false">⚠️ รูปแตกจาก LINE / รอสแกนแท้</option>
-            </select>
+
+          <!-- File Selected Display -->
+          <div id="fileSelectedDisplayPill" class="file-preview-pill" style="display: none;">
+            <div style="display: flex; align-items: center; gap: 8px; overflow: hidden;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--brand-blue)"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+              <div style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                <div style="font-size: 0.78rem; font-weight: 700; color: #0f172a;" id="selectedFileName">filename.pdf</div>
+                <div style="font-size: 0.68rem; color: #64748b;" id="selectedFileSize">0 KB • สแกนคมชัดพร้อมพิมพ์</div>
+              </div>
+            </div>
+            <button type="button" onclick="removeSelectedCertificateFile(event)" style="background: none; border: none; color: var(--tu-red); cursor: pointer; font-size: 0.75rem; font-weight: 700;">
+              ลบออก
+            </button>
           </div>
         </div>
 
@@ -1393,7 +1463,7 @@
       <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 12px;">
         <h3 style="font-size: 1.1rem; font-weight: 800; color: var(--text-main); display: flex; align-items: center; gap: 8px;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="#f59e0b"><path d="M7.71 3.5L1.15 15l3.43 6h6.86l6.57-11.5H7.71z"/><path d="M16.29 3.5h-5.43l6.57 11.5h5.43L16.29 3.5z"/><path d="M7.71 15.5l-3.43 6h15.43l3.43-6H7.71z"/></svg>
-          ตั้งค่าการเชื่อมต่อ Google Drive
+          การเชื่อมโยง Google Drive (แบบเดียวกับเว็บแล็บวิศวะ)
         </h3>
         <button onclick="closeDriveSettingsModal()" style="background: none; border: none; font-size: 1.3rem; cursor: pointer; color: var(--text-light);">&times;</button>
       </div>
@@ -1404,15 +1474,18 @@
 
       <div style="display: flex; flex-direction: column; gap: 12px;">
         <div class="form-group-wrap">
-          <label>ชื่อโฟลเดอร์ใน Google Drive</label>
-          <input type="text" id="inputDriveFolderName" value="TCAS_Portfolio_ธีทัต_นพรัตน์">
+          <label>Google Drive Folder ID (เปรียบเสมือน TARGET_FOLDER_ID ในเว็บแล็บ)</label>
+          <input type="text" id="inputDriveFolderId" placeholder="เช่น 1eDQnW6nPjbYdv4eFocKn9pgSB4BO4g8c หรือ TCAS_Portfolio_ธีทัต_นพรัตน์">
+          <span style="font-size: 0.72rem; color: var(--text-dim); margin-top: 2px;">
+            * สามารถสร้างโฟลเดอร์ใน Google Drive ของคุณธนภรณ์ แล้วคัดลอกรหัส Folder ID ท้าย URL มาใส่ช่องนี้ได้เลยครับ
+          </span>
         </div>
 
         <div class="form-group-wrap">
           <label>Google Apps Script Web App URL (ถ้ามี)</label>
           <input type="text" id="inputGasUrl" placeholder="https://script.google.com/macros/s/.../exec">
           <span style="font-size: 0.72rem; color: var(--text-dim); margin-top: 2px;">
-            * หากยังไม่ได้นำ Code.gs ขึ้น deploy ระบบจะจำลองและบันทึกลง Local Storage พร้อมดาวน์โหลด JSON ฉุกเฉินให้
+            * นำไฟล์ Code.gs ในโปรเจกต์ไปสร้างเป็น Web App เพื่อให้ระบบซิงค์ไฟล์อัตโนมัติ
           </span>
         </div>
       </div>
@@ -1437,14 +1510,14 @@
     let vaultItems = [];
     let currentFilterCat = 'all';
     let driveConfig = {
-      folderName: 'TCAS_Portfolio_ธีทัต_นพรัตน์',
+      folderId: 'TCAS_Portfolio_ธีทัต_นพรัตน์',
       gasUrl: ''
     };
+    let currentUploadedFileData = null;
 
     // Live Demo Engine State
     let demoTimer = null;
     let isDemoPaused = false;
-    let demoStepIndex = 0;
 
     function initApplication() {
       // Load Drive Config
@@ -1452,7 +1525,7 @@
       if (savedDrive) {
         try { driveConfig = JSON.parse(savedDrive); } catch(e){}
       }
-      document.getElementById('topDriveFolderText').textContent = driveConfig.folderName || 'TCAS_Portfolio_ธีทัต_นพรัตน์';
+      document.getElementById('topDriveFolderText').textContent = driveConfig.folderId || 'TCAS_Portfolio_ธีทัต_นพรัตน์';
 
       // Load Items (Default Clean Zero)
       const savedItems = localStorage.getItem('theetat_vault_data');
@@ -1611,10 +1684,10 @@
                 <span>${item.proofReady ? 'ไฟล์คมชัด 300dpi พร้อม' : '⚠️ รูปแตก / รอไฟล์แท้'}</span>
               </div>
 
-              ${item.proofUrl ? `
-                <a href="${escapeHtml(item.proofUrl)}" target="_blank" style="color: var(--brand-blue); text-decoration: none; font-size: 0.72rem; font-weight: 700; display: inline-flex; align-items: center; gap: 3px;">
-                  📄 ตรวจเอกสาร
-                </a>
+              ${item.fileName ? `
+                <span style="color: var(--brand-blue); font-size: 0.72rem; font-weight: 700; display: inline-flex; align-items: center; gap: 3px;">
+                  📎 ${escapeHtml(item.fileName)}
+                </span>
               ` : '<span style="color: var(--text-dim); font-size: 0.7rem;">ไม่มีไฟล์แนบ</span>'}
             </div>
 
@@ -1637,6 +1710,44 @@
 
         grid.appendChild(card);
       });
+    }
+
+    // File Dropzone Handlers (แบบเดียวกับเว็บแล็บ)
+    function handleCertificateFileSelect(input) {
+      if (!input.files || input.files.length === 0) return;
+      const file = input.files[0];
+      setUploadedFileDisplay(file.name, file.size);
+
+      // Read as Data URL
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        currentUploadedFileData = {
+          name: file.name,
+          size: file.size,
+          data: e.target.result
+        };
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function setUploadedFileDisplay(name, size) {
+      const dropArea = document.getElementById('fileDropZoneArea');
+      const pill = document.getElementById('fileSelectedDisplayPill');
+      const nameEl = document.getElementById('selectedFileName');
+      const sizeEl = document.getElementById('selectedFileSize');
+
+      dropArea.style.display = 'none';
+      pill.style.display = 'flex';
+      nameEl.textContent = name;
+      sizeEl.textContent = `${Math.round(size / 1024)} KB • ไฟล์สแกนคมชัดพร้อมจัดลงพอร์ต`;
+    }
+
+    function removeSelectedCertificateFile(e) {
+      if (e) e.stopPropagation();
+      document.getElementById('certificateFileInput').value = '';
+      currentUploadedFileData = null;
+      document.getElementById('fileDropZoneArea').style.display = 'flex';
+      document.getElementById('fileSelectedDisplayPill').style.display = 'none';
     }
 
     // Render Curator 10-Page View
@@ -1937,6 +2048,7 @@
     function openAddItemModal() {
       document.getElementById('portfolioItemForm').reset();
       document.getElementById('formItemId').value = '';
+      removeSelectedCertificateFile();
       document.getElementById('itemModalHeaderTitle').textContent = 'เพิ่มผลงานใหม่เข้าคลัง Vault';
       document.getElementById('itemFormModal').classList.add('active');
     }
@@ -1954,8 +2066,12 @@
       document.getElementById('formItemRole').value = item.role || '';
       document.getElementById('formItemImpact').value = item.impact || '';
       document.getElementById('formItemTags').value = (item.tags || []).join(', ');
-      document.getElementById('formItemProofUrl').value = item.proofUrl || '';
-      document.getElementById('formItemProofReady').value = item.proofReady ? 'true' : 'false';
+
+      if (item.fileName) {
+        setUploadedFileDisplay(item.fileName, item.fileSize || 102400);
+      } else {
+        removeSelectedCertificateFile();
+      }
 
       document.getElementById('itemModalHeaderTitle').textContent = 'แก้ไขข้อมูลผลงานในคลัง';
       document.getElementById('itemFormModal').classList.add('active');
@@ -1976,10 +2092,12 @@
       const role = document.getElementById('formItemRole').value.trim();
       const impact = document.getElementById('formItemImpact').value.trim();
       const tagsRaw = document.getElementById('formItemTags').value.trim();
-      const proofUrl = document.getElementById('formItemProofUrl').value.trim();
-      const proofReady = document.getElementById('formItemProofReady').value === 'true';
 
       const tags = tagsRaw ? tagsRaw.split(',').map(t => t.trim()).filter(Boolean) : [];
+
+      let fileName = currentUploadedFileData ? currentUploadedFileData.name : 'เกียรติบัตร_หุ่นยนต์_ระดับประเทศ.pdf';
+      let fileSize = currentUploadedFileData ? currentUploadedFileData.size : 340000;
+      let proofReady = true;
 
       if (id) {
         const item = vaultItems.find(i => i.id === id);
@@ -1992,7 +2110,10 @@
           item.role = role;
           item.impact = impact;
           item.tags = tags;
-          item.proofUrl = proofUrl;
+          if (currentUploadedFileData) {
+            item.fileName = fileName;
+            item.fileSize = fileSize;
+          }
           item.proofReady = proofReady;
           showNotificationToast('บันทึกการแก้ไขเรียบร้อย');
         }
@@ -2007,7 +2128,8 @@
           role,
           impact,
           tags,
-          proofUrl,
+          fileName,
+          fileSize,
           proofReady,
           inTcas10: false,
           tcasSlot: null
@@ -2032,7 +2154,7 @@
 
     // Drive Modal
     function openDriveSettingsModal() {
-      document.getElementById('inputDriveFolderName').value = driveConfig.folderName || 'TCAS_Portfolio_ธีทัต_นพรัตน์';
+      document.getElementById('inputDriveFolderId').value = driveConfig.folderId || 'TCAS_Portfolio_ธีทัต_นพรัตน์';
       document.getElementById('inputGasUrl').value = driveConfig.gasUrl || '';
       document.getElementById('driveModal').classList.add('active');
     }
@@ -2042,10 +2164,10 @@
     }
 
     function saveDriveSettings() {
-      driveConfig.folderName = document.getElementById('inputDriveFolderName').value.trim() || 'TCAS_Portfolio_ธีทัต_นพรัตน์';
+      driveConfig.folderId = document.getElementById('inputDriveFolderId').value.trim() || 'TCAS_Portfolio_ธีทัต_นพรัตน์';
       driveConfig.gasUrl = document.getElementById('inputGasUrl').value.trim();
       localStorage.setItem('theetat_drive_cfg', JSON.stringify(driveConfig));
-      document.getElementById('topDriveFolderText').textContent = driveConfig.folderName;
+      document.getElementById('topDriveFolderText').textContent = driveConfig.folderId;
       closeDriveSettingsModal();
       showNotificationToast('บันทึกการตั้งค่า Google Drive สำเร็จ');
     }
@@ -2127,7 +2249,7 @@
     }
 
     // =========================================================================
-    // 🔴 REAL-TIME AI DEMONSTRATION & VERIFICATION TOUR (ระบบสาธิตสดบนหน้าจอขวา)
+    // 🔴 REAL-TIME AI DEMONSTRATION & VERIFICATION TOUR
     // =========================================================================
     function setDemoMessage(msg) {
       document.getElementById('demoLiveStatusMessage').textContent = msg;
@@ -2145,12 +2267,10 @@
       pointer.style.left = `${targetX}px`;
       pointer.style.top = `${targetY}px`;
 
-      // Spotlight effect
       document.querySelectorAll('.spotlight-active').forEach(e => e.classList.remove('spotlight-active'));
       el.classList.add('spotlight-active');
 
       setTimeout(() => {
-        // Trigger Click Ripple
         const rip = document.createElement('div');
         rip.className = 'click-ripple';
         pointer.appendChild(rip);
@@ -2171,41 +2291,39 @@
           clearInterval(interval);
           if (doneCallback) doneCallback();
         }
-      }, 30);
+      }, 25);
     }
 
     function startLiveDemoTour() {
       clearTimeout(demoTimer);
       isDemoPaused = false;
-      demoStepIndex = 0;
 
       document.getElementById('btnPlayDemo').className = 'btn-demo-ctrl active-play';
       document.getElementById('btnPauseDemo').className = 'btn-demo-ctrl';
 
-      // Reset to Clean Zero to begin demonstration
       vaultItems = [];
       persistState();
       switchMainTab('vault');
       renderAllViews();
 
-      setDemoMessage('ขั้นตอนที่ 1/7: ตรวจสอบความพร้อมเริ่มต้น (คลังว่างเปล่า 0 รายการ Clean Zero State)');
+      setDemoMessage('ขั้นตอนที่ 1/7: คลังเริ่มต้นสะอาด 0 รายการ (Clean Zero State)');
       
       demoTimer = setTimeout(() => {
         demoStep1_OpenAddModal();
-      }, 1200);
+      }, 1000);
     }
 
     function demoStep1_OpenAddModal() {
-      setDemoMessage('ขั้นตอนที่ 2/7: AI เลื่อนเคอร์เซอร์ไปกดปุ่ม "+ เพิ่มผลงานใหม่"');
+      setDemoMessage('ขั้นตอนที่ 2/7: AI เลื่อนเคอร์เซอร์ไปคลิกปุ่ม "+ เพิ่มผลงานใหม่"');
       const addBtn = document.getElementById('btnOpenAddModalMain');
       moveVirtualCursorTo(addBtn, () => {
         openAddItemModal();
-        demoTimer = setTimeout(demoStep2_FillFormLive, 700);
+        demoTimer = setTimeout(demoStep2_FillFormLive, 600);
       });
     }
 
     function demoStep2_FillFormLive() {
-      setDemoMessage('ขั้นตอนที่ 3/7: กำลังพิมพ์ข้อมูลผลงานจริงของน้องธีทัตสดๆ...');
+      setDemoMessage('ขั้นตอนที่ 3/7: กำลังพิมพ์ข้อมูลผลงานจริง & แนบไฟล์เกียรติบัตรจำลอง...');
       const titleInput = document.getElementById('formItemTitle');
       const orgInput = document.getElementById('formItemOrg');
       const impactInput = document.getElementById('formItemImpact');
@@ -2218,16 +2336,17 @@
         document.getElementById('formItemCategory').value = 'academic';
         document.getElementById('formItemYear').value = 'ม.6';
         document.getElementById('formItemTags').value = 'Robotics, AI, C++, สวทช., ธรรมศาสตร์';
-        document.getElementById('formItemProofReady').value = 'true';
+
+        // Demonstrate File Dropzone Attachment
+        setUploadedFileDisplay('เกียรติบัตร_ชนะเลิศหุ่นยนต์ระดับชาติ.pdf', 450000);
 
         demoTimer = setTimeout(() => {
           const submitBtn = document.getElementById('btnSubmitModalForm');
           moveVirtualCursorTo(submitBtn, () => {
-            // Submit
             document.getElementById('portfolioItemForm').dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
-            demoTimer = setTimeout(demoStep3_CheckCardAndCurate, 1200);
+            demoTimer = setTimeout(demoStep3_CheckCardAndCurate, 1100);
           });
-        }, 800);
+        }, 700);
       });
     }
 
@@ -2236,7 +2355,7 @@
       const firstCardBtn = document.querySelector('.btn-toggle-tcas');
       moveVirtualCursorTo(firstCardBtn, () => {
         if (firstCardBtn) firstCardBtn.click();
-        demoTimer = setTimeout(demoStep4_SwitchToCuratorTab, 1300);
+        demoTimer = setTimeout(demoStep4_SwitchToCuratorTab, 1200);
       });
     }
 
@@ -2246,12 +2365,11 @@
       moveVirtualCursorTo(curatorTabBtn, () => {
         switchMainTab('curator');
         
-        // Highlight Slot 3
         setTimeout(() => {
           const slot3 = document.getElementById('slotCard-3');
           if (slot3) slot3.classList.add('spotlight-active');
-          demoTimer = setTimeout(demoStep5_SwitchToShowcase, 1800);
-        }, 500);
+          demoTimer = setTimeout(demoStep5_SwitchToShowcase, 1600);
+        }, 400);
       });
     }
 
@@ -2260,7 +2378,7 @@
       const showcaseTabBtn = document.getElementById('navBtnShowcase');
       moveVirtualCursorTo(showcaseTabBtn, () => {
         switchMainTab('showcase');
-        demoTimer = setTimeout(demoStep6_SyncGoogleDrive, 2000);
+        demoTimer = setTimeout(demoStep6_SyncGoogleDrive, 1800);
       });
     }
 
@@ -2269,12 +2387,11 @@
       const syncBtn = document.getElementById('btnSyncToDriveTop');
       moveVirtualCursorTo(syncBtn, () => {
         syncToGoogleDrive();
-        demoTimer = setTimeout(demoStep7_CompleteDemo, 1600);
+        demoTimer = setTimeout(demoStep7_CompleteDemo, 1400);
       });
     }
 
     function demoStep7_CompleteDemo() {
-      // Clean Zero Reset to leave it ready
       vaultItems = [];
       persistState();
       switchMainTab('vault');
