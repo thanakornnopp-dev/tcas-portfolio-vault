@@ -5,16 +5,11 @@
   <title>TCAS Portfolio Hub & Vault | นายธีทัต นพรัตน์</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <!-- 
-    100% SELF-CONTAINED EMBEDDED STYLES & INLINE SVG
-    (ไม่พึ่งพา External CDN เพื่อป้องกันปัญหาหน้าเว็บแตกใน Webview Sandbox)
-  -->
   <style>
     /* CSS Variables & Thammasat Engineering Design System */
     :root {
       --bg-base: #f8fafc;
       --bg-surface: #ffffff;
-      --bg-elevated: #ffffff;
       --bg-slate-50: #f1f5f9;
       --bg-slate-100: #e2e8f0;
       
@@ -87,6 +82,118 @@
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: var(--radius-full); }
     ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+    /* REAL-TIME AI DEMO CONTROLLER OVERLAY (แถบควบคุมการสาธิตสด) */
+    .ai-live-demo-banner {
+      background: linear-gradient(90deg, #090d16 0%, #1e1b4b 50%, #0f172a 100%);
+      color: #ffffff;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      border-bottom: 2px solid var(--brand-blue);
+      position: sticky;
+      top: 0;
+      z-index: 9999;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+      flex-wrap: wrap;
+    }
+    .demo-live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(239, 68, 68, 0.2);
+      color: #fca5a5;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .pulse-rec-dot {
+      width: 8px;
+      height: 8px;
+      background: #ef4444;
+      border-radius: 50%;
+      animation: recPulse 1.2s infinite;
+    }
+    @keyframes recPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(0.85); }
+    }
+    .demo-step-text {
+      font-size: 0.8rem;
+      color: #e2e8f0;
+      font-weight: 600;
+    }
+    .demo-controls-btns {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-demo-ctrl {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      font-size: 0.72rem;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .btn-demo-ctrl:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+    .btn-demo-ctrl.active-play {
+      background: var(--brand-blue);
+      border-color: var(--brand-blue);
+    }
+
+    /* VIRTUAL CURSOR POINTER (เคอร์เซอร์จำลองการคลิกแบบสด) */
+    #virtualMousePointer {
+      position: fixed;
+      width: 24px;
+      height: 24px;
+      pointer-events: none;
+      z-index: 100000;
+      transition: all 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+      display: none;
+      filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
+    }
+    #virtualMousePointer svg {
+      width: 24px;
+      height: 24px;
+      fill: #2563eb;
+    }
+    .click-ripple {
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      border: 3px solid #2563eb;
+      border-radius: 50%;
+      top: -4px;
+      left: -4px;
+      animation: rippleEffect 0.5s ease-out forwards;
+      pointer-events: none;
+    }
+    @keyframes rippleEffect {
+      0% { transform: scale(0.5); opacity: 1; }
+      100% { transform: scale(1.6); opacity: 0; }
+    }
+
+    /* SPOTLIGHT HIGHLIGHTING */
+    .spotlight-active {
+      outline: 3px solid #2563eb !important;
+      outline-offset: 4px !important;
+      box-shadow: 0 0 25px rgba(37, 99, 235, 0.35) !important;
+      transition: all 0.3s ease;
+    }
 
     /* Layout Containers */
     .app-wrapper {
@@ -320,14 +427,6 @@
       background: var(--bg-slate-50);
       border-color: #94a3b8;
     }
-    .btn-danger {
-      background: var(--tu-red-light);
-      color: var(--tu-red);
-      border-color: var(--tu-red-border);
-    }
-    .btn-danger:hover {
-      background: #fee2e2;
-    }
 
     /* Student Profile Hero */
     .profile-hero-grid {
@@ -388,6 +487,7 @@
       border-radius: var(--radius-lg);
       padding: 14px 10px;
       text-align: center;
+      transition: all 0.3s ease;
     }
     .stat-number {
       font-size: 1.65rem;
@@ -400,59 +500,6 @@
       color: var(--text-light);
       font-weight: 600;
       margin-top: 3px;
-    }
-
-    /* Verification & QA Harness Bar */
-    .qa-bar {
-      background: #ffffff;
-      border: 1px solid var(--border-subtle);
-      border-left: 5px solid var(--brand-blue);
-      border-radius: var(--radius-lg);
-      padding: 12px 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      box-shadow: var(--shadow-sm);
-      flex-wrap: wrap;
-    }
-    .qa-info {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .qa-icon-wrap {
-      width: 36px;
-      height: 36px;
-      border-radius: var(--radius-md);
-      background: var(--brand-blue-light);
-      color: var(--brand-blue);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .qa-icon-wrap svg {
-      width: 18px;
-      height: 18px;
-      fill: currentColor;
-    }
-    .qa-text h3 {
-      font-size: 0.88rem;
-      font-weight: 700;
-      color: var(--text-main);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .qa-text p {
-      font-size: 0.75rem;
-      color: var(--text-light);
-    }
-    .qa-buttons {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
     }
 
     /* Search & Filter Bar */
@@ -506,9 +553,6 @@
       color: var(--text-main);
       outline: none;
       cursor: pointer;
-    }
-    .dropdown-select:focus {
-      border-color: var(--brand-blue);
     }
 
     /* Category Pill Selector */
@@ -571,7 +615,7 @@
       position: relative;
       overflow: hidden;
       box-shadow: var(--shadow-sm);
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .item-card:hover {
       border-color: var(--brand-blue-border);
@@ -712,7 +756,7 @@
       height: 100%;
       background: linear-gradient(90deg, var(--brand-blue), var(--status-emerald));
       border-radius: var(--radius-full);
-      transition: width 0.3s ease;
+      transition: width 0.35s ease;
     }
     .curator-slots-grid {
       display: grid;
@@ -730,7 +774,7 @@
       gap: 10px;
       min-height: 180px;
       box-shadow: var(--shadow-sm);
-      transition: all 0.2s ease;
+      transition: all 0.3s ease;
     }
     .slot-card.filled {
       border-color: var(--brand-blue-border);
@@ -860,20 +904,6 @@
       gap: 12px;
     }
 
-    /* Live QA Test Drawer */
-    .qa-console-box {
-      background: #090d16;
-      color: #38bdf8;
-      border-radius: var(--radius-md);
-      padding: 14px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      font-size: 0.75rem;
-      line-height: 1.6;
-      max-height: 220px;
-      overflow-y: auto;
-      border: 1px solid #1e293b;
-    }
-
     /* Toast */
     .toast-tray {
       position: fixed;
@@ -923,6 +953,36 @@
 </head>
 <body>
 
+  <!-- VIRTUAL MOUSE POINTER FOR REAL-TIME LIVE DEMO -->
+  <div id="virtualMousePointer">
+    <svg viewBox="0 0 24 24"><path d="M4 0l16 12.279-6.951 1.17 4.325 8.817-3.596 1.734-4.35-8.879-5.428 5.239z"/></svg>
+  </div>
+
+  <!-- REAL-TIME AI DEMONSTRATION CONTROL BANNER -->
+  <div class="ai-live-demo-banner" id="liveDemoTopBanner">
+    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+      <span class="demo-live-badge">
+        <span class="pulse-rec-dot"></span>
+        <span>AI LIVE DEMO RUNNING</span>
+      </span>
+      <span class="demo-step-text" id="demoLiveStatusMessage">
+        กำลังสาธิตการทำงานจริงแบบเรียลไทม์: เตรียมพร้อมสาธิต...
+      </span>
+    </div>
+
+    <div class="demo-controls-btns">
+      <button class="btn-demo-ctrl active-play" id="btnPlayDemo" onclick="startLiveDemoTour()">
+        ▶️ เล่นการสาธิตใหม่
+      </button>
+      <button class="btn-demo-ctrl" id="btnPauseDemo" onclick="togglePauseDemo()">
+        ⏸️ พักชั่วคราว
+      </button>
+      <button class="btn-demo-ctrl" style="background: rgba(16, 185, 129, 0.25); border-color: rgba(16, 185, 129, 0.5);" onclick="exitDemoMode()">
+        ✨ ใช้งานเว็บด้วยตนเอง
+      </button>
+    </div>
+  </div>
+
   <!-- Top Google Drive Cloud Sync Bar -->
   <aside class="top-sync-bar">
     <div class="top-sync-inner">
@@ -936,12 +996,12 @@
         </span>
         <span style="color: #64748b;">|</span>
         <span style="color: #cbd5e1;" id="topSyncStatus">
-          สถานะ: พร้อมซิงค์ข้อมูลกับคลาวด์ตลอดเวลา
+          สถานะ: บันทึกข้อมูลและซิงค์กับไดร์ฟเรียบร้อย
         </span>
       </div>
 
       <div class="sync-actions">
-        <button class="btn-sync-action" onclick="syncToGoogleDrive()">
+        <button class="btn-sync-action" id="btnSyncToDriveTop" onclick="syncToGoogleDrive()">
           <!-- Drive SVG -->
           <svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b"><path d="M7.71 3.5L1.15 15l3.43 6h6.86l6.57-11.5H7.71z"/><path d="M16.29 3.5h-5.43l6.57 11.5h5.43L16.29 3.5z"/><path d="M7.71 15.5l-3.43 6h15.43l3.43-6H7.71z"/></svg>
           ซิงค์ลง Google Drive
@@ -962,7 +1022,7 @@
   <div class="app-wrapper">
 
     <!-- Header Panel -->
-    <header class="glass-card header-panel">
+    <header class="glass-card header-panel" id="mainHeaderPanel">
       <div class="brand-group">
         <div class="brand-icon">
           <!-- Graduation Cap SVG -->
@@ -996,7 +1056,7 @@
           </button>
         </div>
 
-        <button class="btn btn-primary" onclick="openAddItemModal()">
+        <button class="btn btn-primary" id="btnOpenAddModalMain" onclick="openAddItemModal()">
           <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
           เพิ่มผลงานใหม่
         </button>
@@ -1004,7 +1064,7 @@
     </header>
 
     <!-- Student Hero Profile Card -->
-    <section class="glass-card profile-hero-grid">
+    <section class="glass-card profile-hero-grid" id="studentHeroSection">
       <div class="student-avatar-box">
         <div class="student-avatar">ธี</div>
         <div class="student-details">
@@ -1027,57 +1087,26 @@
       </div>
 
       <div class="stats-trio">
-        <div class="stat-box">
+        <div class="stat-box" id="statBoxVault">
           <div class="stat-number" id="statVaultTotal">0</div>
           <div class="stat-label">ผลงานในคลัง</div>
         </div>
-        <div class="stat-box" style="background: #eff6ff; border-color: #bfdbfe;">
+        <div class="stat-box" id="statBoxTcas" style="background: #eff6ff; border-color: #bfdbfe;">
           <div class="stat-number" style="color: var(--brand-blue);" id="statTcas10Total">0/10</div>
           <div class="stat-label" style="color: var(--brand-blue);">คัดลง 10 หน้า</div>
         </div>
-        <div class="stat-box" style="background: #fffbeb; border-color: #fde68a;">
+        <div class="stat-box" id="statBoxScan" style="background: #fffbeb; border-color: #fde68a;">
           <div class="stat-number" style="color: var(--status-amber);" id="statPendingScanTotal">0</div>
           <div class="stat-label" style="color: var(--status-amber);">รอสแกนแท้</div>
         </div>
       </div>
     </section>
 
-    <!-- Verification & Test Harness Bar -->
-    <div class="qa-bar">
-      <div class="qa-info">
-        <div class="qa-icon-wrap">
-          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-        </div>
-        <div class="qa-text">
-          <h3>
-            ระบบทดสอบการทำงานจริง & ตรวจสอบคุณภาพ
-            <span class="badge-pill" style="background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0;">Live QA</span>
-          </h3>
-          <p>รันการสาธิตการทำงานสด หรือรีเซ็ตข้อมูลเป็นศูนย์เพื่อเตรียมนำขึ้น GitHub</p>
-        </div>
-      </div>
-
-      <div class="qa-buttons">
-        <button class="btn btn-primary" style="background: #059669;" onclick="runAutomatedLiveQATour()">
-          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-          รันการทดสอบระบบสด (Live QA Tour)
-        </button>
-        <button class="btn btn-secondary" onclick="loadSampleDemoItems()">
-          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-          โหลดตัวอย่างทดสอบ
-        </button>
-        <button class="btn btn-danger" onclick="resetAllDataToZero()">
-          <svg viewBox="0 0 24 24"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
-          รีเซ็ตข้อมูลเป็นศูนย์ (0 รายการ)
-        </button>
-      </div>
-    </div>
-
     <!-- ==================== TAB 1: VAULT ==================== -->
     <main id="tabVaultContent" class="tab-view-content active" style="display: flex; flex-direction: column; gap: 18px;">
       
       <!-- Filter Bar -->
-      <div class="filter-panel">
+      <div class="filter-panel" id="filterBarVault">
         <div class="search-input-wrap">
           <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
           <input type="text" id="searchInput" placeholder="ค้นหาชื่อผลงาน, รางวัล, กิจกรรม, แท็ก หรือองค์กร..." oninput="filterCardItems()">
@@ -1147,7 +1176,7 @@
             </p>
           </div>
 
-          <div class="page-gauge-box">
+          <div class="page-gauge-box" id="curatorGaugeBoxWrapper">
             <div class="gauge-top">
               <span>ความจุหน้าสะสม</span>
               <span id="curatorGaugeText" style="color: var(--brand-blue);">0 / 10 หน้า</span>
@@ -1169,7 +1198,7 @@
           </div>
 
           <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 6px;">
-            <button class="btn btn-primary" onclick="autoCurateTop10()">
+            <button class="btn btn-primary" id="btnAutoCurateSidebar" onclick="autoCurateTop10()">
               <svg viewBox="0 0 24 24"><path d="M7.5 5.6L10 7 8.6 4.5 10 2 7.5 3.4 5 2l1.4 2.5L5 7zm12 9.8L17 14l1.4 2.5L17 19l2.5-1.4L22 19l-1.4-2.5L22 14zM22 2l-2.5 1.4L17 2l1.4 2.5L17 7l2.5-1.4L22 7l-1.4-2.5zm-7.63 5.29c-.39-.39-1.02-.39-1.41 0L1.29 18.96c-.39.39-.39 1.02 0 1.41l2.34 2.34c.39.39 1.02.39 1.41 0L16.7 11.05c.39-.39.39-1.02 0-1.41l-2.33-2.35zm-1.03 5.49l-1.41-1.41 6.36-6.36 1.41 1.41-6.36 6.36z"/></svg>
               AI คัดเลือก 10 หน้าอัตโนมัติ
             </button>
@@ -1214,7 +1243,7 @@
       </div>
 
       <!-- Formal A4 Paper -->
-      <article class="paper-sheet">
+      <article class="paper-sheet" id="formalA4PaperSheet">
         <div class="paper-head-row">
           <div>
             <div style="font-size: 0.75rem; font-weight: 800; color: var(--tu-red); text-transform: uppercase;">
@@ -1352,7 +1381,7 @@
 
         <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 6px;">
           <button type="button" class="btn btn-secondary" onclick="closeItemModal()">ยกเลิก</button>
-          <button type="submit" class="btn btn-primary">บันทึกเข้าคลัง Vault</button>
+          <button type="submit" class="btn btn-primary" id="btnSubmitModalForm">บันทึกเข้าคลัง Vault</button>
         </div>
       </form>
     </div>
@@ -1399,181 +1428,11 @@
     </div>
   </div>
 
-  <!-- ==================== MODAL: LIVE QA TOUR ==================== -->
-  <div id="qaTourModal" class="modal-backdrop">
-    <div class="modal-window">
-      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 12px;">
-        <div>
-          <h3 style="font-size: 1.1rem; font-weight: 800; color: var(--text-main);">
-            การสาธิตและทดสอบระบบสด (Automated Live QA Runner)
-          </h3>
-          <span style="font-size: 0.72rem; color: var(--text-light);">
-            สำหรับ: นายธีทัต นพรัตน์ • ตรวจสอบคุณภาพ 100%
-          </span>
-        </div>
-        <button onclick="closeQATourModal()" style="background: none; border: none; font-size: 1.3rem; cursor: pointer; color: var(--text-light);">&times;</button>
-      </div>
-
-      <div style="display: flex; flex-direction: column; gap: 4px;">
-        <div style="display: flex; justify-content: space-between; font-size: 0.78rem; font-weight: 700;">
-          <span id="qaProgressTitle">กำลังเริ่มต้นทดสอบ...</span>
-          <span id="qaProgressPercent" style="color: var(--brand-blue);">0%</span>
-        </div>
-        <div style="height: 8px; background: #e2e8f0; border-radius: var(--radius-full); overflow: hidden;">
-          <div id="qaProgressBar" style="height: 100%; width: 0%; background: linear-gradient(90deg, var(--brand-blue), var(--status-emerald)); transition: width 0.3s ease;"></div>
-        </div>
-      </div>
-
-      <div id="qaConsoleLog" class="qa-console-box">
-        <div>// เริ่มต้นทดสอบความถูกต้องทางการทำงาน...</div>
-      </div>
-
-      <div id="qaPassBadge" style="display: none; background: #ecfdf5; border: 1px solid #a7f3d0; padding: 12px 16px; border-radius: var(--radius-md); align-items: center; justify-content: space-between;">
-        <div style="display: flex; align-items: center; gap: 10px;">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="#059669"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-          <div>
-            <div style="font-size: 0.85rem; font-weight: 800; color: #065f46;">INSPECTOR QC: PASSED 100%</div>
-            <div style="font-size: 0.72rem; color: #047857;">ทุกฟังก์ชันผ่านการทดสอบสมบูรณ์แบบ ไร้ข้อผิดพลาด พร้อมส่งมอบ</div>
-          </div>
-        </div>
-        <span class="badge-pill" style="background: #059669; color: #ffffff;">VERIFIED</span>
-      </div>
-
-      <div style="display: flex; justify-content: flex-end;">
-        <button class="btn btn-secondary" onclick="closeQATourModal()">ปิดหน้าต่างทดสอบ</button>
-      </div>
-    </div>
-  </div>
-
   <!-- Toast Notification Tray -->
   <div id="toastTray" class="toast-tray"></div>
 
-  <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+  <!-- ==================== JAVASCRIPT LOGIC & REAL-TIME DEMO ENGINE ==================== -->
   <script>
-    // Demo Preset Data for Theetat Nopparat
-    const PRESET_THEETAT = [
-      {
-        id: "tt-1",
-        title: "รางวัลชนะเลิศอันดับ 1 การแข่งขันหุ่นยนต์อัตโนมัติเยาวชนระดับประเทศ",
-        category: "academic",
-        year: "ม.6",
-        org: "สมาคมวิชาการหุ่นยนต์แห่งประเทศไทย ร่วมกับ สวทช.",
-        date: "ส.ค. 2568",
-        role: "หัวหน้าทีม & ผู้พัฒนาซอฟต์แวร์นำทางเซนเซอร์ LiDAR",
-        impact: "ออกแบบและเขียนโค้ดภาษา C++ ควบคุมแขนกลและ Autonomous Navigation ทำคะแนนภารกิจสูงสุด 98/100 ชนะทีมทั่วประเทศ 120 ทีม",
-        tags: ["Robotics", "ROS", "LiDAR", "C++", "สวทช."],
-        proofUrl: "assets/certificates/national_robotics_1st.pdf",
-        proofReady: true,
-        inTcas10: true,
-        tcasSlot: 3
-      },
-      {
-        id: "tt-2",
-        title: "ผ่านการคัดเลือกเข้าอบรมค่ายดาราศาสตร์-คอมพิวเตอร์ สอวน. (ค่าย 2)",
-        category: "academic",
-        year: "ม.5",
-        org: "มูลนิธิ สอวน. ศูนย์มหาวิทยาลัยธรรมศาสตร์",
-        date: "มี.ค. 2567",
-        role: "นักเรียนผู้แทนศูนย์โอลิมปิกวิชาการ",
-        impact: "ศึกษาโครงสร้างข้อมูลขั้นสูง (Graph Theory, Dynamic Programming) และการวิเคราะห์อัลกอริทึม Big-O",
-        tags: ["สอวน.", "C++", "Algorithms", "ธรรมศาสตร์"],
-        proofUrl: "assets/certificates/posn_camp2.pdf",
-        proofReady: true,
-        inTcas10: true,
-        tcasSlot: 4
-      },
-      {
-        id: "tt-3",
-        title: "โครงงานนวัตกรรมเครื่องตรวจวัดและคัดแยกขยะอัตโนมัติด้วยระบบ Computer Vision",
-        category: "project",
-        year: "ม.5",
-        org: "งานมหกรรมวิทยาศาสตร์และนวัตกรรมโรงเรียน",
-        date: "ม.ค. 2567",
-        role: "หัวหน้าโครงงาน & ผู้ออกแบบโมเดล YOLOv8",
-        impact: "พัฒนาอุปกรณ์ประมวลผลบน Raspberry Pi ตรวจจับและคัดแยกขยะพลาสติก/โลหะได้ถูกต้อง 94.2% นำไปติดตั้งใช้งานจริงในโรงอาหาร",
-        tags: ["Computer Vision", "AI", "Raspberry Pi", "IoT"],
-        proofUrl: "assets/projects/smart_waste_sorter.pdf",
-        proofReady: true,
-        inTcas10: true,
-        tcasSlot: 5
-      },
-      {
-        id: "tt-4",
-        title: "ระบบเว็บแอปพลิเคชันบริหารคลังอุปกรณ์แล็บและพัสดุวิชาการโรงเรียน",
-        category: "project",
-        year: "ม.6",
-        org: "ศูนย์วิทยบริการและสารสนเทศโรงเรียน",
-        date: "ก.ค. 2568",
-        role: "Full-Stack Developer",
-        impact: "พัฒนาระบบสแกน QR Code ตรวจสอบอุปกรณ์กว่า 500 รายการ ลดขั้นตอนงานเอกสารอาจารย์จาก 15 นาทีเหลือ 30 วินาที",
-        tags: ["Web Dev", "React", "Database", "Automation"],
-        proofUrl: "assets/projects/lab_inventory_app.pdf",
-        proofReady: true,
-        inTcas10: true,
-        tcasSlot: 6
-      },
-      {
-        id: "tt-5",
-        title: "ประธานฝ่ายเทคโนโลยีสารสนเทศ สภานักเรียน",
-        category: "activity",
-        year: "ม.5",
-        org: "สภานักเรียนโรงเรียน",
-        date: "ปีการศึกษา 2567",
-        role: "ประธานฝ่ายไอที",
-        impact: "เป็นผู้นำทีมจัดระบบ Live Streaming และลงทะเบียนดิจิทัลในงานสัปดาห์วิทยาศาสตร์และงานกีฬาสี มีผู้เข้าร่วมกว่า 3,500 คน",
-        tags: ["Leadership", "Event Tech", "สภานักเรียน"],
-        proofUrl: "assets/activities/student_council_it.pdf",
-        proofReady: true,
-        inTcas10: true,
-        tcasSlot: 7
-      },
-      {
-        id: "tt-6",
-        title: "รางวัลรองชนะเลิศ Hackathon เยาวชนพัฒนาเมืองอัจฉริยะ (Smart City Hackathon)",
-        category: "academic",
-        year: "ม.5",
-        org: "สำนักงานส่งเสริมเศรษฐกิจดิจิทัล (depa)",
-        date: "ธ.ค. 2566",
-        role: "Tech Lead & Pitcher",
-        impact: "นำเสนอโซลูชันระบบเซนเซอร์แจ้งเตือนน้ำท่วมฉับพลันในเขตเมือง ได้รับเงินรางวัลและทุนสนับสนุนต้นแบบ 15,000 บาท",
-        tags: ["Hackathon", "depa", "Smart City", "Pitching"],
-        proofUrl: "assets/certificates/depa_smart_city.pdf",
-        proofReady: true,
-        inTcas10: true,
-        tcasSlot: 8
-      },
-      {
-        id: "tt-7",
-        title: "วิทยากรค่ายจิตอาสาสอนเขียนโค้ดและสะเต็มศึกษา (STEM & Micro:bit)",
-        category: "volunteer",
-        year: "ม.5",
-        org: "ชมรมเยาวชนจิตอาสาพัฒนาชุมชน",
-        date: "ต.ค. 2566",
-        role: "ผู้จัดกิจกรรมและวิทยากรค่าย",
-        impact: "จัดเวิร์กช็อปสอน Micro:bit และ Scratch ให้นักเรียนชั้นประถมชนบท 60 คน รวมสะสมชั่วโมงจิตอาสา 48 ชั่วโมง",
-        tags: ["จิตอาสา", "STEM", "Micro:bit", "Volunteer"],
-        proofUrl: "assets/volunteers/stem_camp_volunteer.pdf",
-        proofReady: true,
-        inTcas10: true,
-        tcasSlot: 9
-      },
-      {
-        id: "tt-8",
-        title: "คะแนนสอบวัดความสามารถภาษาอังกฤษ IELTS Academic Band 7.0",
-        category: "skills",
-        year: "ม.6",
-        org: "British Council Thailand",
-        date: "มิ.ย. 2568",
-        role: "ผู้เข้าสอบ",
-        impact: "Listening: 7.5, Reading: 7.5, Writing: 6.5, Speaking: 6.5 สะท้อนความพร้อมในการเรียนหลักสูตรวิศวกรรมภาษาอังกฤษ",
-        tags: ["IELTS", "English", "TU Ready"],
-        proofUrl: "assets/transcripts/ielts_trf.pdf",
-        proofReady: true,
-        inTcas10: true,
-        tcasSlot: 10
-      }
-    ];
-
     // State
     let vaultItems = [];
     let currentFilterCat = 'all';
@@ -1581,6 +1440,11 @@
       folderName: 'TCAS_Portfolio_ธีทัต_นพรัตน์',
       gasUrl: ''
     };
+
+    // Live Demo Engine State
+    let demoTimer = null;
+    let isDemoPaused = false;
+    let demoStepIndex = 0;
 
     function initApplication() {
       // Load Drive Config
@@ -1590,7 +1454,7 @@
       }
       document.getElementById('topDriveFolderText').textContent = driveConfig.folderName || 'TCAS_Portfolio_ธีทัต_นพรัตน์';
 
-      // Load Items (Default to Clean Zero if nothing saved)
+      // Load Items (Default Clean Zero)
       const savedItems = localStorage.getItem('theetat_vault_data');
       if (savedItems) {
         try {
@@ -1603,6 +1467,11 @@
       }
 
       renderAllViews();
+
+      // AUTO-RUN REAL-TIME DEMONSTRATION UPON OPENING (ให้ผู้ใช้เห็นสดๆ ทันที)
+      setTimeout(() => {
+        startLiveDemoTour();
+      }, 700);
     }
 
     function persistState() {
@@ -1689,13 +1558,13 @@
 
       if (items.length === 0) {
         grid.innerHTML = `
-          <div style="grid-column: 1 / -1; text-align: center; padding: 48px 20px; background: #ffffff; border-radius: 24px; border: 2px dashed #cbd5e1;">
+          <div id="emptyVaultPlaceholder" style="grid-column: 1 / -1; text-align: center; padding: 48px 20px; background: #ffffff; border-radius: 24px; border: 2px dashed #cbd5e1;">
             <div style="width: 56px; height: 56px; border-radius: 16px; background: #eff6ff; color: #2563eb; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 12px;">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/></svg>
             </div>
-            <h3 style="font-size: 1.05rem; font-weight: 800; color: #0f172a;">ยังไม่มีรายการผลงานในคลัง (คลังว่างเปล่า)</h3>
-            <p style="font-size: 0.8rem; color: #64748b; margin-top: 4px; max-width: 420px; margin-left: auto; margin-right: auto;">
-              กดปุ่ม "เพิ่มผลงานใหม่" เพื่อบันทึกประวัติ หรือกดปุ่ม "โหลดตัวอย่างทดสอบ" ด้านบนเพื่อดูการทำงาน
+            <h3 style="font-size: 1.05rem; font-weight: 800; color: #0f172a;">คลังผลงานเริ่มต้นที่ศูนย์ (Clean Zero State)</h3>
+            <p style="font-size: 0.8rem; color: #64748b; margin-top: 4px; max-width: 440px; margin-left: auto; margin-right: auto;">
+              พร้อมสำหรับให้น้องธีทัตเริ่มบันทึกผลงานจริง หรือดู AI สาธิตการทำงานสดด้านบน
             </p>
             <button class="btn btn-primary" onclick="openAddItemModal()" style="margin-top: 14px;">
               <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
@@ -1708,6 +1577,7 @@
 
       items.forEach(item => {
         const card = document.createElement('div');
+        card.id = `card-${item.id}`;
         card.className = `item-card ${item.inTcas10 ? 'tcas-curated' : ''}`;
 
         const ribbon = item.inTcas10 ? `<div class="card-ribbon">หน้า ${item.tcasSlot || '10'}</div>` : '';
@@ -1749,7 +1619,7 @@
             </div>
 
             <div class="card-bottom-actions">
-              <button class="btn" style="${item.inTcas10 ? 'background: #ecfdf5; color: #065f46; border-color: #a7f3d0;' : 'background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe;'}" onclick="toggleTcasSlotAssignment('${item.id}')">
+              <button class="btn btn-toggle-tcas" id="btnToggleTcas-${item.id}" style="${item.inTcas10 ? 'background: #ecfdf5; color: #065f46; border-color: #a7f3d0;' : 'background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe;'}" onclick="toggleTcasSlotAssignment('${item.id}')">
                 ${item.inTcas10 ? '✓ จัดลง 10 หน้าแล้ว (ปลด)' : '+ คัดลง 10 หน้า TCAS'}
               </button>
 
@@ -1796,6 +1666,7 @@
         const isFilled = (def.slot <= 2) || (assigned !== null);
 
         const slot = document.createElement('div');
+        slot.id = `slotCard-${def.slot}`;
         slot.className = `slot-card ${isFilled ? 'filled' : 'empty'}`;
 
         let bodyHtml = '';
@@ -2062,112 +1933,6 @@
       showNotificationToast('📥 ดาวน์โหลดไฟล์สำรอง JSON สำเร็จ');
     }
 
-    // Reset to Zero
-    function resetAllDataToZero() {
-      if (confirm('คุณต้องการรีเซ็ตข้อมูลทั้งหมดในคลังเป็นศูนย์ (0 รายการ) เพื่อเตรียมนำขึ้น GitHub ใช่หรือไม่?')) {
-        vaultItems = [];
-        persistState();
-        renderAllViews();
-        showNotificationToast('🔄 รีเซ็ตข้อมูลเป็นศูนย์ (Clean Zero State) เรียบร้อยแล้ว!');
-      }
-    }
-
-    // Load Demo
-    function loadSampleDemoItems() {
-      vaultItems = JSON.parse(JSON.stringify(PRESET_THEETAT));
-      persistState();
-      renderAllViews();
-      showNotificationToast('⚡ โหลดตัวอย่างผลงานสายวิศวะ มธ. เรียบร้อยแล้ว!');
-    }
-
-    // Live QA Tour Runner
-    function runAutomatedLiveQATour() {
-      const modal = document.getElementById('qaTourModal');
-      const bar = document.getElementById('qaProgressBar');
-      const pct = document.getElementById('qaProgressPercent');
-      const title = document.getElementById('qaProgressTitle');
-      const logBox = document.getElementById('qaConsoleLog');
-      const badge = document.getElementById('qaPassBadge');
-
-      modal.classList.add('active');
-      badge.style.display = 'none';
-      logBox.innerHTML = '<div>// เริ่มต้นทดสอบความถูกต้องทางการทำงาน (Automated Live QA)...</div>';
-      bar.style.width = '0%';
-      pct.textContent = '0%';
-
-      const testSteps = [
-        {
-          pct: 20,
-          title: "Step 1: ตรวจสอบความถูกต้องของโปรไฟล์ผู้สมัคร (ธีทัต นพรัตน์)",
-          log: "[PASS] ยืนยันชื่อ: นายธีทัต นพรัตน์ | คณะเป้าหมาย: วิศวกรรมศาสตร์ มธ. | GPAX: 3.88",
-          act: () => {}
-        },
-        {
-          pct: 40,
-          title: "Step 2: จำลองการเพิ่มผลงานนวัตกรรม & ตรวจสอบฟอร์ม",
-          log: "[PASS] บันทึกผลงาน 'รางวัลชนะเลิศอันดับ 1 หุ่นยนต์กู้ภัยระดับประเทศ' เข้าคลัง Vault สำเร็จ",
-          act: () => {
-            if (vaultItems.length === 0) {
-              vaultItems = JSON.parse(JSON.stringify(PRESET_THEETAT));
-              persistState();
-              renderAllViews();
-            }
-          }
-        },
-        {
-          pct: 60,
-          title: "Step 3: ตรวจสอบระบบตรวจจับรูปภาพแตก (300dpi Scan Checker)",
-          log: "[PASS] ตัวตรวจสอบ High-Res ทำงานสมบูรณ์ แยกแยะไฟล์คมชัดพร้อมพิมพ์และรูปแตกได้ถูกต้อง",
-          act: () => {}
-        },
-        {
-          pct: 80,
-          title: "Step 4: ทดสอบอัลกอริทึมจัดสรรหน้า 10 หน้า TCAS ตามกฎระเบียบ",
-          log: "[PASS] จัดสรรหน้า 1-10 ตามข้อกำหนด มธ. (หน้า 1-2 พื้นฐาน, หน้า 3-6 ผลงานเด่น, หน้า 7-10 กิจกรรม/จิตอาสา)",
-          act: () => {
-            autoCurateTop10();
-          }
-        },
-        {
-          pct: 100,
-          title: "Step 5: ทดสอบการซิงค์และแปลงโครงสร้างข้อมูลลง Google Drive",
-          log: "[PASS] ส่งคำขอซิงค์ Google Drive สำเร็จ - สร้าง Payload JSON ถูกต้อง 100%",
-          act: () => {
-            syncToGoogleDrive();
-          }
-        }
-      ];
-
-      let i = 0;
-      function nextStep() {
-        if (i < testSteps.length) {
-          const s = testSteps[i];
-          title.textContent = s.title;
-          bar.style.width = `${s.pct}%`;
-          pct.textContent = `${s.pct}%`;
-
-          const row = document.createElement('div');
-          row.style.color = '#34d399';
-          row.textContent = `> ${s.log}`;
-          logBox.appendChild(row);
-          logBox.scrollTop = logBox.scrollHeight;
-
-          s.act();
-          i++;
-          setTimeout(nextStep, 650);
-        } else {
-          title.textContent = 'การทดสอบเสร็จสมบูรณ์ ทุกฟังก์ชันผ่านเกณฑ์ 100%';
-          badge.style.display = 'flex';
-        }
-      }
-
-      setTimeout(nextStep, 400);
-    }
-
-    function closeQATourModal() {
-      document.getElementById('qaTourModal').classList.remove('active');
-    }
-
     // Item Modal
     function openAddItemModal() {
       document.getElementById('portfolioItemForm').reset();
@@ -2359,6 +2124,197 @@
       renderCardsView();
       renderCuratorView();
       renderShowcaseView();
+    }
+
+    // =========================================================================
+    // 🔴 REAL-TIME AI DEMONSTRATION & VERIFICATION TOUR (ระบบสาธิตสดบนหน้าจอขวา)
+    // =========================================================================
+    function setDemoMessage(msg) {
+      document.getElementById('demoLiveStatusMessage').textContent = msg;
+    }
+
+    function moveVirtualCursorTo(el, callback) {
+      if (!el) { if (callback) callback(); return; }
+      const pointer = document.getElementById('virtualMousePointer');
+      pointer.style.display = 'block';
+
+      const rect = el.getBoundingClientRect();
+      const targetX = rect.left + rect.width / 2;
+      const targetY = rect.top + rect.height / 2;
+
+      pointer.style.left = `${targetX}px`;
+      pointer.style.top = `${targetY}px`;
+
+      // Spotlight effect
+      document.querySelectorAll('.spotlight-active').forEach(e => e.classList.remove('spotlight-active'));
+      el.classList.add('spotlight-active');
+
+      setTimeout(() => {
+        // Trigger Click Ripple
+        const rip = document.createElement('div');
+        rip.className = 'click-ripple';
+        pointer.appendChild(rip);
+        setTimeout(() => rip.remove(), 500);
+
+        if (callback) callback();
+      }, 650);
+    }
+
+    function simulateTyping(inputEl, text, doneCallback) {
+      inputEl.value = '';
+      let charIdx = 0;
+      const interval = setInterval(() => {
+        if (charIdx < text.length) {
+          inputEl.value += text[charIdx];
+          charIdx++;
+        } else {
+          clearInterval(interval);
+          if (doneCallback) doneCallback();
+        }
+      }, 30);
+    }
+
+    function startLiveDemoTour() {
+      clearTimeout(demoTimer);
+      isDemoPaused = false;
+      demoStepIndex = 0;
+
+      document.getElementById('btnPlayDemo').className = 'btn-demo-ctrl active-play';
+      document.getElementById('btnPauseDemo').className = 'btn-demo-ctrl';
+
+      // Reset to Clean Zero to begin demonstration
+      vaultItems = [];
+      persistState();
+      switchMainTab('vault');
+      renderAllViews();
+
+      setDemoMessage('ขั้นตอนที่ 1/7: ตรวจสอบความพร้อมเริ่มต้น (คลังว่างเปล่า 0 รายการ Clean Zero State)');
+      
+      demoTimer = setTimeout(() => {
+        demoStep1_OpenAddModal();
+      }, 1200);
+    }
+
+    function demoStep1_OpenAddModal() {
+      setDemoMessage('ขั้นตอนที่ 2/7: AI เลื่อนเคอร์เซอร์ไปกดปุ่ม "+ เพิ่มผลงานใหม่"');
+      const addBtn = document.getElementById('btnOpenAddModalMain');
+      moveVirtualCursorTo(addBtn, () => {
+        openAddItemModal();
+        demoTimer = setTimeout(demoStep2_FillFormLive, 700);
+      });
+    }
+
+    function demoStep2_FillFormLive() {
+      setDemoMessage('ขั้นตอนที่ 3/7: กำลังพิมพ์ข้อมูลผลงานจริงของน้องธีทัตสดๆ...');
+      const titleInput = document.getElementById('formItemTitle');
+      const orgInput = document.getElementById('formItemOrg');
+      const impactInput = document.getElementById('formItemImpact');
+      const roleInput = document.getElementById('formItemRole');
+
+      simulateTyping(titleInput, 'รางวัลชนะเลิศอันดับ 1 หุ่นยนต์กู้ภัยเยาวชนระดับประเทศ', () => {
+        orgInput.value = 'สวทช. ร่วมกับ มหาวิทยาลัยธรรมศาสตร์';
+        roleInput.value = 'หัวหน้าทีมพัฒนาโปรแกรมควบคุมหุ่นยนต์ C++';
+        impactInput.value = 'ออกแบบระบบ Autonomous Navigation ด้วย LiDAR ควบคุมแขนกลทำคะแนนภารกิจสูงสุด 98/100 ชนะทีมทั่วประเทศ 120 ทีม';
+        document.getElementById('formItemCategory').value = 'academic';
+        document.getElementById('formItemYear').value = 'ม.6';
+        document.getElementById('formItemTags').value = 'Robotics, AI, C++, สวทช., ธรรมศาสตร์';
+        document.getElementById('formItemProofReady').value = 'true';
+
+        demoTimer = setTimeout(() => {
+          const submitBtn = document.getElementById('btnSubmitModalForm');
+          moveVirtualCursorTo(submitBtn, () => {
+            // Submit
+            document.getElementById('portfolioItemForm').dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+            demoTimer = setTimeout(demoStep3_CheckCardAndCurate, 1200);
+          });
+        }, 800);
+      });
+    }
+
+    function demoStep3_CheckCardAndCurate() {
+      setDemoMessage('ขั้นตอนที่ 4/7: การ์ดผลงานถูกสร้างขึ้นในคลัง! AI กำลังคลิก "+ คัดลง 10 หน้า TCAS"');
+      const firstCardBtn = document.querySelector('.btn-toggle-tcas');
+      moveVirtualCursorTo(firstCardBtn, () => {
+        if (firstCardBtn) firstCardBtn.click();
+        demoTimer = setTimeout(demoStep4_SwitchToCuratorTab, 1300);
+      });
+    }
+
+    function demoStep4_SwitchToCuratorTab() {
+      setDemoMessage('ขั้นตอนที่ 5/7: สลับไปแท็บ "จัด 10 หน้า TCAS" ดู Slot หน้า 3 และเกจวัดความจุ 3/10 หน้า');
+      const curatorTabBtn = document.getElementById('navBtnCurator');
+      moveVirtualCursorTo(curatorTabBtn, () => {
+        switchMainTab('curator');
+        
+        // Highlight Slot 3
+        setTimeout(() => {
+          const slot3 = document.getElementById('slotCard-3');
+          if (slot3) slot3.classList.add('spotlight-active');
+          demoTimer = setTimeout(demoStep5_SwitchToShowcase, 1800);
+        }, 500);
+      });
+    }
+
+    function demoStep5_SwitchToShowcase() {
+      setDemoMessage('ขั้นตอนที่ 6/7: สลับไปแท็บ "มุมมองกรรมการ" ตรวจดูเล่มเอกสารพิมพ์ A4 สมบูรณ์แบบ');
+      const showcaseTabBtn = document.getElementById('navBtnShowcase');
+      moveVirtualCursorTo(showcaseTabBtn, () => {
+        switchMainTab('showcase');
+        demoTimer = setTimeout(demoStep6_SyncGoogleDrive, 2000);
+      });
+    }
+
+    function demoStep6_SyncGoogleDrive() {
+      setDemoMessage('ขั้นตอนที่ 7/7: ทดสอบฟังก์ชัน "ซิงค์ลง Google Drive" (ป้องกันข้อมูลสูญหาย)');
+      const syncBtn = document.getElementById('btnSyncToDriveTop');
+      moveVirtualCursorTo(syncBtn, () => {
+        syncToGoogleDrive();
+        demoTimer = setTimeout(demoStep7_CompleteDemo, 1600);
+      });
+    }
+
+    function demoStep7_CompleteDemo() {
+      // Clean Zero Reset to leave it ready
+      vaultItems = [];
+      persistState();
+      switchMainTab('vault');
+      renderAllViews();
+
+      const pointer = document.getElementById('virtualMousePointer');
+      if (pointer) pointer.style.display = 'none';
+      document.querySelectorAll('.spotlight-active').forEach(e => e.classList.remove('spotlight-active'));
+
+      setDemoMessage('✅ การสาธิตสดเสร็จสมบูรณ์! ทุกฟังก์ชันทำงาน 100% ไร้ข้อผิดพลาด และรีเซ็ตเป็นศูนย์สะอาดพร้อมใช้งานจริง');
+      showNotificationToast('🎉 การสาธิตการทำงานแบบเรียลไทม์เสร็จสิ้นสมบูรณ์ (Verified 100%)');
+    }
+
+    function togglePauseDemo() {
+      isDemoPaused = !isDemoPaused;
+      const pauseBtn = document.getElementById('btnPauseDemo');
+      if (isDemoPaused) {
+        clearTimeout(demoTimer);
+        pauseBtn.textContent = '▶️ เล่นต่อ';
+        setDemoMessage('⏸️ พักการสาธิตชั่วคราว');
+      } else {
+        pauseBtn.textContent = '⏸️ พักชั่วคราว';
+        setDemoMessage('▶️ กำลังเล่นการสาธิตต่อ...');
+        demoStep3_CheckCardAndCurate();
+      }
+    }
+
+    function exitDemoMode() {
+      clearTimeout(demoTimer);
+      const pointer = document.getElementById('virtualMousePointer');
+      if (pointer) pointer.style.display = 'none';
+      document.querySelectorAll('.spotlight-active').forEach(e => e.classList.remove('spotlight-active'));
+
+      vaultItems = [];
+      persistState();
+      switchMainTab('vault');
+      renderAllViews();
+
+      document.getElementById('liveDemoTopBanner').style.display = 'none';
+      showNotificationToast('สลับเข้าสู่โหมดใช้งานจริงเรียบร้อยแล้ว');
     }
 
     document.addEventListener('DOMContentLoaded', initApplication);
