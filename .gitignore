@@ -1,0 +1,14 @@
+# Mac OS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+
+# Temporary files & Logs
+*.log
+*.tmp
+.cache/
+
+# Local credentials
+.env
+.env.local
